@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: normal;
+  font-weight: normal;
+  src: url("./GT Pressura Mono Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: italic;
+  font-weight: normal;
+  src: url("./GT Pressura Mono Regular Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: normal;
+  font-weight: bold;
+  src: url("./GT Pressura Mono Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: italic;
+  font-weight: bold;
+  src: url("./GT Pressura Mono Bold Italic.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: normal;
+  font-weight: 100;
+  src: url("./GT Pressura Mono Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "GT-pressura-Mono";
+  font-style: italic;
+  font-weight: 100;
+  src: url("./GT Pressura Mono Light Italic.woff") format("woff");
+}
