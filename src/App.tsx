@@ -1,13 +1,16 @@
-import styled from "@emotion/styled";
+import GeneralLayout from "./components/GeneralLayout";
+import { RouterProvider } from "react-router-dom";
+import { routers } from "./router";
+import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
   return (
-    <div>
-      <Button>hello</Button>
-    </div>
+    <GeneralLayout>
+      <GlobalStyles />
+      <button>hello</button>
+      <RouterProvider router={routers} />
+    </GeneralLayout>
   );
 }
-
-const Button = styled.button``;
 
 export default App;
