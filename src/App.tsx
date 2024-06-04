@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
-import GlobalStyles from "./styles/GlobalStyles";
 
 function App() {
   return (
     <div>
-      <GlobalStyles />
       <Button>hello</Button>
     </div>
   );
