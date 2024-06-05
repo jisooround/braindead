@@ -4,6 +4,12 @@ import { Router as RemixRouter } from "@remix-run/router/dist/router";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import GeneralLayout from "./components/GeneralLayout";
+import Terms from "./pages/Terms";
+import RefundPolicy from "./pages/RefundPolicy";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import AboutUs from "./pages/AboutUs";
+import Stores from "./pages/Stores";
+import Contact from "./pages/Contact";
 
 interface RouterBase {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -18,6 +24,42 @@ export const routerData: RouterBase[] = [
     path: "/",
     label: "home",
     element: <Home />,
+  },
+  {
+    id: 1,
+    path: "/pages/terms-of-service",
+    label: "terms",
+    element: <Terms />,
+  },
+  {
+    id: 2,
+    path: "/pages/refund-policy",
+    label: "refund-policy",
+    element: <RefundPolicy />,
+  },
+  {
+    id: 3,
+    path: "/pages/privacy-policy",
+    label: "privacy-policy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    id: 4,
+    path: "/pages/about-us",
+    label: "about-us",
+    element: <AboutUs />,
+  },
+  {
+    id: 5,
+    path: "/pages/stores",
+    label: "stores",
+    element: <Stores />,
+  },
+  {
+    id: 6,
+    path: "/pages/contact",
+    label: "contact",
+    element: <Contact />,
   },
 ];
 
