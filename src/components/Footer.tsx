@@ -46,6 +46,8 @@ const brandList: List[] = [
 ];
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <FooterContainer>
       <MenuArea>
@@ -75,6 +77,9 @@ const Footer = () => {
             </label>
           </div>
         </EmailWrap>
+        <Copyright>
+          &copy; {currentYear} &middot; BrainDead &middot; <Link to="">Credits</Link>
+        </Copyright>
       </EmailArea>
     </FooterContainer>
   );
@@ -93,6 +98,7 @@ const FooterContainer = styled.div`
 
 const MenuArea = styled.div`
   display: grid;
+  gap: 0.75rem;
   grid-template-columns: repeat(6, 1fr);
   padding-bottom: 30px;
   width: 100%;
@@ -111,11 +117,11 @@ const EmailArea = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
 `;
 
 const EmailWrap = styled.div`
   padding: 0 16px 5px 16px;
-
   grid-column-start: 1;
   grid-column-end: 4;
   p {
@@ -165,6 +171,13 @@ const EmailWrap = styled.div`
       float: left;
     }
   }
+`;
+
+const Copyright = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 4;
+  font-size: 12px;
+  padding: 0 16px 5px 16px;
 `;
 
 export default Footer;
