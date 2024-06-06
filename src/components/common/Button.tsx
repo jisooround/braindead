@@ -2,11 +2,11 @@ import styled from "@emotion/styled";
 
 type Props = {
   content: string;
-  active: boolean;
+  active?: boolean;
 };
 
 const Button = ({ content, active }: Props) => {
-  return <ButtonStyle active={active}>{content}</ButtonStyle>;
+  return <ButtonStyle active={active ?? false}>{content}</ButtonStyle>;
 };
 
 const ButtonStyle = styled.button<{ active: boolean }>`
