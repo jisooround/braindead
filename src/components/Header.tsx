@@ -108,6 +108,7 @@ const HeaderContainer = styled.div<DropdownContainerProps>`
   display: flex;
   align-content: flex-start;
   padding: 16px 20px 0 20px;
+  z-index: 9999;
 `;
 
 const LeftArea = styled.div`
@@ -225,7 +226,9 @@ const spin = keyframes`
 const Logo = styled.div`
   animation: ${spin} 12s infinite linear;
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
+  margin: auto;
   transform: translateX(-50%);
   z-index: 9999;
   img {
