@@ -105,6 +105,7 @@ const HeaderContainer = styled.div<DropdownContainerProps>`
   width: 100%;
   height: auto;
   position: fixed;
+  top: 0;
   display: flex;
   align-content: flex-start;
   padding: 16px 20px 0 20px;
