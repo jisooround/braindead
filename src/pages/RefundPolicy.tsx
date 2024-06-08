@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
+import PolicyNav from "../components/PolicyNav";
 
 const RefundPolicy = () => {
   return (
     <RefundContainer>
+      <PolicyNav />
       <h3>(SHIPPING & RETURNS POLICY)</h3>
       <div className="content">
         <ul>
