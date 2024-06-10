@@ -14,6 +14,7 @@ const baseStyle = css`
   body {
     font-family: "GT-pressura-Mono";
     font-weight: 100;
+    -webkit-font-smoothing: antialiased;
     a {
       text-decoration: none;
       color: var(--color-black);

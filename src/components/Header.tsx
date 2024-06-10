@@ -226,14 +226,14 @@ const spin = keyframes`
 
 const Logo = styled.div`
   animation: ${spin} 12s infinite linear;
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin: auto;
+  position: fixed;
+  /* margin: auto; */
+  top: 18px;
+  left: 50%;
   transform: translateX(-50%);
   z-index: 9999;
   img {
-    mix-blend-mode: screen;
+    mix-blend-mode: difference;
     width: 100%;
     height: 90px;
     /* filter: drop-shadow(0 0 0.75rem white); */

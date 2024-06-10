@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import Button from "../components/common/Button";
+import Gradient from "../components/common/Gradient";
 
 interface Image {
   img_src: string;
@@ -94,6 +95,7 @@ const MainBanner = () => {
       {mainBannerList.map((item, index) => {
         return (
           <MainBannerContainer key={index}>
+            <Gradient />
             <InfoWrap className="info-wrap">
               <div className="btn-wrap">
                 <Link to={item.shop}>
@@ -131,7 +133,6 @@ const MainBanner = () => {
 const MainBannerContainer = styled.div`
   width: 100%;
   height: 100vh;
-  /* display: block; */
   box-sizing: border-box;
   position: relative;
 `;
@@ -140,6 +141,7 @@ const InfoWrap = styled.div`
   position: absolute;
   left: 20px;
   bottom: 24px;
+  z-index: 100;
   h3 {
     font-size: 22px;
     margin-top: 16px;
@@ -150,12 +152,17 @@ const InfoWrap = styled.div`
 const SingleImage = styled.div`
   width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  object-fit: cover;
+  object-fit: contain;
   overflow: hidden;
+  position: relative;
   img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
   }
 `;
 

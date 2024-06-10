@@ -1,21 +1,69 @@
 import styled from "@emotion/styled";
+import Gradient from "./common/Gradient";
+import { useState } from "react";
+import Button from "./common/Button";
+import { css } from "@emotion/react";
+
+interface Special {
+  img_src: string;
+  title: string;
+  shop_path: string;
+  discover_path: string;
+}
+
+const SpecialBannerList: Special[] = [
+  { img_src: "/public/special/01.jpg", title: "OAKLEY FACTORY TEAM", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/public/special/02.webp", title: "ALL RISE FEST", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/public/special/03.webp", title: "BRAIN DEAD RECORDS", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/public/special/04.webp", title: "CLARKS X BRAIN DEAD", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+];
 
 const SpecialProjects = () => {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const handleMouseEnter = (index: number) => {
+    setHoveredIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+  };
+
   return (
     <SpecialContainer>
       <h2>Special Projects</h2>
       <ItemWrap>
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
+        {SpecialBannerList.map((item, index) => {
+          return (
+            <Item key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
+              {hoveredIndex === index && <Gradient transition={true} />}
+              <InfoWrap
+                css={css`
+                  ${hoveredIndex === index
+                    ? css`
+                        display: flex;
+                      `
+                    : css`
+                        display: none;
+                      `}
+                `}
+              >
+                <p>{item.title}</p>
+                <div>
+                  <Button content="shop" path={item.shop_path} />
+                  <Button content="discover" path={item.discover_path} />
+                </div>
+              </InfoWrap>
+              <img src={item.img_src} alt={item.title} />
+            </Item>
+          );
+        })}
       </ItemWrap>
     </SpecialContainer>
   );
 };
 
 const SpecialContainer = styled.div`
-  text-transform: uppercase;
   padding: 1.5rem 1.25rem;
   margin-top: 60px;
   margin-bottom: 80px;
@@ -30,10 +78,40 @@ const ItemWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
-  div {
-    background-color: var(--color-point);
-    height: 30vw;
-    border-radius: 0.375rem;
+`;
+
+const Item = styled.div`
+  width: 100%;
+  background-color: aquamarine;
+  height: 30vw;
+  position: relative;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  cursor: pointer;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const InfoWrap = styled.div`
+  position: absolute;
+  width: 100%;
+  padding: 1.25rem;
+  box-sizing: border-box;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  z-index: 120;
+  p {
+    color: var(--color-white);
+    font-size: 1.375rem;
+    line-height: 1.625rem;
   }
 `;
 

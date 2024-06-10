@@ -1,12 +1,23 @@
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   content: string;
   active?: boolean;
+  path?: string;
 };
 
-const Button = ({ content, active }: Props) => {
-  return <ButtonStyle active={active ?? false}>{content}</ButtonStyle>;
+const Button = ({ content, active, path }: Props) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (path === undefined) return;
+    navigate(path);
+  };
+  return (
+    <ButtonStyle onClick={handleClick} active={active ?? false}>
+      {content}
+    </ButtonStyle>
+  );
 };
 
 const ButtonStyle = styled.button<{ active: boolean }>`
