@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
+import { goTo } from "../../utils/goTo";
 
 type Props = {
   content: string;
@@ -9,12 +10,9 @@ type Props = {
 
 const Button = ({ content, active, path }: Props) => {
   const navigate = useNavigate();
-  const handleClick = () => {
-    if (path === undefined) return;
-    navigate(path);
-  };
+
   return (
-    <ButtonStyle onClick={handleClick} active={active ?? false}>
+    <ButtonStyle onClick={() => goTo(navigate, path)} active={active ?? false}>
       {content}
     </ButtonStyle>
   );
