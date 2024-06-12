@@ -11,6 +11,7 @@ import AboutUs from "./pages/AboutUs";
 import Stores from "./pages/Stores";
 import Contact from "./pages/Contact";
 import Register from "./pages/account/Register";
+import Login from "./pages/account/Login";
 
 interface RouterBase {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -67,6 +68,12 @@ export const routerData: RouterBase[] = [
     path: "/account/register",
     label: "register",
     element: <Register />,
+  },
+  {
+    id: 8,
+    path: "/account/login",
+    label: "login",
+    element: <Login />,
   },
 ];
 

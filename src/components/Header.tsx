@@ -95,7 +95,9 @@ const Header = () => {
         </SearchWrap>
       </LeftArea>
       <Logo>
-        <img src={logo} alt="Logo" />
+        <Link to="/">
+          <img src={logo} alt="Logo" />
+        </Link>
       </Logo>
     </HeaderContainer>
   );

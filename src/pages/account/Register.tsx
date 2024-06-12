@@ -4,7 +4,7 @@ import { createAccount } from "../../api";
 
 const Register = () => {
   // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
-  const loginSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+  const registerSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const isMatched = formData.get("password") === formData.get("confirmPassword");
@@ -29,7 +29,7 @@ const Register = () => {
           <h2>JOIN THE COMMUNITY</h2>
           <Link to="/account/login">LOGIN</Link>
         </RegisterTitle>
-        <RegisterForm onSubmit={loginSubmitHandler}>
+        <RegisterForm onSubmit={registerSubmitHandler}>
           <input type="text" placeholder="User Name" name="username" required />
           <input type="password" placeholder="Password" name="password" required />
           <input type="password" placeholder="Confirm Password" name="confirmPassword" required />

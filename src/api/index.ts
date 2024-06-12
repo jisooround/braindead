@@ -19,7 +19,7 @@ export const createAccount = async (userData: { username: FormDataEntryValue | n
 
 export const login = async (userData: { username: FormDataEntryValue | null; password: FormDataEntryValue | null }) => {
   try {
-    const response = await apiClient.post("/api/account/login", userData);
+    const response = await apiClient.post("/api/account/login/", userData);
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);
