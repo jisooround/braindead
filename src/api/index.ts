@@ -7,9 +7,19 @@ const apiClient = axios.create({
   },
 });
 
-export const createAccount = async (userData: { username: string; password: string }) => {
+export const createAccount = async (userData: { username: FormDataEntryValue | null; password: FormDataEntryValue | null }) => {
   try {
-    const response = await apiClient.post("/users", userData);
+    const response = await apiClient.post("/api/account/", userData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
+};
+
+export const login = async (userData: { username: FormDataEntryValue | null; password: FormDataEntryValue | null }) => {
+  try {
+    const response = await apiClient.post("/api/account/login", userData);
     return response.data;
   } catch (error) {
     console.error("Error creating user:", error);

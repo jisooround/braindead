@@ -1,15 +1,27 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
+import { createAccount } from "../../api";
 
 const Register = () => {
+  // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
   const loginSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // FormData를 이용해서 로그인 시도
     const formData = new FormData(event.currentTarget);
-    console.log(formData);
-    console.log("username", formData.get("username"));
-    console.log("password", formData.get("password"));
+    const isMatched = formData.get("password") === formData.get("confirmPassword");
+
+    if (!isMatched) return alert("비밀번호와 비밀번호확인이 일치하지 않습니다.");
+
+    try {
+      const response = await createAccount({
+        username: formData.get("username"),
+        password: formData.get("confirmPassword"),
+      });
+      console.log("response", response);
+    } catch (err) {
+      return alert("회원가입에 실패했습니다.");
+    }
   };
+
   return (
     <RegisterContainer>
       <RegisterWrap>
@@ -19,12 +31,12 @@ const Register = () => {
         </RegisterTitle>
         <RegisterForm onSubmit={loginSubmitHandler}>
           <input type="text" placeholder="User Name" name="username" required />
-          <input type="password" placeholder="Password" required />
-          <input type="password" placeholder="Confirm Password" name="password" required />
+          <input type="password" placeholder="Password" name="password" required />
+          <input type="password" placeholder="Confirm Password" name="confirmPassword" required />
           <CheckWrap>
             <div>
-              <input required type="checkbox" id="agree" />
-              <label htmlFor="agree">
+              <input required type="checkbox" id="agree_first" />
+              <label htmlFor="agree_first">
                 I agree to the{" "}
                 <Link to="/pages/privacy-policy" target="blank">
                   Terms of Service
@@ -36,8 +48,8 @@ const Register = () => {
               </label>
             </div>
             <div>
-              <input required type="checkbox" id="agree" />
-              <label htmlFor="agree">Sign up for emails on products, events, and goings-on in the Brain Dead universe.</label>
+              <input required type="checkbox" id="agree_second" />
+              <label htmlFor="agree_second">Sign up for emails on products, events, and goings-on in the Brain Dead universe.</label>
             </div>
           </CheckWrap>
           <button type="submit">CREATE</button>
