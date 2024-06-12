@@ -1,8 +1,13 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createAccount } from "../../api";
+import { useRecoilState } from "recoil";
+import { authTokenState } from "../../recoil/atoms/authAtom";
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [authTokenData, setAuthTokenData] = useRecoilState(authTokenState);
+
   // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
   const registerSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,6 +21,10 @@ const Register = () => {
         username: formData.get("username"),
         password: formData.get("confirmPassword"),
       });
+      setAuthTokenData(response);
+      if (response.token) {
+        navigate("/");
+      }
       console.log("response", response);
     } catch (err) {
       return alert("회원가입에 실패했습니다.");
