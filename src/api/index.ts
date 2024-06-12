@@ -7,8 +7,6 @@ const apiClient = axios.create({
   },
 });
 
-export const token = localStorage.getItem("token");
-
 export const createAccount = async (userData: { username: FormDataEntryValue | null; password: FormDataEntryValue | null }) => {
   try {
     const response = await apiClient.post("/api/account/", userData);
@@ -22,7 +20,6 @@ export const createAccount = async (userData: { username: FormDataEntryValue | n
 export const login = async (userData: { username: FormDataEntryValue | null; password: FormDataEntryValue | null }) => {
   try {
     const { data } = await apiClient.post("/api/account/login/", userData);
-    localStorage.setItem("token", data.token);
     return data;
   } catch (error) {
     console.error("Error creating user:", error);

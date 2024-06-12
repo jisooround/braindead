@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { login } from "../../api";
+import { authTokenState } from "../../recoil/atoms/authAtom";
+import { useRecoilState } from "recoil";
 
 const Login = () => {
+  const [authTokenData, setAuthTokenData] = useRecoilState(authTokenState);
   // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
   const loginSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,6 +16,7 @@ const Login = () => {
         username: formData.get("username"),
         password: formData.get("password"),
       });
+      setAuthTokenData(response);
       console.log("response", response);
     } catch (err) {
       return alert("로그인에 실패했습니다.");

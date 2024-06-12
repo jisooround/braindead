@@ -20,7 +20,13 @@ interface RouterBase {
   element: React.ReactNode; // 페이지 엘리먼트
 }
 
-export const routerData: RouterBase[] = [
+interface UserAccessibleRouterElement extends RouterBase {
+  isGuestOnly?: boolean; // 손님전용 페이지 여부
+}
+
+type RouterElement = UserAccessibleRouterElement;
+
+export const routerData: RouterElement[] = [
   {
     id: 0,
     path: "/",
@@ -68,12 +74,14 @@ export const routerData: RouterBase[] = [
     path: "/account/register",
     label: "register",
     element: <Register />,
+    isGuestOnly: true,
   },
   {
     id: 8,
     path: "/account/login",
     label: "login",
     element: <Login />,
+    isGuestOnly: true,
   },
 ];
 
@@ -81,7 +89,7 @@ export const routers: RemixRouter = createBrowserRouter(
   routerData.map((router) => {
     return {
       path: router.path,
-      element: <GeneralLayout>{router.element}</GeneralLayout>,
+      element: <GeneralLayout isGuestOnly={"isGuestOnly" in router && router.isGuestOnly}>{router.element}</GeneralLayout>,
       errorElement: <NotFound />,
     };
   }),
