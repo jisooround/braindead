@@ -1,14 +1,9 @@
 import styled from "@emotion/styled";
-import { Link, useNavigate } from "react-router-dom";
-import { authTokenState } from "../../recoil/atoms/authAtom";
-import { useSetRecoilState } from "recoil";
-import { useLogin } from "../../hooks/useAuth";
-import { AuthenticationResponse } from "../../types/user";
+import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
-  const navigate = useNavigate();
-  const setAuthTokenData = useSetRecoilState(authTokenState);
-  const loginMutation = useLogin();
+  const { mutate: login } = useLogin();
 
   const loginSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -16,28 +11,7 @@ const Login = () => {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    if (typeof username !== "string" || typeof password !== "string") {
-      alert("Invalid input");
-      return;
-    }
-
-    loginMutation.mutate(
-      {
-        username,
-        password,
-      },
-      {
-        onSuccess: (response: AuthenticationResponse) => {
-          setAuthTokenData(response);
-          if (response) {
-            navigate("/");
-          }
-        },
-        onError: () => {
-          alert("로그인에 실패했습니다.");
-        },
-      },
-    );
+    login({ username, password });
   };
   return (
     <LoginContainer>

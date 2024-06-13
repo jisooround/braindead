@@ -1,14 +1,9 @@
 import styled from "@emotion/styled";
-import { Link, useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
-import { authTokenState } from "../../recoil/atoms/authAtom";
-import { useCreateAccount } from "../../hooks/useAuth";
-import { AuthenticationResponse } from "../../types/user";
+import { Link } from "react-router-dom";
+import useCreateAccount from "../../hooks/useCreateAccount";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const setAuthTokenData = useSetRecoilState(authTokenState);
-  const createAccountMutation = useCreateAccount();
+  const { mutate: createAccount } = useCreateAccount();
 
   const registerSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,25 +19,7 @@ const Register = () => {
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
 
-    if (typeof username !== "string" || typeof password !== "string") {
-      alert("Invalid input");
-      return;
-    }
-
-    createAccountMutation.mutate(
-      { username, password },
-      {
-        onSuccess: (response: AuthenticationResponse) => {
-          setAuthTokenData(response);
-          if (response) {
-            navigate("/");
-          }
-        },
-        onError: () => {
-          alert("회원가입에 실패했습니다.");
-        },
-      },
-    );
+    createAccount({ username, password });
   };
 
   return (
