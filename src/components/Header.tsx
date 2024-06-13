@@ -3,6 +3,9 @@ import logo from "../assets/logo.svg";
 import { keyframes } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { authTokenState } from "../recoil/atoms/authAtom";
+import Button from "./common/Button";
 
 // 타입스크립트 인터페이스 정의
 interface DropdownContainerProps {
@@ -13,6 +16,7 @@ const Header = () => {
   const [menuIndex, setMenuIndex] = useState<null | number>(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authTokenState);
 
   useEffect(() => {
     console.log(menuIndex);
@@ -99,6 +103,14 @@ const Header = () => {
           <img src={logo} alt="Logo" />
         </Link>
       </Logo>
+      <Button content="login" path={"/account/login"} />
+      <button
+        onClick={() => {
+          setIsLoggedIn(null);
+        }}
+      >
+        logout
+      </button>
     </HeaderContainer>
   );
 };
