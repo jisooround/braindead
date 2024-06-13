@@ -111,6 +111,7 @@ const Header = () => {
       >
         logout
       </button>
+      <Button content="cart" path={"/cart"}></Button>
     </HeaderContainer>
   );
 };
