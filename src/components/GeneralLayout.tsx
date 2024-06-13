@@ -36,7 +36,7 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
       }
       navigate(previousUrl.split(import.meta.env.VITE_DOMAIN_URL)[1]);
     }
-  }, [isGuestOnly, isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate]);
 
   return (
     <div>
