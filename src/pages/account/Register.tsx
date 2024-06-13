@@ -1,34 +1,48 @@
 import styled from "@emotion/styled";
 import { Link, useNavigate } from "react-router-dom";
-import { createAccount } from "../../api";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
+import { useCreateAccount } from "../../hooks/useAuth";
+import { AuthenticationResponse } from "../../types/user";
 
 const Register = () => {
   const navigate = useNavigate();
-  const [authTokenData, setAuthTokenData] = useRecoilState(authTokenState);
+  const setAuthTokenData = useSetRecoilState(authTokenState);
+  const createAccountMutation = useCreateAccount();
 
-  // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
-  const registerSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+  const registerSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     const isMatched = formData.get("password") === formData.get("confirmPassword");
 
-    if (!isMatched) return alert("비밀번호와 비밀번호확인이 일치하지 않습니다.");
-
-    try {
-      const response = await createAccount({
-        username: formData.get("username"),
-        password: formData.get("confirmPassword"),
-      });
-      setAuthTokenData(response);
-      if (response.token) {
-        navigate("/");
-      }
-      console.log("response", response);
-    } catch (err) {
-      return alert("회원가입에 실패했습니다.");
+    if (!isMatched) {
+      alert("비밀번호와 비밀번호확인이 일치하지 않습니다.");
+      return;
     }
+
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+
+    if (typeof username !== "string" || typeof password !== "string") {
+      alert("Invalid input");
+      return;
+    }
+
+    createAccountMutation.mutate(
+      { username, password },
+      {
+        onSuccess: (response: AuthenticationResponse) => {
+          setAuthTokenData(response);
+          if (response) {
+            navigate("/");
+          }
+        },
+        onError: () => {
+          alert("회원가입에 실패했습니다.");
+        },
+      },
+    );
   };
 
   return (

@@ -1,28 +1,44 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
-import { login } from "../../api";
+import { Link, useNavigate } from "react-router-dom";
 import { authTokenState } from "../../recoil/atoms/authAtom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
+import { useLogin } from "../../hooks/useAuth";
+import { AuthenticationResponse } from "../../types/user";
 
 const Login = () => {
-  const [authTokenData, setAuthTokenData] = useRecoilState(authTokenState);
-  // submit 버튼 클릭시 작동 함수(회원가입 폼 제출)
-  const loginSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const setAuthTokenData = useSetRecoilState(authTokenState);
+  const loginMutation = useLogin();
+
+  const loginSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
 
-    try {
-      const response = await login({
-        username: formData.get("username"),
-        password: formData.get("password"),
-      });
-      setAuthTokenData(response);
-      console.log("response", response);
-    } catch (err) {
-      return alert("로그인에 실패했습니다.");
+    if (typeof username !== "string" || typeof password !== "string") {
+      alert("Invalid input");
+      return;
     }
-  };
 
+    loginMutation.mutate(
+      {
+        username,
+        password,
+      },
+      {
+        onSuccess: (response: AuthenticationResponse) => {
+          setAuthTokenData(response);
+          if (response) {
+            navigate("/");
+          }
+        },
+        onError: () => {
+          alert("로그인에 실패했습니다.");
+        },
+      },
+    );
+  };
   return (
     <LoginContainer>
       <LoginWrap>
