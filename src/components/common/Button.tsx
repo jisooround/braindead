@@ -53,6 +53,7 @@ const LargeButton = (bg: "lightgray" | "black" | "point", bgHover: "lightgray" |
     borderRadius: "0.375rem",
     lineHeight: "1.25rem",
     textTransform: "uppercase",
+    margin: "0 5px 5px 0",
     outline: "none",
     cursor: "pointer",
     whiteSpace: "nowrap",

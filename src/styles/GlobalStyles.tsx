@@ -9,12 +9,14 @@ const baseStyle = css`
     --color-lightpurple: #e9d5ff;
     --color-lightgray: #f3f3f3;
     --color-gray: #cccccc;
+    background-color: var(--color-white);
   }
   *,
   body {
     font-family: "GT-pressura-Mono";
     font-weight: 100;
     -webkit-font-smoothing: antialiased;
+
     a {
       text-decoration: none;
       color: var(--color-black);

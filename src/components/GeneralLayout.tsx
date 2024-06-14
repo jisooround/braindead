@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { authTokenState } from "../recoil/atoms/authAtom";
 import { useEffect } from "react";
 import { previousUrlState } from "../recoil/atoms/previousUrlAtom";
+import Logo from "./common/Logo";
 
 type Props = {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
 
   return (
     <div>
+      <Logo />
       <Header />
       {children}
       <Footer />

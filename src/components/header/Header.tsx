@@ -123,11 +123,6 @@ const Header = () => {
           ) : null}
         </SearchWrap>
       </LeftArea>
-      <Logo>
-        <Link to="/">
-          <img src={logo} alt="Logo" />
-        </Link>
-      </Logo>
       <RightArea>
         <DropMenu listProps={isLoggedIn ? rightMenuListLoggedIn : rightMenuListLogout} />
       </RightArea>
@@ -189,34 +184,6 @@ const SearchWrap = styled.div`
       background-color: var(--color-point);
       border: 1px solid var(--color-point);
     }
-  }
-`;
-
-const spin = keyframes`
-0% {
-    transform: rotateY(360deg);
-}
-50% {
-    transform: rotateY(180deg);
-}
-100% {
-    transform: rotateY(360deg);
-}
-`;
-
-const Logo = styled.div`
-  animation: ${spin} 12s infinite linear;
-  position: fixed;
-  /* margin: auto; */
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  img {
-    mix-blend-mode: difference;
-    width: 100%;
-    height: 90px;
-    /* filter: drop-shadow(0 0 0.75rem white); */
   }
 `;
 

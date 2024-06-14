@@ -20,7 +20,7 @@ const HeaderAccount = (props: Props) => {
         }}
         type="submit"
       >
-        LOGOUT
+        LOG OUT
       </button>
     </HeaderAccountWrap>
   );
