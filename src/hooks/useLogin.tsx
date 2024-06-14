@@ -13,9 +13,6 @@ export default function useLogin() {
     mutationFn: (userData: UserCredentials) => login(userData),
     onSuccess: (data) => {
       setAuthTokenData(data);
-      if (data) {
-        navigate("/");
-      }
     },
     onError: () => {
       alert("로그인에 실패했습니다.");

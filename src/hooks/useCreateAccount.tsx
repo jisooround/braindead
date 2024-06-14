@@ -13,9 +13,6 @@ export default function useCreateAccount() {
     mutationFn: (userData: UserCredentials) => createAccount(userData),
     onSuccess: (data) => {
       setAuthTokenData(data);
-      if (data) {
-        navigate("/");
-      }
     },
     onError: () => {
       alert("회원가입에 실패했습니다.");
