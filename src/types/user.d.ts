@@ -32,4 +32,5 @@ export interface AuthenticationResponse {
   // 응답 받는 데이터
   user: User;
   token: string;
+  username: string;
 }

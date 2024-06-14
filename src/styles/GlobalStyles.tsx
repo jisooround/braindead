@@ -8,7 +8,7 @@ const baseStyle = css`
     --color-point: #d0f491;
     --color-lightpurple: #e9d5ff;
     --color-lightgray: #f3f3f3;
-    --color-pointgray: #cccccc;
+    --color-gray: #cccccc;
   }
   *,
   body {

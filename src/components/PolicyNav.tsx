@@ -24,7 +24,7 @@ const PolicyNav = () => {
                 css={css`
                   ${isActive &&
                   css`
-                    color: var(--color-pointgray);
+                    color: var(--color-gray);
                   `}
                 `}
               >
@@ -53,7 +53,7 @@ const PolicyNavContainer = styled.div`
   li {
     cursor: pointer;
     :hover {
-      color: var(--color-pointgray);
+      color: var(--color-gray);
       transition: 0.2s;
     }
   }

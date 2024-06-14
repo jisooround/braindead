@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import Header from "./Header";
+import Header from "./header/Header";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authTokenState } from "../recoil/atoms/authAtom";
 import { useEffect } from "react";
