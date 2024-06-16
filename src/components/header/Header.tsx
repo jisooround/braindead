@@ -46,7 +46,8 @@ const leftMenuList: Menu[] = [
     path: "/collections/all-products",
     id: 2,
     element: [
-      { name: "Apparel", path: "/apparel" },
+      { name: "All Products", path: "/products/all" },
+      { name: "Top", path: "/products/top" },
       { name: "Accessories", path: "/accessories" },
       { name: "Footwear", path: "/footwear" },
       { name: "Homegoods", path: "/homegoods" },

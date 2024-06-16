@@ -20,6 +20,7 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
 
   // 페이지마다 현재 URL을 previousAtom에 저장
   useEffect(() => {
+    window.scrollTo(0, 0);
     // isGuestOnly 페이지라면 URL상태 저장하지 않고 return
     if (isGuestOnly) {
       return;
