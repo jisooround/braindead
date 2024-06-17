@@ -6,6 +6,7 @@ import { useRecoilValue } from "recoil";
 import { authTokenState } from "../recoil/atoms/authAtom";
 import useGetMyCart from "../hooks/useGetMyCart";
 import { useEffect } from "react";
+import { formatPrice } from "../utils/formatPrice";
 
 interface IProduct {
   productName: string;
@@ -19,40 +20,26 @@ interface IDirection {
   direction: "row" | "column";
 }
 
-const cartItemList: IProduct[] = [
-  {
-    productName: "Worm Food T-shirt - Cement",
-    price: 14000,
-    size: "M",
-    desc: "",
-    img_src: "/public/cart/Worm_Food_T-shirt_Cement_Front_optimized.webp",
-  },
-  {
-    productName: "Logo Striped Quarter Sock - Orange",
-    price: 56000,
-    size: "OS",
-    desc: "",
-    img_src: "/public/cart/Logo_Striped_Quarter_Sock_Orange_Front_optimized.webp",
-  },
-  {
-    productName: "BRAIN DEAD EQUIPMENT ALPINE BACKPACK - CLEAR BLUE",
-    price: 245000,
-    size: "OS",
-    desc: "",
-    img_src: "/public/cart/Brain_Dead_Equipment_Alpine_Backpack_Clear_Blue_Front_optimized.webp",
-  },
-];
-
 const Cart = () => {
   const authToken = useRecoilValue(authTokenState);
   const isLoggedIn = authToken !== null && Boolean(authToken.token);
-  const { isPending, error, data } = useGetMyCart(isLoggedIn);
+  const { isPending, error, data: cartData } = useGetMyCart(isLoggedIn);
+  console.log(cartData);
 
-  console.log(data);
-
-  const totalPrice = cartItemList.reduce((accumulator, item) => {
-    return accumulator + item.price;
+  const totalPrice = cartData?.items.reduce((accumulator, item) => {
+    return accumulator + item.product.price;
   }, 0);
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+  }
+
+  if (!cartData || !cartData.items) {
+    return <div>No items in cart.</div>;
+  }
+
   return (
     <CartContainer>
       <h2>YOUR CART</h2>
@@ -67,8 +54,9 @@ const Cart = () => {
         <div>PRODUCT</div>
         <div>REMOVE</div>
       </div>
+
       <ItemList>
-        {cartItemList.map((item, index) => {
+        {cartData?.items.map((item, index) => {
           return (
             <ItemBox key={index}>
               <div
@@ -82,7 +70,7 @@ const Cart = () => {
                   css={css`
                     width: 100%;
                   `}
-                  src={item.img_src}
+                  src={item.product.photos[0]}
                   alt=""
                 />
               </div>
@@ -95,10 +83,10 @@ const Cart = () => {
                 `}
               >
                 <div>
-                  <p>{item.productName}</p>
+                  <p>{item.product.name}</p>
                   <p>SIZE: {item.size}</p>
                 </div>
-                <p>₩ {item.price}</p>
+                <p>₩ {formatPrice(item.product.price)}</p>
               </div>
               <TfiPlus
                 css={css`
@@ -120,6 +108,7 @@ const Cart = () => {
           );
         })}
       </ItemList>
+
       <CartInfo>
         <BasicBox direction="row">
           <p>SUMMARY</p>
@@ -137,7 +126,7 @@ const Cart = () => {
               font-size: 14px;
             `}
           >
-            {cartItemList.length}
+            {cartData?.items.length}
           </p>
         </BasicBox>
         <BasicBox direction="column">
@@ -163,7 +152,7 @@ const Cart = () => {
           gap: 0.5rem;
         `}
       >
-        <Button content={`check out ${totalPrice}`} size="lg" bg="point" bgHover="black" colorHover="white" />
+        <Button content={`check out ${formatPrice(totalPrice)} `} size="lg" bg="point" bgHover="black" colorHover="white" />
         <Button content="CONTINUE SHOPPING" size="lg" bg="lightgray" bgHover="point" />
       </div>
     </CartContainer>
