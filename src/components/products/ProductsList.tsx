@@ -7,6 +7,7 @@ import { ProductPage } from "../../types/products";
 import { useState } from "react";
 import { css, keyframes } from "@emotion/react";
 import { formatPrice } from "../../utils/formatPrice";
+import useAddCartItem from "../../hooks/useAddCartItem";
 
 type Props = {
   listData: ProductPage;
@@ -14,12 +15,17 @@ type Props = {
 
 const ProductsList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
+  const { mutate: addCartItem } = useAddCartItem();
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
   };
   const handleMouseLeave = () => {
     setItemIsHover(null);
+  };
+
+  const onClickSizeTag = (id) => {
+    addCartItem({ product_id: id, quantity: 3, size: "M" });
   };
 
   return (
@@ -45,7 +51,14 @@ const ProductsList = ({ listData }: Props) => {
                       {Object.entries(product.sizes)
                         .filter(([size, available]) => available)
                         .map(([size]) => (
-                          <SizeTag key={size}>{size}</SizeTag>
+                          <SizeTag
+                            onClick={() => {
+                              onClickSizeTag(product.id);
+                            }}
+                            key={size}
+                          >
+                            {size}
+                          </SizeTag>
                         ))}
                     </SizeWrap>
                   )}
