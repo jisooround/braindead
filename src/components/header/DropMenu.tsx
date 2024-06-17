@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
+import { v4 as uuid } from "uuid";
 
 // 타입스크립트 인터페이스 정의
 interface DropdownContainerProps {
@@ -35,8 +36,8 @@ const DropMenu = ({ listProps }) => {
   const ReturnButton = () => {
     return (
       <>
-        {listProps.map((item, index) => (
-          <p onClick={() => navigate(item.path)} key={index} onMouseEnter={() => handleMouseEnter(item.id)}>
+        {listProps.map((item) => (
+          <p key={uuid()} onClick={() => navigate(item.path)} onMouseEnter={() => handleMouseEnter(item.id)}>
             {item.title}
           </p>
         ))}
@@ -56,10 +57,10 @@ const DropMenu = ({ listProps }) => {
       <ButtonWrap>
         <ReturnButton />
       </ButtonWrap>
-      {listProps.map((item, index) => {
+      {listProps.map((item) => {
         return (
           <DropdownContainer
-            key={index}
+            key={uuid()}
             css={css`
               display: ${menuIndex === item.id ? "block" : "none"};
             `}
@@ -70,16 +71,16 @@ const DropMenu = ({ listProps }) => {
             {
               <ul onMouseEnter={() => handleMouseEnter(item.id)}>
                 {item.type === "list" &&
-                  item.element.map((subItem, subIndex) => {
+                  item.element.map((subItem) => {
                     return (
-                      <Link to={subItem.path}>
-                        <li key={subIndex}>{subItem.name}</li>
+                      <Link key={uuid()} to={subItem.path}>
+                        <li>{subItem.name}</li>
                       </Link>
                     );
                   })}
                 {item.type === "component" &&
-                  item.element.map((subItem, subIndex) => {
-                    return <li key={subIndex}>{subItem.component}</li>;
+                  item.element.map((subItem) => {
+                    return <li key={uuid()}>{subItem.component}</li>;
                   })}
               </ul>
             }

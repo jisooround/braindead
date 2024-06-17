@@ -34,7 +34,7 @@ const allProductsList: ProductList = {
           id: 1,
           price: 76000,
           size: ["XS", "S", "M", "L", "XL"],
-          infoTags: ["new"],
+          infoTags: ["New"],
           soldOut: false,
         },
         {
@@ -43,7 +43,7 @@ const allProductsList: ProductList = {
           id: 2,
           price: 76000,
           size: ["XS", "S", "M", "L", "XL"],
-          infoTags: ["new"],
+          infoTags: ["New"],
           soldOut: false,
         },
         {
@@ -52,7 +52,7 @@ const allProductsList: ProductList = {
           id: 3,
           price: 76000,
           size: ["XS", "S", "M", "L", "XL"],
-          infoTags: ["new"],
+          infoTags: ["New"],
           soldOut: false,
         },
         {
@@ -61,7 +61,7 @@ const allProductsList: ProductList = {
           id: 4,
           price: 76000,
           size: ["XS", "S", "M", "L", "XL"],
-          infoTags: ["new"],
+          infoTags: ["New"],
           soldOut: false,
         },
         {

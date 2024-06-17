@@ -94,13 +94,13 @@ export const routerData: RouterElement[] = [
   },
   {
     id: 9,
-    path: "/products/all",
+    path: "/collections/all-products",
     label: "all-products",
     element: <AllList />,
   },
   {
     id: 10,
-    path: "/products/top",
+    path: "/collections/top",
     label: "top",
     element: <TopList />,
   },

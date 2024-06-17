@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
 import { ProductList } from "../../pages/Products/AllList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { css } from "@emotion/react";
+import { formatPrice } from "../../utils/formatPrice";
+import { v4 as uuid } from "uuid";
 
 type Props = {
   listData: ProductList;
@@ -9,6 +11,10 @@ type Props = {
 
 const ProductsList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
+
+  useEffect(() => {
+    console.log(itemIsHover);
+  }, [itemIsHover]);
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
@@ -25,19 +31,14 @@ const ProductsList = ({ listData }: Props) => {
       </TitleWrap>
       <FilterButtonWrap></FilterButtonWrap>
       <ItemListWrap>
-        {listData.productsData[0].products.map((product, index) => {
+        {listData.productsData[0].products.map((product) => {
           return (
-            <ItemBox onMouseEnter={(e) => handleMouseEnter(product.id)} onMouseLeave={handleMouseLeave}>
-              {/* {product.id !== itemIsHover ? (
-                <DefaultItemBox>
-                  <img src={product.img_src[0]} alt={product.name} />
-                </DefaultItemBox>
-              ) : (
-                <HoveredItemBox>
-                  <img src={product.img_src[1]} alt={product.name} />
-                </HoveredItemBox>
-              )} */}
+            <ItemBox key={uuid()} onMouseEnter={() => handleMouseEnter(product.id)} onMouseLeave={handleMouseLeave}>
               <DefaultItemBox>
+                {product.infoTags.length > 0 &&
+                  product.infoTags.map((tag) => {
+                    return <InfoTag key={uuid()}>{tag}</InfoTag>;
+                  })}
                 <img src={product.img_src[0]} alt={product.name} />
                 <HoveredItemBox
                   css={css`
@@ -45,6 +46,12 @@ const ProductsList = ({ listData }: Props) => {
                   `}
                 >
                   <img src={product.img_src[1]} alt={product.name} />
+                  <SizeWrap>
+                    {product.size.map((size) => {
+                      return <SizeTag key={uuid()}>{size}</SizeTag>;
+                    })}
+                  </SizeWrap>
+                  <PriceTag>₩ {formatPrice(product.price)}</PriceTag>
                 </HoveredItemBox>
               </DefaultItemBox>
             </ItemBox>
@@ -92,14 +99,73 @@ const ItemBox = styled.div`
 
 const DefaultItemBox = styled.div`
   position: relative;
+  border-radius: 1.25rem;
+  img {
+    border-radius: 0.3rem;
+  }
 `;
 
 const HoveredItemBox = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 10;
-  transition: 0.2s;
+  transition: 0.5s ease-in-out;
+`;
+
+const InfoTag = styled.span`
+  position: absolute;
+  top: 0.8rem;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background-color: var(--color-point);
+  display: inline-block;
+  text-align: center;
+  padding: 2px;
+  border-radius: 3px;
+`;
+
+const SizeWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translate(-50%);
+`;
+
+const SizeTag = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  background-color: var(--color-white);
+  display: inline-block;
+  text-align: center;
+  padding: 0 12px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 3px;
+`;
+
+const PriceTag = styled.span`
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background-color: var(--color-white);
+  display: inline-block;
+  text-align: center;
+  padding: 2px;
+  border-radius: 3px;
 `;
 
 export default ProductsList;
