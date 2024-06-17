@@ -14,7 +14,7 @@ import Register from "./pages/account/Register";
 import Login from "./pages/account/Login";
 import Cart from "./pages/Cart";
 import TopList from "./pages/Products/TopList";
-import AllList from "./pages/Products/AllList";
+import AllProducts from "./pages/Products/AllProducts";
 
 interface RouterBase {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -96,7 +96,7 @@ export const routerData: RouterElement[] = [
     id: 9,
     path: "/collections/all-products",
     label: "all-products",
-    element: <AllList />,
+    element: <AllProducts />,
   },
   {
     id: 10,

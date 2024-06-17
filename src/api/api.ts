@@ -11,3 +11,8 @@ export const login = async (userData: UserCredentials): Promise<AuthenticationRe
   const { data } = await apiClient.post("/api/account/login/", userData);
   return data;
 };
+
+export const getAllProducts = async () => {
+  const { data } = await apiClient.get("/api/products/");
+  return data;
+};
