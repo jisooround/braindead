@@ -6,6 +6,7 @@ const baseStyle = css`
     --color-black: #000000;
     --color-white: #ffffff;
     --color-point: #d0f491;
+    --color-yellow: #f4e390;
     --color-lightpurple: #e9d5ff;
     --color-lightgray: #f3f3f3;
     --color-gray: #cccccc;
