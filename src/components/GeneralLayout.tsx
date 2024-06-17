@@ -15,7 +15,8 @@ type Props = {
 const GeneralLayout = ({ children, isGuestOnly }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const isLoggedIn = useRecoilValue(authTokenState);
+  const authToken = useRecoilValue(authTokenState);
+  const isLoggedIn = authToken !== null && Boolean(authToken.token);
   const [previousUrl, setPreviousUrl] = useRecoilState(previousUrlState);
 
   // 페이지마다 현재 URL을 previousAtom에 저장

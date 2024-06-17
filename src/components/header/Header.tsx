@@ -58,7 +58,8 @@ const leftMenuList: Menu[] = [
 
 const Header = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authTokenState);
+  const [authToken, setAuthToken] = useRecoilState(authTokenState);
+  const isLoggedIn = authToken !== null && Boolean(authToken.token);
 
   const handleClickSearch = () => {
     setIsSearchVisible(true);
@@ -91,7 +92,7 @@ const Header = () => {
   const rightMenuListLoggedIn: Menu[] = [
     {
       type: "component",
-      title: `HI, ${isLoggedIn?.username || isLoggedIn?.user.username}`,
+      title: `HI, ${authToken?.user.username}`,
       path: "/account",
       id: 6,
       element: [{ component: <HeaderAccount /> }],

@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 import { v4 as uuid } from "uuid";
 
@@ -17,7 +17,8 @@ const DropMenu = ({ listProps }) => {
   const navigate = useNavigate();
   const [menuIndex, setMenuIndex] = useState<null | number>(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(authTokenState);
+  const authToken = useRecoilValue(authTokenState);
+  const isLoggedIn = authToken !== null && Boolean(authToken.token);
 
   useEffect(() => {
     handleMouseLeave();
