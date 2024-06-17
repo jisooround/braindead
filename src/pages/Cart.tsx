@@ -2,6 +2,10 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { TfiPlus } from "react-icons/tfi";
 import Button from "../components/common/Button";
+import { useRecoilValue } from "recoil";
+import { authTokenState } from "../recoil/atoms/authAtom";
+import useGetMyCart from "../hooks/useGetMyCart";
+import { useEffect } from "react";
 
 interface IProduct {
   productName: string;
@@ -40,6 +44,12 @@ const cartItemList: IProduct[] = [
 ];
 
 const Cart = () => {
+  const authToken = useRecoilValue(authTokenState);
+  const isLoggedIn = authToken !== null && Boolean(authToken.token);
+  const { isPending, error, data } = useGetMyCart(isLoggedIn);
+
+  console.log(data);
+
   const totalPrice = cartItemList.reduce((accumulator, item) => {
     return accumulator + item.price;
   }, 0);
@@ -159,7 +169,6 @@ const Cart = () => {
     </CartContainer>
   );
 };
-
 const CartContainer = styled.div`
   max-width: 460px;
   height: 100vh;
