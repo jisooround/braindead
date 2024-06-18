@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 // import { useEffect, useState } from "react";
-// import { css } from "@emotion/react";
 // import { formatPrice } from "../../utils/formatPrice";
 import { v4 as uuid } from "uuid";
 import { ProductPage } from "../../types/products";

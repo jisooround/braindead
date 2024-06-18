@@ -20,7 +20,7 @@ const baseStyle = css`
 
     a {
       text-decoration: none;
-      color: var(--color-black);
+      color: inherit;
     }
   }
 `;

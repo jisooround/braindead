@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import Gradient from "./common/Gradient";
 import { useState } from "react";
 import Button from "./common/Button";
-import { css } from "@emotion/react";
 
 interface Special {
   img_src: string;
@@ -37,17 +36,7 @@ const SpecialProjects = () => {
           return (
             <Item key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
               {hoveredIndex === index && <Gradient transition={true} />}
-              <InfoWrap
-                css={css`
-                  ${hoveredIndex === index
-                    ? css`
-                        display: flex;
-                      `
-                    : css`
-                        display: none;
-                      `}
-                `}
-              >
+              <InfoWrap isHovered={hoveredIndex === index}>
                 <p>{item.title}</p>
                 <div>
                   <Button content="shop" path={item.shop_path} />
@@ -99,13 +88,13 @@ const Item = styled.div`
   }
 `;
 
-const InfoWrap = styled.div`
+const InfoWrap = styled.div<{ isHovered: boolean }>`
   position: absolute;
   width: 100%;
   padding: 1.25rem;
   box-sizing: border-box;
   bottom: 0;
-  display: flex;
+  display: ${({ isHovered }) => (isHovered ? "flex" : "none")};
   justify-content: space-between;
   z-index: 120;
   p {

@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 const policyMenuList = [
@@ -16,21 +15,10 @@ const PolicyNav = () => {
       <h4>CUSTOMER SERVICE</h4>
       <ul>
         {policyMenuList.map((item, index) => {
-          const isActive = pathname === item.path;
           return (
-            <Link to={item.path}>
-              <li
-                key={index}
-                css={css`
-                  ${isActive &&
-                  css`
-                    color: var(--color-gray);
-                  `}
-                `}
-              >
-                {item.title}
-              </li>
-            </Link>
+            <ListItem key={index} isActive={pathname === item.path}>
+              <Link to={item.path}> {item.title}</Link>
+            </ListItem>
           );
         })}
       </ul>
@@ -50,12 +38,14 @@ const PolicyNavContainer = styled.div`
   h4 {
     padding-bottom: 0.75rem;
   }
-  li {
-    cursor: pointer;
-    :hover {
-      color: var(--color-gray);
-      transition: 0.2s;
-    }
+`;
+
+const ListItem = styled.li<{ isActive: boolean }>`
+  cursor: pointer;
+  color: ${({ isActive }) => (isActive ? "var(--color-gray)" : "var(--color-black)")};
+  :hover {
+    color: var(--color-gray);
+    transition: 0.2s;
   }
 `;
 

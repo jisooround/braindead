@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,9 +8,11 @@ import { v4 as uuid } from "uuid";
 
 // 타입스크립트 인터페이스 정의
 interface DropdownContainerProps {
-  menuIndex: null | number;
-  isVisible: boolean;
-  itemType: "list" | "type";
+  menuIndex?: null | number;
+  isVisible?: boolean;
+  itemType?: "list" | "type";
+  isMenu?: boolean;
+  rightPosition?: boolean;
 }
 
 const DropMenu = ({ listProps }) => {
@@ -34,6 +36,10 @@ const DropMenu = ({ listProps }) => {
     setMenuIndex(null);
   };
 
+  useEffect(() => {
+    console.log("isDropdownVisible", isDropdownVisible);
+  }, [isDropdownVisible]);
+
   const ReturnButton = () => {
     return (
       <>
@@ -47,28 +53,18 @@ const DropMenu = ({ listProps }) => {
   };
 
   return (
-    <MenuWrap
-      css={css`
-        width: ${listProps[0].id === 6 ? "239px" : "auto"};
-        height: ${menuIndex ? "auto" : "38px"};
-        transition: 0.2s;
-      `}
-      onMouseLeave={handleMouseLeave}
-    >
+    <MenuWrap isVisible={isDropdownVisible} rightPosition={listProps[0].id === 6} menuIndex={menuIndex} onMouseLeave={handleMouseLeave}>
       <ButtonWrap>
-        <ReturnButton />
+        {/* <ReturnButton /> */}
+        {listProps.map((item) => (
+          <p key={uuid()} onClick={() => navigate(item.path)} onMouseEnter={() => handleMouseEnter(item.id)}>
+            {item.title}
+          </p>
+        ))}
       </ButtonWrap>
       {listProps.map((item) => {
         return (
-          <DropdownContainer
-            key={uuid()}
-            css={css`
-              display: ${menuIndex === item.id ? "block" : "none"};
-            `}
-            isVisible={isDropdownVisible}
-            menuIndex={menuIndex}
-            itemType={item.type}
-          >
+          <DropdownContainer key={uuid()} isMenu={menuIndex === item.id} isVisible={isDropdownVisible} menuIndex={menuIndex} itemType={item.type}>
             {
               <ul onMouseEnter={() => handleMouseEnter(item.id)}>
                 {item.type === "list" &&
@@ -92,13 +88,33 @@ const DropMenu = ({ listProps }) => {
   );
 };
 
-const MenuWrap = styled.div`
-  width: auto;
+const growHeight = keyframes`  
+0% {
+  max-height: 38px;  
+}
+100% {
+  max-height: 500px;    
+
+}
+`;
+
+const shrinkHeight = keyframes`
+  0% {
+    max-height: 500px;
+  }
+  100% {
+    max-height: 38px;
+  }
+`;
+
+const MenuWrap = styled.div<DropdownContainerProps>`
+  width: ${({ rightPosition }) => (rightPosition ? "239px" : "auto")};
+  height: ${({ menuIndex }) => (menuIndex ? "auto" : "38px")};
   background-color: var(--color-lightgray);
   display: flex;
   flex-direction: column;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 4px 6px;
   box-sizing: border-box;
   border-radius: 0.375rem;
@@ -106,7 +122,6 @@ const MenuWrap = styled.div`
 
 const ButtonWrap = styled.div`
   display: flex;
-  align-content: center;
   justify-content: space-between;
   p {
     display: flex;
@@ -127,6 +142,9 @@ const ButtonWrap = styled.div`
 `;
 
 const DropdownContainer = styled.div<DropdownContainerProps>`
+  overflow: hidden;
+  display: ${({ isMenu }) => (isMenu ? "block" : "none")};
+  animation: ${growHeight} 0.5s ease-in-out forwards;
   ul {
     font-size: 14px;
     line-height: 1.25rem;
