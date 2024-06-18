@@ -24,8 +24,8 @@ const ProductsList = ({ listData }: Props) => {
     setItemIsHover(null);
   };
 
-  const onClickSizeTag = (id) => {
-    addCartItem({ product_id: id, quantity: 3, size: "M" });
+  const onClickSizeTag = (id, size) => {
+    addCartItem({ product_id: id, size: "M" });
   };
 
   return (
@@ -53,7 +53,7 @@ const ProductsList = ({ listData }: Props) => {
                         .map(([size]) => (
                           <SizeTag
                             onClick={() => {
-                              onClickSizeTag(product.id);
+                              onClickSizeTag(product.id, size);
                             }}
                             key={size}
                           >

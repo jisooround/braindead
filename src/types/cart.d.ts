@@ -17,3 +17,7 @@ export interface CartDataResponse {
   items: CartItem[];
   memo: string;
 }
+
+export interface DeleteCartItem {
+  product_id: number | string;
+}

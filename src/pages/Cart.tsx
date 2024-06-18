@@ -7,14 +7,7 @@ import { authTokenState } from "../recoil/atoms/authAtom";
 import useGetMyCart from "../hooks/useGetMyCart";
 import { useEffect } from "react";
 import { formatPrice } from "../utils/formatPrice";
-
-interface IProduct {
-  productName: string;
-  price: number;
-  size: string;
-  desc: string;
-  img_src: string;
-}
+import useDeleteCartItem from "../hooks/useDeleteCartItem";
 
 interface IDirection {
   direction: "row" | "column";
@@ -24,11 +17,18 @@ const Cart = () => {
   const authToken = useRecoilValue(authTokenState);
   const isLoggedIn = authToken !== null && Boolean(authToken.token);
   const { isPending, error, data: cartData } = useGetMyCart(isLoggedIn);
+  const { mutate: deleteCartItem } = useDeleteCartItem();
+
   console.log(cartData);
 
   const totalPrice = cartData?.items.reduce((accumulator, item) => {
     return accumulator + item.product.price;
   }, 0);
+
+  const onClickDelete = (id) => {
+    deleteCartItem({ product_id: id });
+    console.log({ product_id: id });
+  };
 
   if (isPending) {
     return <div>Loading...</div>;
@@ -89,6 +89,7 @@ const Cart = () => {
                 <p>₩ {formatPrice(item.product.price)}</p>
               </div>
               <TfiPlus
+                onClick={() => onClickDelete(item.product.id)}
                 css={css`
                   position: absolute;
                   top: 20px;
@@ -102,6 +103,7 @@ const Cart = () => {
                   align-items: center;
                   transform: rotate(45deg);
                   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                  cursor: pointer;
                 `}
               />
             </ItemBox>

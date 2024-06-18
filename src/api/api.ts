@@ -1,4 +1,5 @@
 // src/api/api.ts
+import { DeleteCartItem } from "../types/cart";
 import { ResponseUserData, UserCredentials } from "../types/user";
 import { apiClient } from "./apiClient";
 
@@ -24,5 +25,11 @@ export const getMyCart = async () => {
 
 export const addCartItem = async (cartData) => {
   const { data } = await apiClient.post("/api/account/cart/", cartData);
+  return data;
+};
+
+export const deleteCartItem = async (deleteData) => {
+  console.log("deleteCartItem", deleteData);
+  const { data } = await apiClient.delete("/api/account/cart/", deleteData);
   return data;
 };
