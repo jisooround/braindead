@@ -24,7 +24,7 @@ const ProductsList = ({ listData }: Props) => {
   };
 
   const onClickSizeTag = (id, size) => {
-    addCartItem({ product_id: id, size: "M" });
+    addCartItem({ product_id: id, size: size });
   };
 
   return (

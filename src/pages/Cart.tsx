@@ -24,8 +24,8 @@ const Cart = () => {
   }, 0);
 
   const onClickDelete = (id) => {
-    deleteCartItem({ product_id: id });
-    console.log({ product_id: id });
+    deleteCartItem(id);
+    console.log(id);
   };
 
   if (isPending) {

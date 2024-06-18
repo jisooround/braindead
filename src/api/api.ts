@@ -28,8 +28,8 @@ export const addCartItem = async (cartData) => {
   return data;
 };
 
-export const deleteCartItem = async (deleteData) => {
-  console.log("deleteCartItem", deleteData);
-  const { data } = await apiClient.delete("/api/account/cart/", deleteData);
+export const deleteCartItem = async (id) => {
+  console.log("deleteCartItem", id);
+  const { data } = await apiClient.delete(`/api/account/cart/${id}/`);
   return data;
 };
