@@ -36,26 +36,9 @@ const DropMenu = ({ listProps }) => {
     setMenuIndex(null);
   };
 
-  useEffect(() => {
-    console.log("isDropdownVisible", isDropdownVisible);
-  }, [isDropdownVisible]);
-
-  const ReturnButton = () => {
-    return (
-      <>
-        {listProps.map((item) => (
-          <p key={uuid()} onClick={() => navigate(item.path)} onMouseEnter={() => handleMouseEnter(item.id)}>
-            {item.title}
-          </p>
-        ))}
-      </>
-    );
-  };
-
   return (
     <MenuWrap isVisible={isDropdownVisible} rightPosition={listProps[0].id === 6} menuIndex={menuIndex} onMouseLeave={handleMouseLeave}>
       <ButtonWrap>
-        {/* <ReturnButton /> */}
         {listProps.map((item) => (
           <p key={uuid()} onClick={() => navigate(item.path)} onMouseEnter={() => handleMouseEnter(item.id)}>
             {item.title}
