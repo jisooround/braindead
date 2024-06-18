@@ -24,7 +24,7 @@ const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgr
 
 const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point", bgHover: "lightgray" | "black" | "point") =>
   css({
-    backgroundColor: active ? "var(--color-point)" : "var(--color-lightgray)",
+    backgroundColor: active ? "var(--color-point)" : `var(--color-${bg})`,
     padding: "0 0.75rem",
     fontSize: "14px",
     height: "30px",
@@ -39,6 +39,7 @@ const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point", bgHov
     ":hover": {
       backgroundColor: `var(--color-${bgHover})`,
       border: `1px solid var(--color-${bgHover})`,
+      color: bgHover === "black" ? "white" : "black",
     },
   });
 

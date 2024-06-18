@@ -6,6 +6,7 @@ import { authTokenState } from "../recoil/atoms/authAtom";
 import useGetMyCart from "../hooks/useGetMyCart";
 import { formatPrice } from "../utils/formatPrice";
 import useDeleteCartItem from "../hooks/useDeleteCartItem";
+import CartIsEmpty from "../components/cart/CartIsEmpty";
 
 interface IDirection {
   direction: "row" | "column";
@@ -32,6 +33,13 @@ const Cart = () => {
     return <div>Loading...</div>;
   }
   if (error) {
+  }
+  if (cartData.items.length === 0) {
+    return (
+      <>
+        <CartIsEmpty />
+      </>
+    );
   }
 
   if (!cartData || !cartData.items) {
