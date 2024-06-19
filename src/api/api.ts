@@ -1,41 +1,73 @@
 // src/api/api.ts
-import { DeleteCartItem } from "../types/cart";
 import { ResponseUserData, UserCredentials } from "../types/user";
-import { apiClient } from "./apiClient";
+import { apiClient, apiClientWithAuth } from "./apiClient";
 
 export const createAccount = async (userData: UserCredentials): Promise<ResponseUserData> => {
-  const response = await apiClient.post("/api/account/", userData);
-  return response.data;
+  try {
+    const response = await apiClient.post("/api/account/", userData);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const login = async (userData: UserCredentials): Promise<ResponseUserData> => {
-  const { data } = await apiClient.post("/api/account/login/", userData);
-  return data;
+  try {
+    const { data } = await apiClient.post("/api/account/login/", userData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const getAllProducts = async () => {
-  const { data } = await apiClient.get("/api/products/");
-  return data;
+  try {
+    const { data } = await apiClient.get("/api/products/");
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const getMyCart = async () => {
-  const { data } = await apiClient.get("/api/account/cart/");
-  console.log("Get my cart", data);
-  return data;
+  try {
+    const response = await apiClientWithAuth.get("/api/account/cart/");
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const addCartItem = async (cartData) => {
-  const { data } = await apiClient.post("/api/account/cart/", cartData);
-  return data;
+  try {
+    const { data } = await apiClientWithAuth.post("/api/account/cart/", cartData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const patchCartItem = async (cartData) => {
-  const { data } = await apiClient.patch("/api/account/cart/", cartData);
-  return data;
+  try {
+    const { data } = await apiClientWithAuth.patch("/api/account/cart/", cartData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
 
 export const deleteCartItem = async (id) => {
-  console.log("deleteCartItem", id);
-  const { data } = await apiClient.delete(`/api/account/cart/${id}/`);
-  return data;
+  try {
+    const { data } = await apiClientWithAuth.delete(`/api/account/cart/${id}/`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
