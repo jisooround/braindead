@@ -84,6 +84,7 @@ const Cart = () => {
               </ItemImageArea>
               <ItemInfoArea>
                 <div>
+                  {/* TODO: 아이템 이름 누르면 상세페이지로 이동 */}
                   <p>{item.product.name}</p>
                   <p>SIZE: {item.size}</p>
                 </div>
@@ -258,6 +259,7 @@ const NoteBox = styled.div<StyleProps>`
     display: ${({ isNoteOpen }) => (isNoteOpen ? "block" : "none")};
     border: transparent;
     padding: 0 1.25rem;
+    resize: none;
     :focus {
       outline: none;
     }

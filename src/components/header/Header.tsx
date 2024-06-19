@@ -3,105 +3,104 @@ import { useState } from "react";
 import DropMenu from "./DropMenu";
 import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
+import HeaderCart from "./HeaderCart";
 import HeaderAccount from "./HeaderAccount";
-import HeaderLogin from "./HeaderLogin";
+import { MenuList } from "../../types/header";
 import HeaderRegister from "./HeaderRegister";
+import HeaderLogin from "./HeaderLogin";
+import useGetMyCart from "../../hooks/useGetMyCart";
+// import { leftMenuList, rightMenuListLoggedIn, rightMenuListLogout } from "../../constants/headerMenuList";
 
 // 각 메뉴 항목의 타입 정의
-interface MenuItem {
-  name: string;
-  path: string;
-}
 
-interface MenuComponent {
-  component: React.ReactNode | React.Component;
-}
-// 메뉴의 타입 정의
-interface Menu {
-  type: "list" | "component";
-  title: string;
-  path: string;
-  id: number;
-  element: MenuItem[] | MenuComponent[];
-}
-
-const leftMenuList: Menu[] = [
-  {
-    type: "list",
-    title: "MENU",
-    path: "#",
-    id: 1,
-    element: [
-      { name: "About", path: "/about" },
-      { name: "Stores", path: "/stores" },
-      { name: "Contact", path: "/contact" },
-    ],
-  },
-  {
-    type: "list",
-    title: "SHOP ALL",
-    path: "/collections/all-products",
-    id: 2,
-    element: [
-      { name: "All Products", path: "/products/all" },
-      { name: "Top", path: "/products/top" },
-      { name: "Accessories", path: "/accessories" },
-      { name: "Footwear", path: "/footwear" },
-      { name: "Homegoods", path: "/homegoods" },
-      { name: "Archive", path: "/archive" },
-    ],
-  },
-];
+const leftMenuList: MenuList = {
+  position: "left",
+  list: [
+    {
+      type: "list",
+      title: "MENU",
+      path: "#",
+      id: 1,
+      element: [
+        { name: "About", path: "/about" },
+        { name: "Stores", path: "/stores" },
+        { name: "Contact", path: "/contact" },
+      ],
+    },
+    {
+      type: "list",
+      title: "SHOP ALL",
+      path: "/collections/all-products",
+      id: 2,
+      element: [
+        { name: "All Products", path: "/products/all" },
+        { name: "Top", path: "/products/top" },
+        { name: "Accessories", path: "/accessories" },
+        { name: "Footwear", path: "/footwear" },
+        { name: "Homegoods", path: "/homegoods" },
+        { name: "Archive", path: "/archive" },
+      ],
+    },
+  ],
+};
 
 const Header = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const { isPending, error, data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
-
   const handleClickSearch = () => {
     setIsSearchVisible(true);
   };
 
-  const rightMenuListLogout: Menu[] = [
-    {
-      type: "component",
-      title: "LOGIN",
-      path: "/account/login",
-      id: 3,
-      element: [{ component: <HeaderLogin /> }],
-    },
-    {
-      type: "component",
-      title: "REGISTER",
-      path: "/account/register",
-      id: 4,
-      element: [{ component: <HeaderRegister /> }],
-    },
-    {
-      type: "component",
-      title: "CART (1)",
-      path: "/cart",
-      id: 5,
-      element: [{ component: <HeaderLogin /> }],
-    },
-  ];
+  const rightMenuListLogout: MenuList = {
+    position: "right",
+    list: [
+      {
+        type: "component",
+        title: "LOGIN",
+        path: "/account/login",
+        id: 3,
+        element: [{ component: <HeaderLogin /> }],
+      },
+      {
+        type: "component",
+        title: "REGISTER",
+        path: "/account/register",
+        id: 4,
+        element: [{ component: <HeaderRegister /> }],
+      },
+      {
+        type: "component",
+        title: `CART`,
+        path: "/cart",
+        id: 5,
+        element: [{ component: <HeaderCart /> }],
+      },
+    ],
+  };
 
-  const rightMenuListLoggedIn: Menu[] = [
-    {
-      type: "component",
-      title: `HI, ${authState?.user.username}`,
-      path: "/account",
-      id: 6,
-      element: [{ component: <HeaderAccount /> }],
-    },
-    {
-      type: "component",
-      title: "CART (1)",
-      path: "/cart",
-      id: 7,
-      element: [{ component: <HeaderLogin /> }],
-    },
-  ];
+  // 로그인한 경우의 오른쪽 메뉴 리스트
+  const rightMenuListLoggedIn: MenuList = {
+    position: "right",
+    list: [
+      {
+        type: "component",
+        title: `HI, ${authState?.user.username}`,
+        path: "/account",
+        id: 6,
+        element: [{ component: <HeaderAccount /> }],
+      },
+      {
+        type: "component",
+        title: `CART (${cartData ? cartData?.items.length : "0"})`,
+        path: "/cart",
+        id: 7,
+        element: [{ component: <HeaderCart /> }],
+      },
+    ],
+  };
+
   return (
     <HeaderContainer>
       <LeftArea>

@@ -37,15 +37,15 @@ const DropMenu = ({ listProps }) => {
   };
 
   return (
-    <MenuWrap isVisible={isDropdownVisible} rightPosition={listProps[0].id === 6} menuIndex={menuIndex} onMouseLeave={handleMouseLeave}>
+    <MenuWrap isVisible={isDropdownVisible} rightPosition={listProps?.position === "right" && listProps} menuIndex={menuIndex} onMouseLeave={handleMouseLeave}>
       <ButtonWrap>
-        {listProps.map((item) => (
+        {listProps.list.map((item) => (
           <p key={uuid()} onClick={() => navigate(item.path)} onMouseEnter={() => handleMouseEnter(item.id)}>
             {item.title}
           </p>
         ))}
       </ButtonWrap>
-      {listProps.map((item) => {
+      {listProps.list.map((item) => {
         return (
           <DropdownContainer key={uuid()} isMenu={menuIndex === item.id} isVisible={isDropdownVisible} menuIndex={menuIndex} itemType={item.type}>
             {
@@ -79,15 +79,6 @@ const growHeight = keyframes`
   max-height: 500px;    
 
 }
-`;
-
-const shrinkHeight = keyframes`
-  0% {
-    max-height: 500px;
-  }
-  100% {
-    max-height: 38px;
-  }
 `;
 
 const MenuWrap = styled.div<DropdownContainerProps>`

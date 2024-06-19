@@ -7,22 +7,23 @@ type Props = {
   active?: boolean;
   path?: string;
   size?: "sm" | "lg";
-  bg?: "lightgray" | "black" | "point";
+  bg?: "lightgray" | "black" | "point" | "white";
   bgHover?: "lightgray" | "black" | "point";
   colorHover?: "white" | "black" | "point";
+  height?: string;
 };
 
-const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black" }: Props) => {
+const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <button css={size === "sm" ? SmallButton(active, bg, bgHover) : LargeButton(bg, bgHover, colorHover)} onClick={() => goTo(navigate, path)}>
+    <button css={size === "sm" ? SmallButton(active, bg, bgHover) : LargeButton(bg, bgHover, colorHover, height)} onClick={() => goTo(navigate, path)}>
       {content}
     </button>
   );
 };
 
-const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point", bgHover: "lightgray" | "black" | "point") =>
+const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point") =>
   css({
     backgroundColor: active ? "var(--color-point)" : `var(--color-${bg})`,
     padding: "0 0.75rem",
@@ -43,13 +44,13 @@ const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point", bgHov
     },
   });
 
-const LargeButton = (bg: "lightgray" | "black" | "point", bgHover: "lightgray" | "black" | "point", colorHover: "white" | "black" | "point") =>
+const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point", colorHover: "white" | "black" | "point", height: string) =>
   css({
     backgroundColor: `var(--color-${bg})`,
     border: `1px solid var(--color-${bg})`,
     padding: "0 1.125rem",
     fontSize: "14px",
-    height: "65px",
+    height: height ? `${height}` : "65px",
     width: "100%",
     borderRadius: "0.375rem",
     lineHeight: "1.25rem",
@@ -61,7 +62,7 @@ const LargeButton = (bg: "lightgray" | "black" | "point", bgHover: "lightgray" |
     ":hover": {
       backgroundColor: `var(--color-${bgHover})`,
       border: `1px solid var(--color-${bgHover})`,
-      color: `var(--color-${colorHover})`,
+      color: bgHover === "black" ? "white" : `var(--color-${colorHover})`,
     },
   });
 export default Button;
