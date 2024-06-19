@@ -5,12 +5,12 @@ import { useSetRecoilState } from "recoil";
 import { UserCredentials } from "../types/user";
 
 export default function useLogin() {
-  const setAuthTokenData = useSetRecoilState(authTokenState);
+  const setAuthState = useSetRecoilState(authTokenState);
 
   return useMutation({
     mutationFn: (userData: UserCredentials) => login(userData),
     onSuccess: (data) => {
-      setAuthTokenData(data);
+      setAuthState(data);
     },
     onError: () => {
       alert("로그인에 실패했습니다.");

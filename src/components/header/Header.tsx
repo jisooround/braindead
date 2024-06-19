@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
-import logo from "../../assets/logo.svg";
-import { keyframes } from "@emotion/react";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import DropMenu from "./DropMenu";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 import HeaderAccount from "./HeaderAccount";
 import HeaderLogin from "./HeaderLogin";
@@ -58,8 +55,8 @@ const leftMenuList: Menu[] = [
 
 const Header = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [authToken, setAuthToken] = useRecoilState(authTokenState);
-  const isLoggedIn = authToken !== null && Boolean(authToken.token);
+  const authState = useRecoilValue(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
 
   const handleClickSearch = () => {
     setIsSearchVisible(true);
@@ -92,7 +89,7 @@ const Header = () => {
   const rightMenuListLoggedIn: Menu[] = [
     {
       type: "component",
-      title: `HI, ${authToken?.user.username}`,
+      title: `HI, ${authState?.user.username}`,
       path: "/account",
       id: 6,
       element: [{ component: <HeaderAccount /> }],

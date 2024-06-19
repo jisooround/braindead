@@ -5,8 +5,8 @@ import { css } from "@emotion/react";
 type Props = {};
 
 const HeaderAccount = (props: Props) => {
-  const [authToken, setAuthToken] = useRecoilState(authTokenState);
-  const isLoggedIn = authToken !== null && Boolean(authToken.token);
+  const [authState, setAuthState] = useRecoilState(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
 
   return (
     <HeaderAccountWrap>
@@ -17,7 +17,7 @@ const HeaderAccount = (props: Props) => {
       </ul>
       <button
         onClick={() => {
-          setAuthToken(null);
+          setAuthState(null);
         }}
         type="submit"
       >

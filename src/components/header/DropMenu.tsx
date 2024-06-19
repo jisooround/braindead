@@ -19,8 +19,8 @@ const DropMenu = ({ listProps }) => {
   const navigate = useNavigate();
   const [menuIndex, setMenuIndex] = useState<null | number>(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(true);
-  const authToken = useRecoilValue(authTokenState);
-  const isLoggedIn = authToken !== null && Boolean(authToken.token);
+  const authState = useRecoilValue(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
 
   useEffect(() => {
     handleMouseLeave();

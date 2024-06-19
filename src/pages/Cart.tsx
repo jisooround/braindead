@@ -18,12 +18,12 @@ interface StyleProps {
 }
 
 const Cart = () => {
-  const authToken = useRecoilValue(authTokenState);
-  const isLoggedIn = authToken !== null && Boolean(authToken.token);
+  const authState = useRecoilValue(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const [noteValue, setNoteValue] = useState("");
-  const { isPending, error, data: cartData } = useGetMyCart(isLoggedIn);
-  const debouncedText = useDebounce(noteValue, 100);
+  const { isPending, error, data: cartData } = useGetMyCart();
+  const debouncedText = useDebounce(noteValue, 500);
   const { mutate: deleteCartItem } = useDeleteCartItem();
   const { mutate: patchData } = usePatchCartItem();
 
