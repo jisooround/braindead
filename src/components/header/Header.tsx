@@ -22,9 +22,9 @@ const leftMenuList: MenuList = {
       path: "#",
       id: 1,
       element: [
-        { name: "About", path: "/about" },
-        { name: "Stores", path: "/stores" },
-        { name: "Contact", path: "/contact" },
+        { name: "About", path: "/pages/about-us" },
+        { name: "Stores", path: "/pages/stores" },
+        { name: "Contact", path: "/pages/contact" },
       ],
     },
     {
