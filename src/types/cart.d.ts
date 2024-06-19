@@ -12,6 +12,12 @@ export interface CartItem {
   size: string;
 }
 
+export interface PatchCartData {
+  is_paid?: boolean;
+  items?: CartItem[];
+  memo?: string;
+}
+
 export interface CartDataResponse {
   is_paid: boolean;
   items: CartItem[];

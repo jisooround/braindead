@@ -20,11 +20,17 @@ export const getAllProducts = async () => {
 
 export const getMyCart = async () => {
   const { data } = await apiClient.get("/api/account/cart/");
+  console.log("Get my cart", data);
   return data;
 };
 
 export const addCartItem = async (cartData) => {
   const { data } = await apiClient.post("/api/account/cart/", cartData);
+  return data;
+};
+
+export const patchCartItem = async (cartData) => {
+  const { data } = await apiClient.patch("/api/account/cart/", cartData);
   return data;
 };
 
