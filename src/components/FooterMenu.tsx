@@ -13,7 +13,6 @@ type Props = {
 
 const FooterMenu = ({ title, list }: Props) => {
   const { pathname } = useLocation();
-  console.log("list", pathname);
   return (
     <FooterMenuWrap>
       <MenuTitle>{title}</MenuTitle>
