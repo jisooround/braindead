@@ -8,7 +8,7 @@ export const apiClient = axios.create({
 });
 
 const persistData = JSON.parse(localStorage.getItem("recoil-persist"));
-const token = persistData.authTokenState?.token;
+const token = persistData?.authTokenState?.token;
 export const apiClientWithAuth = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
