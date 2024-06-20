@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { useSetRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
+import { Link } from "react-router-dom";
 
 const HeaderAccount = () => {
   const setAuthState = useSetRecoilState(authTokenState);
@@ -8,9 +9,15 @@ const HeaderAccount = () => {
   return (
     <HeaderAccountWrap>
       <ul>
-        <li>Addresses (1)</li>
-        <li>Orders (0)</li>
-        <li>Help?</li>
+        <li>
+          <Link to="/account/address">Address</Link>
+        </li>
+        <li>
+          <Link to="/account/orders">Orders</Link>
+        </li>
+        <li>
+          <Link to="/pages/contact">Help?</Link>
+        </li>
       </ul>
       <button
         onClick={() => {

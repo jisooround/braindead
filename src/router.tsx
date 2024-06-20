@@ -16,6 +16,8 @@ import Cart from "./pages/Cart";
 import TopList from "./pages/Products/TopList";
 import AllProducts from "./pages/Products/AllProducts";
 import Account from "./pages/account/Account";
+import Address from "./pages/account/Address";
+import Orders from "./pages/account/Orders";
 
 interface Router {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -115,6 +117,20 @@ export const routerData: Router[] = [
     path: "/account",
     label: "account",
     element: <Account />,
+    isGuestOnly: false,
+  },
+  {
+    id: 12,
+    path: "/account/address",
+    label: "address",
+    element: <Address />,
+    isGuestOnly: false,
+  },
+  {
+    id: 13,
+    path: "/account/orders",
+    label: "orders",
+    element: <Orders />,
     isGuestOnly: false,
   },
 ];

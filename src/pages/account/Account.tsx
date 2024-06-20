@@ -9,7 +9,7 @@ const Account = () => {
     <AccountContainer>
       <h2>HI, {authState?.user?.username}, WELCOME BACK</h2>
       <ButtonWrap>
-        <Button content="view address" size="lg" bg="point" bgHover="black" />
+        <Button content="view address" size="lg" bg="point" bgHover="black" path="/account/address" />
         <Button content="order history" size="lg" bg="point" bgHover="black" />
       </ButtonWrap>
       <ContactWrap>

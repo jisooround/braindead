@@ -189,10 +189,11 @@ const InfoWrap = styled.div`
 `;
 
 const ImgArea = styled.div`
-  border-radius: 0.375rem;
   overflow: hidden;
+  object-fit: contain;
   img {
     width: 100%;
+    border-radius: 0.375rem;
   }
 `;
 
