@@ -11,13 +11,23 @@ type Props = {
   bgHover?: "lightgray" | "black" | "point";
   colorHover?: "white" | "black" | "point";
   height?: string;
+  onClick?: () => void;
 };
 
-const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height }: Props) => {
+const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height, onClick }: Props) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    if (path) {
+      goTo(navigate, path);
+    }
+  };
+
   return (
-    <button css={size === "sm" ? SmallButton(active, bg, bgHover) : LargeButton(bg, bgHover, colorHover, height)} onClick={() => goTo(navigate, path)}>
+    <button css={size === "sm" ? SmallButton(active, bg, bgHover) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
       {content}
     </button>
   );
