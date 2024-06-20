@@ -74,6 +74,16 @@ const HeaderCartWrap = styled.div`
 
 const ItemWrap = styled.div`
   margin: 0.9375rem 0;
+  max-height: 400px;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 2px; /* 스크롤바의 너비 */
+  }
+  /* 스크롤바 핸들 스타일 */
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-black);
+    border-radius: 4px;
+  }
 `;
 
 const ItemBox = styled.div`
@@ -85,7 +95,7 @@ const ItemBox = styled.div`
   position: relative;
   box-sizing: border-box;
   border-radius: 0.375rem;
-  padding: 0.5rem 0;
+  padding: 0.2rem 0;
 `;
 
 const ItemImageArea = styled.div`
