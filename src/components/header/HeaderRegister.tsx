@@ -2,9 +2,7 @@ import styled from "@emotion/styled";
 import useCreateAccount from "../../hooks/useCreateAccount";
 import { Link } from "react-router-dom";
 
-type Props = {};
-
-const HeaderRegister = (props: Props) => {
+const HeaderRegister = () => {
   const { mutate: createAccount } = useCreateAccount();
 
   const registerSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {

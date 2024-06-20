@@ -24,7 +24,7 @@ export type ProductList = {
 };
 
 const AllProducts = () => {
-  const { isPending, error, data } = useGetAllProducts();
+  const { isPending, data } = useGetAllProducts();
   console.log(data);
   return (
     <AllProductsContainer>

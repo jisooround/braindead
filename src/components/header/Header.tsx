@@ -46,7 +46,7 @@ const leftMenuList: MenuList = {
 
 const Header = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const { isPending, error, data: cartData } = useGetMyCart();
+  const { data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
   const handleClickSearch = () => {

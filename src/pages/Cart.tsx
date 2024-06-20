@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { TfiPlus } from "react-icons/tfi";
 import { IoMdArrowDropright } from "react-icons/io";
 import Button from "../components/common/Button";
-import { authTokenState } from "../recoil/atoms/authAtom";
 import useGetMyCart from "../hooks/useGetMyCart";
 import { formatPrice } from "../utils/formatPrice";
 import useDeleteCartItem from "../hooks/useDeleteCartItem";
@@ -10,7 +9,6 @@ import CartIsEmpty from "../components/cart/CartIsEmpty";
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import usePatchCartItem from "../hooks/usePatchCartItem";
-import { useRecoilValue } from "recoil";
 
 interface StyleProps {
   direction?: "row" | "column";
@@ -18,8 +16,6 @@ interface StyleProps {
 }
 
 const Cart = () => {
-  const authState = useRecoilValue(authTokenState);
-  const isLoggedIn = Boolean(authState?.token);
   const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false);
   const [noteValue, setNoteValue] = useState("");
   const { isPending, error, data: cartData } = useGetMyCart();

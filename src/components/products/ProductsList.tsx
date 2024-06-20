@@ -48,7 +48,7 @@ const ProductsList = ({ listData }: Props) => {
                   ) : (
                     <SizeWrap>
                       {Object.entries(product.sizes)
-                        .filter(([size, available]) => available)
+                        .filter(([available]) => available)
                         .map(([size]) => (
                           <SizeTag
                             onClick={() => {

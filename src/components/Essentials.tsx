@@ -69,7 +69,7 @@ const Essentials = () => {
     slidesToScroll: 1,
     arrows: false,
     draggable: true,
-    beforeChange: (oldIndex: number, newIndex: number) => {
+    beforeChange: (newIndex: number) => {
       setCurrentSlide(newIndex);
     },
   };

@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
-import { css } from "@emotion/react";
-type Props = {};
 
-const HeaderAccount = (props: Props) => {
-  const [authState, setAuthState] = useRecoilState(authTokenState);
-  const isLoggedIn = Boolean(authState?.token);
+const HeaderAccount = () => {
+  const setAuthState = useSetRecoilState(authTokenState);
 
   return (
     <HeaderAccountWrap>

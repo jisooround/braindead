@@ -5,12 +5,11 @@ import { formatPrice } from "../../utils/formatPrice";
 import { v4 as uuid } from "uuid";
 import { TfiPlus } from "react-icons/tfi";
 import useDeleteCartItem from "../../hooks/useDeleteCartItem";
-import CartIsEmpty from "../cart/CartIsEmpty";
 import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 
 const HeaderCart = () => {
-  const { isPending, error, data: cartData } = useGetMyCart();
+  const { data: cartData } = useGetMyCart();
   const { mutate: deleteCartItem } = useDeleteCartItem();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);

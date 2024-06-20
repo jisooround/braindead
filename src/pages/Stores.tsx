@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { v4 as uuid } from "uuid";
 import Button from "../components/common/Button";
-import ImageComponent from "../components/ImageComponent";
 
 interface Store {
   name: string;

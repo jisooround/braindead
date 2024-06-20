@@ -1,8 +1,4 @@
-import React from "react";
-
-type Props = {};
-
-const TopList = (props: Props) => {
+const TopList = () => {
   return <div>TopList</div>;
 };
 

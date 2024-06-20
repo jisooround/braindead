@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { patchCartItem } from "../api/api";
-import { CartData, PatchCartData } from "../types/cart";
+import { PatchCartData } from "../types/cart";
 
 function usePatchCartItem() {
   const queryClient = useQueryClient();
