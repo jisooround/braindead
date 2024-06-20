@@ -11,10 +11,10 @@ interface Special {
 }
 
 const SpecialBannerList: Special[] = [
-  { img_src: "/public/special/01.jpg", title: "OAKLEY FACTORY TEAM", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
-  { img_src: "/public/special/02.webp", title: "ALL RISE FEST", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
-  { img_src: "/public/special/03.webp", title: "BRAIN DEAD RECORDS", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
-  { img_src: "/public/special/04.webp", title: "CLARKS X BRAIN DEAD", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/special/01.jpg", title: "OAKLEY FACTORY TEAM", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/special/02.webp", title: "ALL RISE FEST", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/special/03.webp", title: "BRAIN DEAD RECORDS", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
+  { img_src: "/special/04.webp", title: "CLARKS X BRAIN DEAD", shop_path: "/collections/oakley-factory-team", discover_path: "/pages/oakley-factory-team" },
 ];
 
 const SpecialProjects = () => {
