@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import FooterMenu from "./FooterMenu";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 interface List {
   name: string;
@@ -47,6 +48,39 @@ const brandList: List[] = [
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [currentTime, setCurrentTime] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+
+  useEffect(() => {
+    // 현재 시간 업데이트
+    const updateTime = () => {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, "0");
+      const minutes = now.getMinutes().toString().padStart(2, "0");
+      setCurrentTime(`${hours}:${minutes}`);
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 1000); // 1초마다 시간 업데이트
+
+    // 컴포넌트 언마운트 시 타이머 정리
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    // 현재 위치 정보 가져오기
+    const fetchLocation = async () => {
+      try {
+        const response = await fetch("https://ipinfo.io?token=64a14ffb08c1ce");
+        const data = await response.json();
+        setLocation(data.country);
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    };
+
+    fetchLocation();
+  }, []);
 
   return (
     <FooterContainer>
@@ -54,7 +88,7 @@ const Footer = () => {
         <LocationTime>
           BRAIN DEAD
           <br />
-          LOCATION TIME
+          {location} {currentTime}
         </LocationTime>
         <FooterMenu title="LEGAL" list={policyList} />
         <FooterMenu title="CUSTOMER" list={policyList} />
