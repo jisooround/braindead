@@ -69,6 +69,7 @@ const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "li
     outline: "none",
     cursor: "pointer",
     whiteSpace: "nowrap",
+    color: bg === "black" ? "white" : `var(--color-black)`,
     ":hover": {
       backgroundColor: `var(--color-${bgHover})`,
       border: `1px solid var(--color-${bgHover})`,
