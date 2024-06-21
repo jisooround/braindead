@@ -39,10 +39,10 @@ const Address = () => {
   console.log(authState);
   return (
     <AddressContainer isEdit={isEdit}>
-      <h2>YOUR ADDRESSES</h2>
+      <h2>YOUR ADDRESS</h2>
       <AddressArea>
         <InfoWrap isEdit={isEdit}>
-          <p>YOUR INFORMATION</p>
+          <h5>YOUR ADDRESS</h5>
           {Object.entries(authState?.user).map(([key, value]) => {
             return <p>{value}</p>;
           })}
@@ -105,6 +105,11 @@ const AddressContainer = styled.div<{ isEdit: boolean }>`
     margin-bottom: 32px;
     text-transform: uppercase;
   }
+  h5 {
+    font-weight: normal;
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
 `;
 
 const AddressArea = styled.div`
@@ -129,8 +134,6 @@ const EditWrap = styled.div`
   box-sizing: border-box;
   h5 {
     padding: 0 16px;
-    font-size: 14px;
-    margin-bottom: 16px;
   }
   input[type="text"] {
     width: 100%;
