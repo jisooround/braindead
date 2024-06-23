@@ -7,6 +7,7 @@ import { useState } from "react";
 import { css, keyframes } from "@emotion/react";
 import { formatPrice } from "../../utils/formatPrice";
 import useAddCartItem from "../../hooks/useAddCartItem";
+import { Link } from "react-router-dom";
 
 type Props = {
   listData: ProductPage;
@@ -15,6 +16,8 @@ type Props = {
 const ProductsList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
   const { mutate: addCartItem } = useAddCartItem();
+
+  console.log("listData", listData);
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
@@ -42,7 +45,9 @@ const ProductsList = ({ listData }: Props) => {
               <DefaultItemBox>
                 <img src={product.photos[0]} alt={product.name} />
                 <HoveredItemBox isVisible={product.id === itemIsHover}>
-                  <img src={product.photos[1]} alt={product.name} />
+                  <Link to={`/product/${product.id}`}>
+                    <img src={product.photos[1]} alt={product.name} />
+                  </Link>
                   {product.is_sold_out ? (
                     <NewTag isSoldOut={true}>Sold out</NewTag>
                   ) : (

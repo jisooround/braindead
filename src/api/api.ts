@@ -1,4 +1,5 @@
 // src/api/api.ts
+import { ResponseDetailData } from "../types/products";
 import { ResponseUserData, UserCredentials } from "../types/user";
 import { apiClient, apiClientWithAuth } from "./apiClient";
 
@@ -25,6 +26,16 @@ export const login = async (userData: UserCredentials): Promise<ResponseUserData
 export const getAllProducts = async () => {
   try {
     const { data } = await apiClient.get("/api/products/");
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getProductDetails = async (productId: number): Promise<ResponseDetailData> => {
+  try {
+    const { data } = await apiClient.get(`/api/products/${productId}`);
     return data;
   } catch (error) {
     console.error(error);
@@ -62,9 +73,9 @@ export const patchCartItem = async (cartData) => {
   }
 };
 
-export const deleteCartItem = async (id) => {
+export const deleteCartItem = async (productId) => {
   try {
-    const { data } = await apiClientWithAuth.delete(`/api/account/cart/${id}/`);
+    const { data } = await apiClientWithAuth.delete(`/api/account/cart/${productId}/`);
     return data;
   } catch (error) {
     console.error(error);

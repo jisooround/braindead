@@ -41,6 +41,10 @@ const MenuTitle = styled.p`
   margin-bottom: 8px;
 `;
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+  button {
+    margin-bottom: 5px;
+  }
+`;
 
 export default FooterMenu;

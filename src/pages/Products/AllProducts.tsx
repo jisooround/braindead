@@ -25,7 +25,6 @@ export type ProductList = {
 
 const AllProducts = () => {
   const { isPending, data } = useGetAllProducts();
-  console.log(data);
   return (
     <AllProductsContainer>
       <TitleWrap>

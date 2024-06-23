@@ -12,9 +12,10 @@ type Props = {
   colorHover?: "white" | "black" | "point";
   height?: string;
   onClick?: () => void;
+  disabled?: boolean;
 };
 
-const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height, onClick }: Props) => {
+const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height, onClick, disabled }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -27,13 +28,13 @@ const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgr
   };
 
   return (
-    <button css={size === "sm" ? SmallButton(active, bg, bgHover) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
+    <button disabled={disabled} css={size === "sm" ? SmallButton(active, bg, bgHover, disabled) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
       {content}
     </button>
   );
 };
 
-const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point") =>
+const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point", disabled: boolean) =>
   css({
     backgroundColor: active ? "var(--color-point)" : `var(--color-${bg})`,
     padding: "0 0.75rem",
@@ -42,16 +43,18 @@ const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point" | "whi
     borderRadius: "6px",
     lineHeight: "1.25rem",
     textTransform: "uppercase",
-    margin: "0 5px 5px 0",
+    margin: "0 5px 0",
     outline: "none",
     border: active ? "1px solid var(--color-point)" : "1px solid var(--color-lightgray)",
     cursor: "pointer",
     whiteSpace: "nowrap",
-    ":hover": {
-      backgroundColor: `var(--color-${bgHover})`,
-      border: `1px solid var(--color-${bgHover})`,
-      color: bgHover === "black" ? "white" : "black",
-    },
+    ...(!disabled && {
+      ":hover": {
+        backgroundColor: `var(--color-${bgHover})`,
+        border: `1px solid var(--color-${bgHover})`,
+        color: bgHover === "black" ? "white" : "black",
+      },
+    }),
   });
 
 const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point", colorHover: "white" | "black" | "point", height: string) =>
