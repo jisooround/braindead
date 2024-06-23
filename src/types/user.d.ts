@@ -26,3 +26,25 @@ export interface ResponseUserData {
   user: User;
   token: string;
 }
+
+export interface EditUser {
+  // 응답받는 데이터에 있는 user Data
+  name?: string;
+  address_1?: string;
+  city?: string;
+  country?: string;
+  email?: string;
+  phone?: string;
+  zipcode?: string;
+}
+
+export interface ResponseUserMe {
+  // 응답받는 데이터에 있는 user Data
+  name?: string;
+  address_1?: string;
+  city?: string;
+  country?: string;
+  email?: string;
+  phone?: string;
+  zipcode?: string;
+}

@@ -3,11 +3,17 @@ import { useRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 import Button from "../../components/common/Button";
 import { useEffect, useState } from "react";
+import useGetUserMe from "../../hooks/useGetUserMe";
+import useEditUserMe from "../../hooks/useEditUserMe";
+import { EditUser } from "../../types/user";
 
 const Address = () => {
   const [authState, setAuthState] = useRecoilState(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [addressData, setAddressData] = useState({
+  const { isPending, error, data: userAddressData } = useGetUserMe();
+  const { mutate: editUserMe } = useEditUserMe();
+  const [addressData, setAddressData] = useState<EditUser>({
     name: "",
     address_1: "",
     city: "",
@@ -18,13 +24,15 @@ const Address = () => {
   });
 
   useEffect(() => {
-    setUserData();
-  }, [authState]);
+    if (!isPending && userAddressData) {
+      setUserData();
+    }
+  }, [authState, userAddressData]);
 
   const setUserData = () => {
-    if (authState) {
-      const { name, address_1, city, country, zipcode, phone, email } = authState?.user;
-      setAddressData({ name, address_1, city, country, zipcode, phone, email });
+    if (isLoggedIn && !isPending && userAddressData) {
+      const { name, address_1, city, country, zipcode, phone, email } = userAddressData;
+      setAddressData({ name: name, address_1: address_1, city: city, country: country, zipcode: zipcode, phone: phone, email: email });
     }
   };
 
@@ -36,33 +44,61 @@ const Address = () => {
     });
   };
 
-  console.log(authState);
+  const handleEditButton = () => {
+    editUserMe(addressData);
+    setIsEdit(false);
+  };
+
+  if (isPending) return <p>Loading...</p>;
   return (
     <AddressContainer isEdit={isEdit}>
       <h2>YOUR ADDRESS</h2>
       <AddressArea>
         <InfoWrap isEdit={isEdit}>
           <h5>YOUR ADDRESS</h5>
-          {Object.entries(authState?.user).map(([key, value]) => {
-            return <p>{value}</p>;
-          })}
-          {/* <p>{authState?.user?.username}</p>
-          <p>{authState?.user?.company}</p> */}
+          <div>
+            <p>Name :</p>
+            <p>{userAddressData?.name}</p>
+          </div>
+          <div>
+            <p>Address :</p>
+            <p>{userAddressData?.address_1}</p>
+          </div>
+          <div>
+            <p>City :</p>
+            <p>{userAddressData?.city}</p>
+          </div>
+          <div>
+            <p>Country :</p>
+            <p>{userAddressData?.country}</p>
+          </div>
+          <div>
+            <p>Email :</p>
+            <p>{userAddressData?.email}</p>
+          </div>
+          <div>
+            <p>Phone :</p>
+            <p>{userAddressData?.phone}</p>
+          </div>
+          <div>
+            <p>Zipcode :</p>
+            <p>{userAddressData?.zipcode}</p>
+          </div>
         </InfoWrap>
         {isEdit && (
           <EditWrap>
             <h5>EDIT ADDRESS</h5>
             <form action="">
-              <input type="text" placeholder="Name" name="name" value={addressData.name} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="Address" name="address_1" value={addressData.address_1} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="City" name="city" value={addressData.city} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="Country" name="country" value={addressData.country} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="Zipcode" name="zipcode" value={addressData.zipcode} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="Phone" name="phone" value={addressData.phone} onChange={(event) => handleChange(event)} />
-              <input type="text" placeholder="Email" name="email" value={addressData.email} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Name" name="name" value={addressData?.name} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Address" name="address_1" value={addressData?.address_1} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="City" name="city" value={addressData?.city} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Country" name="country" value={addressData?.country} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Zipcode" name="zipcode" value={addressData?.zipcode} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Phone" name="phone" value={addressData?.phone} onChange={(event) => handleChange(event)} />
+              <input type="text" placeholder="Email" name="email" value={addressData?.email} onChange={(event) => handleChange(event)} />
             </form>
             <EditButtonArea>
-              <Button content="Update Address" bg="point" bgHover="black" size="lg" />
+              <Button content="Update Address" bg="point" bgHover="black" size="lg" onClick={handleEditButton} />
               <Button
                 content="cancel"
                 bg="black"
@@ -122,11 +158,13 @@ const AddressArea = styled.div`
 const InfoWrap = styled.div<{ isEdit: boolean }>`
   padding: 16px;
   font-size: 14px;
-  /* height: 500px; */
-  /* height: ${({ isEdit }) => (isEdit ? "500px" : "auto")}; */
   height: auto;
   p {
     margin: 4px 0;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
   }
 `;
 

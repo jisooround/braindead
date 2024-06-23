@@ -1,6 +1,6 @@
 // src/api/api.ts
 import { ResponseDetailData } from "../types/products";
-import { ResponseUserData, UserCredentials } from "../types/user";
+import { ResponseUserData, ResponseUserMe, UserCredentials } from "../types/user";
 import { apiClient, apiClientWithAuth } from "./apiClient";
 
 export const createAccount = async (userData: UserCredentials): Promise<ResponseUserData> => {
@@ -45,7 +45,7 @@ export const getProductDetails = async (productId: number): Promise<ResponseDeta
 
 export const getRecommended = async ({ size, excludes }) => {
   try {
-    const { data } = await apiClient.get(`/api/products/recommended/?size=${size}&excludes=${excludes}`);
+    const { data } = await apiClient.get(`/api/products/recommended/?page_size=${size}&excludes=${excludes}`);
     return data;
   } catch (error) {
     console.error(error);
@@ -86,6 +86,26 @@ export const patchCartItem = async (cartData) => {
 export const deleteCartItem = async (productId) => {
   try {
     const { data } = await apiClientWithAuth.delete(`/api/account/cart/${productId}/`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const editUserMe = async (editUserData) => {
+  try {
+    const { data } = await apiClientWithAuth.put("/api/account/me/", editUserData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUserMe = async (): Promise<ResponseUserMe> => {
+  try {
+    const { data } = await apiClientWithAuth.get("/api/account/me/");
     return data;
   } catch (error) {
     console.error(error);
