@@ -5,64 +5,78 @@ import { formatPrice } from "../../utils/formatPrice";
 import { v4 as uuid } from "uuid";
 import Button from "../../components/common/Button";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi2";
+import RecommendedList from "../../components/products/RecommendedList";
+import useGetRecommended from "../../hooks/useGetRecommended";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const { data, error, isPending } = useGetDetails(Number(id));
+  const { data: detailData, error: detailError, isPending: detailPending } = useGetDetails(Number(id));
+  const { data: recommendedData, error: recommendedError, isPending: recommendedPending } = useGetRecommended({ size: 6, excludes: Number(id) });
 
-  if (isPending) {
-    return <p>Loading...</p>;
+  // 로딩 상태 관리
+  const isLoading = detailPending || recommendedPending;
+
+  // 에러 상태 관리
+  const error = detailError || recommendedError;
+
+  if (isLoading) {
+    return <div>...Loading</div>;
   }
 
-  console.log("Object.keys(data.sizes).length", Object.keys(data.sizes).length);
+  console.log("Object.keys(data.sizes).length", Object.keys(detailData.sizes).length);
 
   return (
-    <DetailContainer>
-      <InfoArea>
-        <p>₩ {formatPrice(data.price)}</p>
-        <h3>{data.name}</h3>
-        <h6>DETAILS</h6>
-        <p>{data.description}</p>
-        <p>Material: {data.material}</p>
-        <p>Color: {data.color}</p>
-      </InfoArea>
-      <ImageArea>
-        {data.photos.map((photo) => {
-          return (
-            <div key={uuid()}>
-              <img src={photo} alt={photo} />
-            </div>
-          );
-        })}
-      </ImageArea>
-      <CheckoutArea>
-        <CheckoutWrap>
-          <TitleWrap>
-            <p>SIZE</p>
-            <p>Size Chart</p>
-          </TitleWrap>
-          <SizeWrap sizeLength={Object.keys(data.sizes).length}>
-            {Object.entries(data.sizes).map(([key, value]) => {
-              return <Button content={key} key={uuid()} disabled={!value}></Button>;
-            })}
-          </SizeWrap>
-          <CountBox>
-            <Icon>
-              <HiOutlineMinus />
-            </Icon>
-            <p>0</p>
-            <Icon>
-              <HiPlus />
-            </Icon>
-          </CountBox>
-          <AddToCartButton>
-            <p>ADD TO CART</p>
-            <p>₩ {formatPrice(data.price)}</p>
-          </AddToCartButton>
-          <span>Free domestic (US) shipping on orders over $400 USD</span>
-        </CheckoutWrap>
-      </CheckoutArea>
-    </DetailContainer>
+    <>
+      <DetailContainer>
+        <InfoArea>
+          <p>₩ {formatPrice(detailData.price)}</p>
+          <h3>{detailData.name}</h3>
+          <h6>DETAILS</h6>
+          <p>{detailData.description}</p>
+          <p>Material: {detailData.material}</p>
+          <p>Color: {detailData.color}</p>
+        </InfoArea>
+        <ImageArea>
+          {detailData.photos.map((photo) => {
+            return (
+              <div key={uuid()}>
+                <img src={photo} alt={photo} />
+              </div>
+            );
+          })}
+        </ImageArea>
+        <CheckoutArea>
+          <CheckoutWrap>
+            <TitleWrap>
+              <p>SIZE</p>
+              <p>Size Chart</p>
+            </TitleWrap>
+            <SizeWrap sizeLength={Object.keys(detailData.sizes).length}>
+              {Object.entries(detailData.sizes).map(([key, value]) => {
+                return <Button content={key} key={uuid()} disabled={!value}></Button>;
+              })}
+            </SizeWrap>
+            <CountBox>
+              <Icon>
+                <HiOutlineMinus />
+              </Icon>
+              <p>0</p>
+              <Icon>
+                <HiPlus />
+              </Icon>
+            </CountBox>
+            <AddToCartButton>
+              <p>ADD TO CART</p>
+              <p>₩ {formatPrice(detailData.price)}</p>
+            </AddToCartButton>
+            <span>Free domestic (US) shipping on orders over $400 USD</span>
+          </CheckoutWrap>
+        </CheckoutArea>
+      </DetailContainer>
+      <RecommenededContainer>
+        <RecommendedList listData={recommendedData} />
+      </RecommenededContainer>
+    </>
   );
 };
 
@@ -191,6 +205,11 @@ const AddToCartButton = styled.button`
     background-color: var(--color-black);
     color: var(--color-white);
   }
+`;
+
+const RecommenededContainer = styled.div`
+  width: 100%;
+  margin-top: 50px;
 `;
 
 export default ProductDetail;

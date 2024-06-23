@@ -1,0 +1,12 @@
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import { getRecommended } from "../api/api";
+
+type Props = {
+  size: number;
+  excludes: number;
+};
+
+export default function useGetRecommended({ size, excludes }: Props) {
+  return useQuery({ queryKey: ["recommended"], queryFn: () => getRecommended({ size, excludes }) });
+}

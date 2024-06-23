@@ -43,6 +43,16 @@ export const getProductDetails = async (productId: number): Promise<ResponseDeta
   }
 };
 
+export const getRecommended = async ({ size, excludes }) => {
+  try {
+    const { data } = await apiClient.get(`/api/products/recommended/?size=${size}&excludes=${excludes}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getMyCart = async () => {
   try {
     const response = await apiClientWithAuth.get("/api/account/cart/");
