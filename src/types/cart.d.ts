@@ -18,6 +18,7 @@ export interface PatchCartData {
   memo?: string;
   quantity?: number;
   product_id?: number;
+  size?: string;
 }
 
 export interface CartDataResponse {

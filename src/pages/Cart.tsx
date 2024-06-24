@@ -93,7 +93,7 @@ const Cart = () => {
                   <HiOutlineMinus
                     onClick={() => {
                       if (item.quantity === 1) return;
-                      patchCartData({ product_id: item.product.id, quantity: item.quantity - 1 });
+                      patchCartData({ product_id: item.product.id, quantity: item.quantity - 1, size: item.size });
                     }}
                   />
                 </Icon>
@@ -101,7 +101,7 @@ const Cart = () => {
                 <Icon>
                   <HiPlus
                     onClick={() => {
-                      patchCartData({ product_id: item.product.id, quantity: item.quantity + 1 });
+                      patchCartData({ product_id: item.product.id, quantity: item.quantity + 1, size: item.size });
                     }}
                   />
                 </Icon>
