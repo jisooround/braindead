@@ -7,11 +7,29 @@ import Button from "../../components/common/Button";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi2";
 import RecommendedList from "../../components/products/RecommendedList";
 import useGetRecommended from "../../hooks/useGetRecommended";
+import { useEffect, useState } from "react";
+import useAddCartItem from "../../hooks/useAddCartItem";
+import { CartData } from "../../types/cart";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const { mutate: addCartItem } = useAddCartItem();
   const { data: detailData, error: detailError, isPending: detailPending } = useGetDetails(Number(id));
   const { data: recommendedData, error: recommendedError, isPending: recommendedPending } = useGetRecommended({ size: 6, excludes: Number(id) });
+  const [addToCartData, setAddToCartData] = useState<CartData>({
+    size: null,
+    quantity: 1,
+    product_id: Number(id),
+  });
+
+  // 첫번째로 true인 사이즈를 state로 변경
+  useEffect(() => {
+    if (detailData) {
+      const findTrue = Object.entries(detailData.sizes).find(([size, available]) => available);
+      const initSize = findTrue ? findTrue[0] : null;
+      setAddToCartData((prevState) => ({ ...prevState, size: initSize }));
+    }
+  }, [detailData]);
 
   // 로딩 상태 관리
   const isLoading = detailPending || recommendedPending;
@@ -23,7 +41,15 @@ const ProductDetail = () => {
     return <div>...Loading</div>;
   }
 
-  console.log("Object.keys(data.sizes).length", Object.keys(detailData.sizes).length);
+  // 사이즈 선택시 실행 함수
+  const handleClickSize = (size) => {
+    setAddToCartData((prevState) => ({ ...prevState, size }));
+  };
+
+  // 카트 추가 버튼 클릭시 실행 함수
+  const handleClickAddToCart = (size) => {
+    addCartItem(addToCartData);
+  };
 
   return (
     <>
@@ -53,19 +79,38 @@ const ProductDetail = () => {
             </TitleWrap>
             <SizeWrap sizeLength={Object.keys(detailData.sizes).length}>
               {Object.entries(detailData.sizes).map(([key, value]) => {
-                return <Button content={key} key={uuid()} disabled={!value}></Button>;
+                return (
+                  <Button
+                    content={key}
+                    key={uuid()}
+                    disabled={detailData.is_sold_out ? true : !value}
+                    active={detailData.is_sold_out ? false : addToCartData.size === key}
+                    onClick={() => {
+                      handleClickSize(key);
+                    }}
+                  ></Button>
+                );
               })}
             </SizeWrap>
             <CountBox>
               <Icon>
-                <HiOutlineMinus />
+                <HiOutlineMinus
+                  onClick={() => {
+                    if (addToCartData.quantity === 1) return;
+                    setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity - 1 }));
+                  }}
+                />
               </Icon>
-              <p>0</p>
+              <p>{addToCartData.quantity}</p>
               <Icon>
-                <HiPlus />
+                <HiPlus
+                  onClick={() => {
+                    setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity + 1 }));
+                  }}
+                />
               </Icon>
             </CountBox>
-            <AddToCartButton>
+            <AddToCartButton onClick={handleClickAddToCart} disabled={detailData.is_sold_out}>
               <p>ADD TO CART</p>
               <p>₩ {formatPrice(detailData.price)}</p>
             </AddToCartButton>
@@ -180,6 +225,7 @@ const Icon = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 100px;
+  cursor: pointer;
   svg {
     margin: 0.25rem;
   }
@@ -188,7 +234,7 @@ const Icon = styled.div`
   }
 `;
 
-const AddToCartButton = styled.button`
+const AddToCartButton = styled.button<{ disabled: boolean }>`
   width: 100%;
   height: 65px;
   display: flex;
@@ -201,10 +247,14 @@ const AddToCartButton = styled.button`
   font-size: 14px;
   cursor: pointer;
   margin-bottom: 1.25rem;
-  :hover {
-    background-color: var(--color-black);
-    color: var(--color-white);
-  }
+  ${(props) =>
+    !props.disabled &&
+    `
+    :hover {
+      background-color: var(--color-black);
+      color: var(--color-white);
+    }
+  `}
 `;
 
 const DetailRecommenededContainer = styled.div`
