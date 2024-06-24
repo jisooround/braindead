@@ -19,6 +19,7 @@ import Account from "./pages/account/Account";
 import Address from "./pages/account/Address";
 import Orders from "./pages/account/Orders";
 import ProductDetail from "./pages/Products/ProductDetail";
+import Point from "./pages/account/Point";
 
 interface Router {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -139,6 +140,13 @@ export const routerData: Router[] = [
     path: `/product/:id`,
     label: "product-detail",
     element: <ProductDetail />,
+    isGuestOnly: false,
+  },
+  {
+    id: 15,
+    path: "/account/point",
+    label: "point",
+    element: <Point />,
     isGuestOnly: false,
   },
 ];
