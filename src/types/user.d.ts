@@ -47,4 +47,5 @@ export interface ResponseUserMe {
   email?: string;
   phone?: string;
   zipcode?: string;
+  point?: number;
 }

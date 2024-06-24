@@ -11,6 +11,7 @@ const Account = () => {
       <ButtonWrap>
         <Button content="view address" size="lg" bg="point" bgHover="black" path="/account/address" />
         <Button content="order history" size="lg" bg="point" bgHover="black" />
+        <Button content="my point" size="lg" bg="point" bgHover="black" path="/account/point" />
       </ButtonWrap>
       <ContactWrap>
         <h2>NEED HELP?</h2>
