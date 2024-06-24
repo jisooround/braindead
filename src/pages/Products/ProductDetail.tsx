@@ -73,9 +73,9 @@ const ProductDetail = () => {
           </CheckoutWrap>
         </CheckoutArea>
       </DetailContainer>
-      <RecommenededContainer>
+      <DetailRecommenededContainer>
         <RecommendedList listData={recommendedData} />
-      </RecommenededContainer>
+      </DetailRecommenededContainer>
     </>
   );
 };
@@ -207,7 +207,7 @@ const AddToCartButton = styled.button`
   }
 `;
 
-const RecommenededContainer = styled.div`
+const DetailRecommenededContainer = styled.div`
   width: 100%;
   margin-top: 50px;
 `;
