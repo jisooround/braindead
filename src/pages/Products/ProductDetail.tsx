@@ -92,7 +92,7 @@ const ProductDetail = () => {
                 );
               })}
             </SizeWrap>
-            <CountBox>
+            <QuantityBox>
               <Icon>
                 <HiOutlineMinus
                   onClick={() => {
@@ -109,7 +109,7 @@ const ProductDetail = () => {
                   }}
                 />
               </Icon>
-            </CountBox>
+            </QuantityBox>
             <AddToCartButton onClick={handleClickAddToCart} disabled={detailData.is_sold_out}>
               <p>ADD TO CART</p>
               <p>₩ {formatPrice(detailData.price)}</p>
@@ -205,7 +205,7 @@ const SizeWrap = styled.div<{ sizeLength: number }>`
   }
 `;
 
-const CountBox = styled.div`
+const QuantityBox = styled.div`
   width: 100%;
   height: 60px;
   border-radius: 0.375rem;

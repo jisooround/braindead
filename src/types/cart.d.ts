@@ -16,6 +16,8 @@ export interface PatchCartData {
   is_paid?: boolean;
   items?: CartItem[];
   memo?: string;
+  quantity?: number;
+  product_id?: number;
 }
 
 export interface CartDataResponse {

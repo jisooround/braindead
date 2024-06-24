@@ -9,6 +9,7 @@ import CartIsEmpty from "../components/cart/CartIsEmpty";
 import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import usePatchCartItem from "../hooks/usePatchCartItem";
+import { HiOutlineMinus, HiPlus } from "react-icons/hi2";
 
 interface StyleProps {
   direction?: "row" | "column";
@@ -21,11 +22,11 @@ const Cart = () => {
   const { isPending, error, data: cartData } = useGetMyCart();
   const debouncedText = useDebounce(noteValue, 500);
   const { mutate: deleteCartItem } = useDeleteCartItem();
-  const { mutate: patchData } = usePatchCartItem();
+  const { mutate: patchCartData } = usePatchCartItem();
 
   useEffect(() => {
     console.log("debouncedText", debouncedText);
-    patchData({ memo: debouncedText });
+    patchCartData({ memo: debouncedText });
   }, [debouncedText]);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const Cart = () => {
   }
 
   const totalPrice = cartData?.items.reduce((accumulator, item) => {
-    return accumulator + item.product.price;
+    return accumulator + item.product.price * item.quantity;
   }, 0);
 
   const onClickDelete = (id) => {
@@ -84,9 +85,27 @@ const Cart = () => {
                   <p>{item.product.name}</p>
                   <p>SIZE: {item.size}</p>
                 </div>
-                <p>₩ {formatPrice(item.product.price)}</p>
+                <p>₩ {formatPrice(item.product.price * item.quantity)}</p>
               </ItemInfoArea>
               <DeleteIcon onClick={() => onClickDelete(item.product.id)} />
+              <QuantityArea>
+                <Icon>
+                  <HiOutlineMinus
+                    onClick={() => {
+                      if (item.quantity === 1) return;
+                      patchCartData({ product_id: item.product.id, quantity: item.quantity - 1 });
+                    }}
+                  />
+                </Icon>
+                <p>{item.quantity}</p>
+                <Icon>
+                  <HiPlus
+                    onClick={() => {
+                      patchCartData({ product_id: item.product.id, quantity: item.quantity + 1 });
+                    }}
+                  />
+                </Icon>
+              </QuantityArea>
             </ItemBox>
           );
         })}
@@ -191,6 +210,39 @@ const DeleteIcon = styled(TfiPlus)`
   transform: rotate(45deg);
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+`;
+
+const QuantityArea = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: var(--color-lightgray);
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.375rem;
+  box-sizing: border-box;
+  p {
+    font-size: 13px;
+  }
+`;
+
+const Icon = styled.div`
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 13px;
+  svg {
+    margin: 0.25rem;
+  }
+  :hover {
+    background-color: var(--color-point);
+  }
 `;
 
 const BasicBox = styled.div<StyleProps>`
