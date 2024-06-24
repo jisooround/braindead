@@ -47,6 +47,7 @@ const Address = () => {
   const handleEditButton = () => {
     editUserMe(addressData);
     setIsEdit(false);
+    window.scrollTo(0, 0);
   };
 
   if (isPending) return <p>Loading...</p>;
