@@ -15,8 +15,6 @@ const RecommendedList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
   const { mutate: addCartItem } = useAddCartItem();
 
-  console.log("listData", listData);
-
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
   };
