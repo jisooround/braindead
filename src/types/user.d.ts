@@ -36,6 +36,7 @@ export interface EditUser {
   email?: string;
   phone?: string;
   zipcode?: string;
+  point?: number;
 }
 
 export interface ResponseUserMe {
