@@ -8,8 +8,8 @@ function useDeleteCartItem() {
   return useMutation({
     mutationFn: (deleteData: DeleteCartItem) => deleteCartItem(deleteData),
     onSuccess: (data) => {
-      console.log(data);
       queryClient.invalidateQueries({ queryKey: ["myCart"] });
+      queryClient.invalidateQueries({ queryKey: ["recommended"] });
     },
     onError: () => {
       alert("장바구니 삭제 실패");

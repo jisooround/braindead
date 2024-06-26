@@ -10,6 +10,7 @@ function useAddCartItem() {
     onSuccess: (data) => {
       console.log(data);
       queryClient.invalidateQueries({ queryKey: ["myCart"] });
+      queryClient.invalidateQueries({ queryKey: ["recommended"] });
     },
     onError: () => {
       alert("장바구니 추가 실패");
