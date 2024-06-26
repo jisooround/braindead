@@ -10,7 +10,7 @@ const Account = () => {
       <h2>HI, {authState?.user?.username}, WELCOME BACK</h2>
       <ButtonWrap>
         <Button content="view address" size="lg" bg="point" bgHover="black" path="/account/address" />
-        <Button content="order history" size="lg" bg="point" bgHover="black" />
+        <Button content="order history" size="lg" bg="point" bgHover="black" path="/account/orders" />
         <Button content="my point" size="lg" bg="point" bgHover="black" path="/account/point" />
       </ButtonWrap>
       <ContactWrap>
