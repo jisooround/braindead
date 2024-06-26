@@ -112,3 +112,33 @@ export const getUserMe = async (): Promise<ResponseUserMe> => {
     throw error;
   }
 };
+
+export const checkouts = async () => {
+  try {
+    const { data } = await apiClientWithAuth.post("/api/orders/checkout/");
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getOrderHistory = async () => {
+  try {
+    const { data } = await apiClientWithAuth.get("/api/orders/");
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const userPoint = async (userPointAddData) => {
+  try {
+    const { data } = await apiClientWithAuth.put("/api/account/point/", userPointAddData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

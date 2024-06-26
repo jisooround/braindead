@@ -4,11 +4,12 @@ import Button from "../../components/common/Button";
 import { useEffect, useState } from "react";
 import { formatPrice } from "../../utils/formatPrice";
 import useEditUserMe from "../../hooks/useEditUserMe";
+import useAddPoint from "../../hooks/useAddPoint";
 
 const Point = () => {
   const { isPending, error, data: userAddressData } = useGetUserMe();
   const [rechargePoint, setRechargePoint] = useState<string>("");
-  const { mutate: editUserMe } = useEditUserMe();
+  const { mutate: userPointAdd } = useAddPoint();
 
   const handleChange = (event) => {
     let price = event.target.value;
@@ -20,9 +21,9 @@ const Point = () => {
     }
   };
 
-  const handleClickRecharge = () => {
+  const rechargeSubmitHanldeler = () => {
     let price = rechargePoint.replaceAll(",", "");
-    editUserMe({ point: Number(price) });
+    userPointAdd({ add: Number(price) });
     setRechargePoint("");
   };
 
@@ -39,11 +40,13 @@ const Point = () => {
       </PointArea>
       <PointArea>
         <h5>Recharge Points</h5>
-        <InputWrap>
-          <input type="text" placeholder="0" name="point" value={rechargePoint} onChange={handleChange} />
-          <label htmlFor="point">point</label>
-        </InputWrap>
-        <Button content="Recharge" size="lg" bg="point" bgHover="black" onClick={handleClickRecharge} />
+        <form onSubmit={rechargeSubmitHanldeler}>
+          <InputWrap>
+            <input type="text" placeholder="0" name="point" value={rechargePoint} onChange={handleChange} />
+            <label htmlFor="point">point</label>
+          </InputWrap>
+          <Button type="submit" content="Recharge" size="lg" bg="point" bgHover="black" />
+        </form>
       </PointArea>
     </PointContainer>
   );

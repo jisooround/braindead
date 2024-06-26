@@ -1,3 +1,4 @@
+import { styled } from "@emotion/styled";
 export interface UserCredentials {
   // 로그인과 회원가입할 때 쓰는 data
   username: string;
@@ -49,4 +50,8 @@ export interface ResponseUserMe {
   phone?: string;
   zipcode?: string;
   point?: number;
+}
+
+export interface userPointAdd {
+  add: number;
 }
