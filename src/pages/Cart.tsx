@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import useDebounce from "../hooks/useDebounce";
 import usePatchCartItem from "../hooks/usePatchCartItem";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi2";
+import useCheckout from "../hooks/useCheckout";
+import CartRecommendItem from "../components/cart/CartRecommendItem";
 
 interface StyleProps {
   direction?: "row" | "column";
@@ -23,6 +25,7 @@ const Cart = () => {
   const debouncedText = useDebounce(noteValue, 500);
   const { mutate: deleteCartItem } = useDeleteCartItem();
   const { mutate: patchCartData } = usePatchCartItem();
+  const { mutate: checkoutMutate } = useCheckout();
 
   useEffect(() => {
     console.log("debouncedText", debouncedText);
@@ -31,7 +34,7 @@ const Cart = () => {
 
   useEffect(() => {
     if (cartData?.memo) {
-      setNoteValue(cartData.memo); // 초기값 설정
+      setNoteValue(cartData.memo);
     }
   }, [isNoteOpen]);
 
@@ -65,89 +68,113 @@ const Cart = () => {
     setIsNoteOpen((prev) => !prev);
   };
 
+  const onClickCheckout = () => {
+    checkoutMutate();
+  };
+
   return (
     <CartContainer>
-      <h2>YOUR CART</h2>
-      <TitleWrap>
-        <div>PRODUCT</div>
-        <div>REMOVE</div>
-      </TitleWrap>
-      <div>
-        {cartData?.items.map((item, index) => {
-          return (
-            <ItemBox key={index}>
-              <ItemImageArea>
-                <img src={item.product.photos[0]} alt="" />
-              </ItemImageArea>
-              <ItemInfoArea>
-                <div>
-                  {/* TODO: 아이템 이름 누르면 상세페이지로 이동 */}
-                  <p>{item.product.name}</p>
-                  <p>SIZE: {item.size}</p>
-                </div>
-                <p>₩ {formatPrice(item.product.price * item.quantity)}</p>
-              </ItemInfoArea>
-              <DeleteIcon onClick={() => onClickDelete(item.product.id)} />
-              <QuantityArea>
-                <Icon>
-                  <HiOutlineMinus
-                    onClick={() => {
-                      if (item.quantity === 1) return;
-                      patchCartData({ product_id: item.product.id, quantity: item.quantity - 1, size: item.size });
-                    }}
-                  />
-                </Icon>
-                <p>{item.quantity}</p>
-                <Icon>
-                  <HiPlus
-                    onClick={() => {
-                      patchCartData({ product_id: item.product.id, quantity: item.quantity + 1, size: item.size });
-                    }}
-                  />
-                </Icon>
-              </QuantityArea>
-            </ItemBox>
-          );
-        })}
-      </div>
-      <div>
-        <BasicBox direction="row">
-          <p>SUMMARY</p>
-          <p className="item-count">{cartData?.items.length}</p>
-        </BasicBox>
-        <BasicBox direction="column">
-          <p>SUBTOTAL</p>
-          <p className="subTotal-description">Taxes & shipping calculated at checkout</p>
-        </BasicBox>
-        <NoteBox isNoteOpen={isNoteOpen}>
-          <p onClick={onClickNote}>
-            <ArrowIcon isNoteOpen={isNoteOpen} />
-            Add Note
-          </p>
-          {isNoteOpen && (
-            <textarea
-              name=""
-              id=""
-              value={noteValue}
-              onChange={(e) => {
-                setNoteValue(e.target.value);
-              }}
-            />
-          )}
-        </NoteBox>
-      </div>
-      <ButtonWrap>
-        <Button content={`check out ${formatPrice(totalPrice)} KRW`} size="lg" bg="point" bgHover="black" colorHover="white" />
-        <Button content="CONTINUE SHOPPING" size="lg" bg="lightgray" bgHover="point" />
-      </ButtonWrap>
+      <CartRecommendItem />
+      <CartWrap>
+        <h2>YOUR CART</h2>
+        <TitleWrap>
+          <div>PRODUCT</div>
+          <div>REMOVE</div>
+        </TitleWrap>
+        <div>
+          {cartData?.items.map((item, index) => {
+            return (
+              <ItemBox key={index}>
+                <ItemImageArea>
+                  <img src={item.product.photos[0]} alt="" />
+                </ItemImageArea>
+                <ItemInfoArea>
+                  <div>
+                    {/* TODO: 아이템 이름 누르면 상세페이지로 이동 */}
+                    <p>{item.product.name}</p>
+                    <p>SIZE: {item.size}</p>
+                  </div>
+                  <p>₩ {formatPrice(item.product.price * item.quantity)}</p>
+                </ItemInfoArea>
+                <DeleteIcon onClick={() => onClickDelete(item.product.id)} />
+                <QuantityArea>
+                  <Icon>
+                    <HiOutlineMinus
+                      onClick={() => {
+                        if (item.quantity === 1) return;
+                        patchCartData({ product_id: item.product.id, quantity: item.quantity - 1, size: item.size });
+                      }}
+                    />
+                  </Icon>
+                  <p>{item.quantity}</p>
+                  <Icon>
+                    <HiPlus
+                      onClick={() => {
+                        patchCartData({ product_id: item.product.id, quantity: item.quantity + 1, size: item.size });
+                      }}
+                    />
+                  </Icon>
+                </QuantityArea>
+              </ItemBox>
+            );
+          })}
+        </div>
+        <div>
+          <BasicBox direction="row">
+            <p>SUMMARY</p>
+            <p className="item-count">{cartData?.items.length}</p>
+          </BasicBox>
+          <BasicBox direction="column">
+            <p>SUBTOTAL</p>
+            <p className="subTotal-description">Taxes & shipping calculated at checkout</p>
+          </BasicBox>
+          <NoteBox isNoteOpen={isNoteOpen}>
+            <p onClick={onClickNote}>
+              <ArrowIcon isNoteOpen={isNoteOpen} />
+              Add Note
+            </p>
+            {isNoteOpen && (
+              <textarea
+                name=""
+                id=""
+                value={noteValue}
+                onChange={(e) => {
+                  setNoteValue(e.target.value);
+                }}
+              />
+            )}
+          </NoteBox>
+        </div>
+        <ButtonWrap>
+          <Button
+            content={`check out ${formatPrice(totalPrice)} KRW`}
+            size="lg"
+            bg="point"
+            bgHover="black"
+            colorHover="white"
+            onClick={() => {
+              onClickCheckout();
+            }}
+          />
+          <Button content="CONTINUE SHOPPING" size="lg" bg="lightgray" bgHover="point" />
+        </ButtonWrap>
+      </CartWrap>
     </CartContainer>
   );
 };
 
 const CartContainer = styled.div`
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+`;
+
+const CartWrap = styled.div`
   max-width: 460px;
-  height: 100vh;
+  min-height: calc(100vh - 158px);
   margin: 158px auto;
+  box-sizing: border-box;
   h2 {
     width: auto;
     font-size: 22px;
