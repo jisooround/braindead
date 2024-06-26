@@ -23,13 +23,13 @@ const CartRecommendItem = () => {
         return Array.from(new Set(updatedExcludes));
       });
     }
-  }, [cartItemId, cartData]);
+  }, [cartData]);
 
   useEffect(() => {
     if (cartItemId && cartItemId.length > 0) {
       setExcludesParam(cartItemId.join(","));
     }
-  }, [cartItemId, cartData]);
+  }, [cartData]);
 
   useEffect(() => {
     console.log("excludesParam:", excludesParam);
