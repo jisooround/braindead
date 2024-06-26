@@ -13,9 +13,10 @@ type Props = {
   height?: string;
   onClick?: () => void;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 };
 
-const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height, onClick, disabled }: Props) => {
+const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgray", bgHover = "point", colorHover = "black", height, onClick, disabled, type = "button" }: Props) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -28,7 +29,7 @@ const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgr
   };
 
   return (
-    <button disabled={disabled} css={size === "sm" ? SmallButton(active, bg, bgHover, disabled) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
+    <button type={type} disabled={disabled} css={size === "sm" ? SmallButton(active, bg, bgHover, disabled) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
       {content}
     </button>
   );
