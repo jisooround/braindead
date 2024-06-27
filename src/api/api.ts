@@ -35,6 +35,7 @@ export const getAllProducts = async () => {
 
 export const getProductDetails = async (productId: number): Promise<ResponseDetailData> => {
   try {
+    console.log("getProductDetails", productId);
     const { data } = await apiClient.get(`/api/products/${productId}`);
     return data;
   } catch (error) {
@@ -136,6 +137,29 @@ export const getOrderHistory = async () => {
 export const userPoint = async (userPointAddData) => {
   try {
     const { data } = await apiClientWithAuth.put("/api/account/point/", userPointAddData);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const searchProducts = async (params) => {
+  try {
+    const queryString = new URLSearchParams(params).toString();
+    console.log("api", queryString);
+    const { data } = await apiClient.get(`/api/products/?${queryString}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getProducts = async (categoryName) => {
+  try {
+    console.log("api", categoryName);
+    const { data } = await apiClient.get(`/api/products/?category=${categoryName}`);
     return data;
   } catch (error) {
     console.error(error);

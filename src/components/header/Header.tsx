@@ -9,6 +9,8 @@ import { MenuList } from "../../types/header";
 import HeaderRegister from "./HeaderRegister";
 import HeaderLogin from "./HeaderLogin";
 import useGetMyCart from "../../hooks/useGetMyCart";
+import HeaderSearch from "./HeaderSearch";
+import { useLocation } from "react-router-dom";
 // import { leftMenuList, rightMenuListLoggedIn, rightMenuListLogout } from "../../constants/headerMenuList";
 
 // 각 메뉴 항목의 타입 정의
@@ -30,28 +32,30 @@ const leftMenuList: MenuList = {
     {
       type: "list",
       title: "SHOP ALL",
-      path: "/collections/all-products",
+      path: "/product/all-products",
       id: 2,
       element: [
-        { name: "All Products", path: "/products/all" },
+        { name: "All Products", path: "/product/all-products" },
         { name: "Top", path: "/products/top" },
-        { name: "Accessories", path: "/accessories" },
-        { name: "Footwear", path: "/footwear" },
-        { name: "Homegoods", path: "/homegoods" },
-        { name: "Archive", path: "/archive" },
+        { name: "Bottom", path: "/products/bottom" },
+        { name: "Footwear", path: "/products/footwear" },
+        { name: "Accessory", path: "/products/accessory" },
+        { name: "Eyewear", path: "/products/eyewear" },
+        { name: "Homegoods", path: "/products/homegoods" },
       ],
     },
   ],
 };
 
 const Header = () => {
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  // const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
-  const handleClickSearch = () => {
-    setIsSearchVisible(true);
-  };
+  const { pathname } = useLocation();
+  // const handleClickSearch = () => {
+  //   setIsSearchVisible(true);
+  // };
 
   const rightMenuListLogout: MenuList = {
     position: "right",
@@ -105,21 +109,7 @@ const Header = () => {
     <HeaderContainer>
       <LeftArea>
         <DropMenu listProps={leftMenuList} />
-        <SearchWrap>
-          <span onClick={handleClickSearch}>SEARCH</span>
-          {isSearchVisible ? (
-            <div className="search-input">
-              <input type="text" placeholder="TYPE HERE" />
-              <button
-                onClick={() => {
-                  setIsSearchVisible(false);
-                }}
-              >
-                X
-              </button>
-            </div>
-          ) : null}
-        </SearchWrap>
+        {pathname !== "/products" && <HeaderSearch />}
       </LeftArea>
       <RightArea>
         <DropMenu listProps={isLoggedIn ? rightMenuListLoggedIn : rightMenuListLogout} />
@@ -146,43 +136,6 @@ const LeftArea = styled.div`
 `;
 const RightArea = styled.div`
   display: flex;
-`;
-
-const SearchWrap = styled.div`
-  display: flex;
-  height: 38px;
-  box-sizing: border-box;
-  align-items: center;
-  background-color: var(--color-lightgray);
-  padding: 4px 2px;
-  margin-left: 6px;
-  border-radius: 0.375rem;
-  display: flex;
-  .search-input {
-    padding-right: 10px;
-  }
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-color: var(--color-lightgray);
-    padding: 0 0.75rem;
-    margin: 0 0.25rem;
-    font-size: 14px;
-    height: 30px;
-    border-radius: 6px;
-    line-height: 1.25rem;
-    text-transform: uppercase;
-    outline: none;
-    border: 1px solid var(--color-lightgray);
-    cursor: pointer;
-    white-space: nowrap;
-    :hover {
-      background-color: var(--color-point);
-      border: 1px solid var(--color-point);
-    }
-  }
 `;
 
 export default Header;
