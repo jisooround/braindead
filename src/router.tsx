@@ -13,13 +13,14 @@ import Contact from "./pages/Contact";
 import Register from "./pages/account/Register";
 import Login from "./pages/account/Login";
 import Cart from "./pages/Cart";
-import TopList from "./pages/Products/TopList";
 import AllProducts from "./pages/Products/AllProducts";
 import Account from "./pages/account/Account";
 import Address from "./pages/account/Address";
 import Orders from "./pages/account/Orders";
 import ProductDetail from "./pages/Products/ProductDetail";
 import Point from "./pages/account/Point";
+import SearchResult from "./pages/SearchResult";
+import CategoryProducts from "./pages/Products/CategoryProducts";
 
 interface Router {
   id: number; // 페이지 아이디 (반복문용 고유값)
@@ -102,16 +103,16 @@ export const routerData: Router[] = [
   },
   {
     id: 9,
-    path: "/collections/all-products",
+    path: "/product/all-products",
     label: "all-products",
     element: <AllProducts />,
     isGuestOnly: false,
   },
   {
     id: 10,
-    path: "/collections/top",
-    label: "top",
-    element: <TopList />,
+    path: "/products/:category",
+    label: "category-products",
+    element: <CategoryProducts />,
     isGuestOnly: false,
   },
   {
@@ -147,6 +148,13 @@ export const routerData: Router[] = [
     path: "/account/point",
     label: "point",
     element: <Point />,
+    isGuestOnly: false,
+  },
+  {
+    id: 16,
+    path: "/products",
+    label: "search-result",
+    element: <SearchResult />,
     isGuestOnly: false,
   },
 ];
