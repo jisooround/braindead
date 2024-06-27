@@ -28,7 +28,6 @@ const Cart = () => {
   const { mutate: checkoutMutate } = useCheckout();
 
   useEffect(() => {
-    console.log("debouncedText", debouncedText);
     patchCartData({ memo: debouncedText });
   }, [debouncedText]);
 

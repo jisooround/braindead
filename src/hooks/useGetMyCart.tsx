@@ -8,6 +8,7 @@ function useGetMyCart() {
   return useQuery({
     queryKey: ["myCart", authState?.token],
     queryFn: () => getMyCart(),
+    enabled: Boolean(authState?.token),
   });
 }
 
