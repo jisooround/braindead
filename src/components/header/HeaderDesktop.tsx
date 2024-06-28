@@ -47,7 +47,7 @@ const leftMenuList: MenuList = {
   ],
 };
 
-const Header = () => {
+const HeaderDesktop = () => {
   // const [isSearchVisible, setIsSearchVisible] = useState(false);
   const { data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
@@ -138,4 +138,4 @@ const RightArea = styled.div`
   display: flex;
 `;
 
-export default Header;
+export default HeaderDesktop;

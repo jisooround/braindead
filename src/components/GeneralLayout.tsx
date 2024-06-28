@@ -1,11 +1,13 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
-import Header from "./header/Header";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authTokenState } from "../recoil/atoms/authAtom";
 import { useEffect } from "react";
 import { previousUrlState } from "../recoil/atoms/previousUrlAtom";
 import Logo from "./common/Logo";
+import HeaderDesktop from "./header/HeaderDesktop";
+import { useMediaQuery } from "react-responsive";
+import HeaderLaptop from "./header/HeaderLaptop";
 
 type Props = {
   children: React.ReactNode;
@@ -18,6 +20,9 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
   const [previousUrl, setPreviousUrl] = useRecoilState(previousUrlState);
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
   // 페이지마다 현재 URL을 previousAtom에 저장
   useEffect(() => {
@@ -44,7 +49,7 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
   return (
     <div>
       <Logo />
-      <Header />
+      {isDesktop ? <HeaderDesktop /> : <HeaderLaptop />}
       {children}
       <Footer />
     </div>
