@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import Button from "../components/common/Button";
 import Gradient from "../components/common/Gradient";
+import { useMediaQuery } from "react-responsive";
 
 interface Image {
   img_src: string;
@@ -90,13 +91,16 @@ const mainBannerList: BannerList[] = [
 ];
 
 const MainBanner = () => {
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
   return (
     <div>
       {mainBannerList.map((item, index) => {
         return (
           <MainBannerContainer key={index}>
             <Gradient />
-            <InfoWrap className="info-wrap">
+            <InfoWrap className="info-wrap" isDeskTop={isDesktop}>
               <div className="btn-wrap">
                 <Link to={item.shop}>
                   <Button content="shop"></Button>
@@ -110,16 +114,24 @@ const MainBanner = () => {
             <div className="img-wrap">
               {item.type === "single" ? (
                 <SingleImage>
-                  <img src={item.img[0].img_src} alt="" />
+                  <img src={item.img[0].img_src} alt={`${item.title}_image`} />
                 </SingleImage>
               ) : (
-                <MultipleImage>
-                  <div>
-                    <img src={item.img[0].img_src} alt="" />
-                  </div>
-                  <div>
-                    <img src={item.img[1].img_src} alt="" />
-                  </div>
+                <MultipleImage isDeskTop={isDesktop}>
+                  {isDesktop ? (
+                    <MultipleImageWrap>
+                      <ImageArea>
+                        <img src={item.img[0].img_src} alt={`${item.title}_image`} />
+                      </ImageArea>
+                      <ImageArea>
+                        <img src={item.img[1].img_src} alt={`${item.title}_image`} />
+                      </ImageArea>
+                    </MultipleImageWrap>
+                  ) : (
+                    <SingleImage>
+                      <img src={item.img[0].img_src} alt={`${item.title}_image`} />
+                    </SingleImage>
+                  )}
                 </MultipleImage>
               )}
             </div>
@@ -137,10 +149,10 @@ const MainBannerContainer = styled.div`
   position: relative;
 `;
 
-const InfoWrap = styled.div`
+const InfoWrap = styled.div<{ isDeskTop: boolean }>`
   position: absolute;
   left: 20px;
-  bottom: 24px;
+  bottom: ${({ isDeskTop }) => (isDeskTop ? "24px" : "100px")};
   z-index: 100;
   h3 {
     font-size: 22px;
@@ -166,17 +178,29 @@ const SingleImage = styled.div`
   }
 `;
 
-const MultipleImage = styled.div`
+const MultipleImage = styled.div<{ isDeskTop: boolean }>`
+  width: 100%;
+  height: 100vh;
+`;
+
+const MultipleImageWrap = styled.div`
   width: 100%;
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   object-fit: cover;
   overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-  }
 `;
 
+const ImageArea = styled.div`
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  img {
+    height: 100%;
+    object-fit: contain;
+  }
+`;
 export default MainBanner;
