@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "./common/Button";
 import { Link, useLocation } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 interface List {
   name: string;
   path: string;
@@ -13,6 +14,7 @@ type Props = {
 
 const FooterMenu = ({ title, list }: Props) => {
   const { pathname } = useLocation();
+
   return (
     <FooterMenuWrap>
       <MenuTitle>{title}</MenuTitle>

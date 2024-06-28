@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import FooterMenu from "./FooterMenu";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 interface List {
   name: string;
@@ -50,6 +51,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [currentTime, setCurrentTime] = useState<string>("");
   const [location, setLocation] = useState<string>("");
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
   useEffect(() => {
     // 현재 시간 업데이트
@@ -83,18 +87,20 @@ const Footer = () => {
   }, []);
 
   return (
-    <FooterContainer>
-      <MenuArea>
-        <LocationTime>
-          BRAIN DEAD
-          <br />
-          {location} {currentTime}
-        </LocationTime>
+    <FooterContainer isDeskTop={isDesktop}>
+      <MenuArea isDeskTop={isDesktop}>
+        {isDesktop && (
+          <LocationTime>
+            BRAIN DEAD
+            <br />
+            {location} {currentTime}
+          </LocationTime>
+        )}
         <FooterMenu title="LEGAL" list={policyList} />
         <FooterMenu title="CUSTOMER" list={policyList} />
         <FooterMenu title="BRAND" list={brandList} />
       </MenuArea>
-      <EmailArea>
+      <EmailArea isDeskTop={isDesktop}>
         <EmailWrap>
           <p>SUBSCRIBE</p>
           <div className="email-wrap">
@@ -119,19 +125,20 @@ const Footer = () => {
   );
 };
 
-const FooterContainer = styled.div`
+const FooterContainer = styled.div<{ isDeskTop: boolean }>`
   width: 100%;
   height: 100vh;
   background-color: var(--color-lightpurple);
   box-sizing: border-box;
-  padding: 158px 4px 12px 4px;
+  padding: ${({ isDeskTop }) => (isDeskTop ? "158px 4px 12px 4px" : "50px 4px 100px 4px")};
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
 `;
 
-const MenuArea = styled.div`
-  display: grid;
+const MenuArea = styled.div<{ isDeskTop: boolean }>`
+  display: ${({ isDeskTop }) => (isDeskTop ? "grid" : "flex")};
+  flex-direction: column;
   gap: 0.75rem;
   grid-template-columns: repeat(6, 1fr);
   padding-bottom: 30px;
@@ -147,9 +154,9 @@ const LocationTime = styled.h2`
   grid-column-end: 4;
 `;
 
-const EmailArea = styled.div`
+const EmailArea = styled.div<{ isDeskTop: boolean }>`
   width: 100%;
-  display: grid;
+  display: ${({ isDeskTop }) => (isDeskTop ? "grid" : "block")};
   grid-template-columns: repeat(6, 1fr);
   gap: 0.75rem;
 `;
