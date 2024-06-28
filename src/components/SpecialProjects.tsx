@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import Gradient from "./common/Gradient";
 import { useState } from "react";
 import Button from "./common/Button";
+import { useMediaQuery } from "react-responsive";
 
 interface Special {
   img_src: string;
@@ -18,6 +19,10 @@ const SpecialBannerList: Special[] = [
 ];
 
 const SpecialProjects = () => {
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
+
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const handleMouseEnter = (index: number) => {
@@ -31,7 +36,7 @@ const SpecialProjects = () => {
   return (
     <SpecialContainer>
       <h2>Special Projects</h2>
-      <ItemWrap>
+      <ItemWrap isDesktop={isDesktop}>
         {SpecialBannerList.map((item, index) => {
           return (
             <Item key={index} onMouseEnter={() => handleMouseEnter(index)} onMouseLeave={handleMouseLeave}>
@@ -63,15 +68,14 @@ const SpecialContainer = styled.div`
   }
 `;
 
-const ItemWrap = styled.div`
+const ItemWrap = styled.div<{ isDesktop: boolean }>`
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: ${({ isDesktop }) => (isDesktop ? "repeat(2, minmax(0, 1fr))" : "repeat(1, minmax(0, 1fr))")};
   gap: 1rem;
 `;
 
 const Item = styled.div`
   width: 100%;
-  background-color: aquamarine;
   height: 30vw;
   position: relative;
   border-radius: 0.375rem;
