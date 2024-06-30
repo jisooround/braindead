@@ -7,7 +7,9 @@ function useGetMyCart() {
   const authState = useRecoilValue(authTokenState);
   return useQuery({
     queryKey: ["myCart", authState?.token],
-    queryFn: () => getMyCart(),
+    queryFn: () => {
+      return getMyCart();
+    },
     enabled: Boolean(authState?.token),
   });
 }
