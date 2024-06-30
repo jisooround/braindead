@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "@emotion/styled";
+import { useMediaQuery } from "react-responsive";
 
 const policyMenuList = [
   { title: "TERMS OF SERVICE", path: "/pages/terms-of-service" },
@@ -9,9 +10,13 @@ const policyMenuList = [
 ];
 
 const PolicyNav = () => {
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
+
   const { pathname } = useLocation();
   return (
-    <PolicyNavContainer className="policy-nav">
+    <PolicyNavContainer className="policy-nav" isDesktop={isDesktop}>
       <h4>CUSTOMER SERVICE</h4>
       <ul>
         {policyMenuList.map((item, index) => {
@@ -26,8 +31,9 @@ const PolicyNav = () => {
   );
 };
 
-const PolicyNavContainer = styled.div`
+const PolicyNavContainer = styled.div<{ isDesktop: boolean }>`
   position: fixed;
+  display: ${({ isDesktop }) => (isDesktop ? "block" : "none")};
   width: 15.875rem;
   left: 1.25rem;
   top: 60px;
