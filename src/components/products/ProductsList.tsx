@@ -8,6 +8,8 @@ import { css, keyframes } from "@emotion/react";
 import { formatPrice } from "../../utils/formatPrice";
 import useAddCartItem from "../../hooks/useAddCartItem";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { authTokenState } from "../../recoil/atoms/authAtom";
 
 type Props = {
   listData: ProductPage;
@@ -16,6 +18,8 @@ type Props = {
 const ProductsList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
   const { mutate: addCartItem } = useAddCartItem();
+  const authState = useRecoilValue(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
@@ -25,6 +29,7 @@ const ProductsList = ({ listData }: Props) => {
   };
 
   const onClickSizeTag = (id, size) => {
+    if (!isLoggedIn) return alert("장바구니 추가는 로그인 후 이용 가능합니다.");
     addCartItem({ product_id: id, size: size });
   };
 
