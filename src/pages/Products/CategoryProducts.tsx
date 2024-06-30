@@ -3,12 +3,11 @@ import Button from "../../components/common/Button";
 import ProductsList from "../../components/products/ProductsList";
 import useGetCategory from "../../hooks/useGetCategoryItem";
 import styled from "@emotion/styled";
+import SkeletonProductsList from "../../components/products/SkeletonProductsList";
 
 const CategoryProducts = () => {
   const { category } = useParams();
   const { data, error, isPending } = useGetCategory(category);
-
-  if (isPending) return <div>Loading...</div>;
 
   return (
     <CategoryProductsContainer>
@@ -16,9 +15,7 @@ const CategoryProducts = () => {
         <h2>{category}</h2>
         <p>List of all Brain Dead apparel ordered by date, newest first.</p>
       </TitleWrap>
-      <ResultItemWrap>
-        <ProductsList listData={data} />
-      </ResultItemWrap>
+      <ResultItemWrap>{isPending ? <SkeletonProductsList /> : <ProductsList listData={data} />}</ResultItemWrap>
     </CategoryProductsContainer>
   );
 };
