@@ -49,7 +49,7 @@ const leftMenuList: MenuList = {
 
 const HeaderDesktop = () => {
   // const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const { data: cartData } = useGetMyCart();
+  const { isPending, data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
   const { pathname } = useLocation();
@@ -97,7 +97,7 @@ const HeaderDesktop = () => {
       },
       {
         type: "component",
-        title: `CART (${cartData ? cartData?.items.length : "0"})`,
+        title: `CART (${!isPending || cartData ? cartData?.items.length : "0"})`,
         path: "/cart",
         id: 7,
         element: [{ component: <HeaderCart /> }],

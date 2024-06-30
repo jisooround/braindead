@@ -1,4 +1,5 @@
 import ProductsList from "../../components/products/ProductsList";
+import SkeletonProductsList from "../../components/products/SkeletonProductsList";
 import useGetAllProducts from "../../hooks/useGetAllProducts";
 import styled from "@emotion/styled";
 
@@ -25,12 +26,14 @@ export type ProductList = {
 
 const AllProducts = () => {
   const { isPending, data } = useGetAllProducts();
+
   return (
     <AllProductsContainer>
       <TitleWrap>
         <h2>All Products</h2>
         <p>List of all Brain Dead Products. This page serves as a product list page showcasing all products ordered by date, newest first.</p>
       </TitleWrap>
+      {isPending && <SkeletonProductsList />}
       {!isPending && <ProductsList listData={data} />}
     </AllProductsContainer>
   );
@@ -55,4 +58,5 @@ const TitleWrap = styled.div`
     padding-bottom: 1rem;
   }
 `;
+
 export default AllProducts;
