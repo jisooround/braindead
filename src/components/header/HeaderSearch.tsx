@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { goTo } from "../../utils/goTo";
 import { useNavigate } from "react-router-dom";
+import Button from "../common/Button";
 
 const HeaderSearch = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -19,7 +20,7 @@ const HeaderSearch = () => {
   };
 
   return (
-    <SearchContainer>
+    <SearchContainer isSearchVisible={isSearchVisible}>
       <span onClick={handleOpenSearch}>SEARCH</span>
       {isSearchVisible ? (
         <form onSubmit={handleSubmit}>
@@ -31,25 +32,38 @@ const HeaderSearch = () => {
               setSearchValue(event.target.value);
             }}
           />
-          <button type="submit">X</button>
+          <Button
+            content="X"
+            onClick={() => {
+              setIsSearchVisible(false);
+            }}
+            bg="point"
+            bgHover="black"
+          />
         </form>
       ) : null}
     </SearchContainer>
   );
 };
 
-const SearchContainer = styled.div`
+const SearchContainer = styled.div<{ isSearchVisible: boolean }>`
   display: flex;
   height: 38px;
   box-sizing: border-box;
   align-items: center;
   background-color: var(--color-lightgray);
-  padding: 4px 2px;
+  padding: 4px;
+  padding-right: ${({ isSearchVisible }) => (isSearchVisible ? "0.5rem" : "")};
   margin-left: 6px;
   border-radius: 0.375rem;
   display: flex;
-  .search-input {
+  input[type="text"] {
+    border: 1px dashed var(--color-black);
+    border-radius: 0.2rem;
     padding-right: 10px;
+    :focus {
+      outline: none;
+    }
   }
   span {
     display: flex;
@@ -72,6 +86,10 @@ const SearchContainer = styled.div`
       background-color: var(--color-point);
       border: 1px solid var(--color-point);
     }
+  }
+  button {
+    height: auto;
+    margin: 0 0 0 0.3rem;
   }
 `;
 
