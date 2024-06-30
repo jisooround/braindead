@@ -29,7 +29,7 @@ const Button = ({ content, active = false, path = "", size = "sm", bg = "lightgr
   };
 
   return (
-    <button type={type} disabled={disabled} css={size === "sm" ? SmallButton(active, bg, bgHover, disabled) : LargeButton(bg, bgHover, colorHover, height)} onClick={handleClick}>
+    <button type={type} disabled={disabled} css={size === "sm" ? SmallButton(active, bg, bgHover, disabled) : LargeButton(bg, bgHover, colorHover, height, disabled)} onClick={handleClick}>
       {content}
     </button>
   );
@@ -58,7 +58,7 @@ const SmallButton = (active: boolean, bg: "lightgray" | "black" | "point" | "whi
     }),
   });
 
-const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point", colorHover: "white" | "black" | "point", height: string) =>
+const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "lightgray" | "black" | "point", colorHover: "white" | "black" | "point", height: string, disabled: boolean) =>
   css({
     backgroundColor: `var(--color-${bg})`,
     border: `1px solid var(--color-${bg})`,
@@ -74,10 +74,12 @@ const LargeButton = (bg: "lightgray" | "black" | "point" | "white", bgHover: "li
     cursor: "pointer",
     whiteSpace: "nowrap",
     color: bg === "black" ? "white" : `var(--color-black)`,
-    ":hover": {
-      backgroundColor: `var(--color-${bgHover})`,
-      border: `1px solid var(--color-${bgHover})`,
-      color: bgHover === "black" ? "white" : `var(--color-${colorHover})`,
-    },
+    ...(!disabled && {
+      ":hover": {
+        backgroundColor: `var(--color-${bgHover})`,
+        border: `1px solid var(--color-${bgHover})`,
+        color: bgHover === "black" ? "white" : "black",
+      },
+    }),
   });
 export default Button;

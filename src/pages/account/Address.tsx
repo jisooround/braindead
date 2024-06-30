@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useGetUserMe from "../../hooks/useGetUserMe";
 import useEditUserMe from "../../hooks/useEditUserMe";
 import { EditUser } from "../../types/user";
+import SkeletonAddress from "../../components/account/SkeletonAddress";
 
 const Address = () => {
   const [authState, setAuthState] = useRecoilState(authTokenState);
@@ -50,42 +51,45 @@ const Address = () => {
     window.scrollTo(0, 0);
   };
 
-  if (isPending) return <p>Loading...</p>;
+  // if (isPending) return <p>Loading...</p>;
   return (
     <AddressContainer isEdit={isEdit}>
       <h2>YOUR ADDRESS</h2>
       <AddressArea>
-        <InfoWrap isEdit={isEdit}>
-          <h5>YOUR ADDRESS</h5>
-          <div>
-            <p>Name :</p>
-            <p>{userAddressData?.name}</p>
-          </div>
-          <div>
-            <p>Address :</p>
-            <p>{userAddressData?.address_1}</p>
-          </div>
-          <div>
-            <p>City :</p>
-            <p>{userAddressData?.city}</p>
-          </div>
-          <div>
-            <p>Country :</p>
-            <p>{userAddressData?.country}</p>
-          </div>
-          <div>
-            <p>Email :</p>
-            <p>{userAddressData?.email}</p>
-          </div>
-          <div>
-            <p>Phone :</p>
-            <p>{userAddressData?.phone}</p>
-          </div>
-          <div>
-            <p>Zipcode :</p>
-            <p>{userAddressData?.zipcode}</p>
-          </div>
-        </InfoWrap>
+        {isPending && <SkeletonAddress />}
+        {!isPending && (
+          <InfoWrap isEdit={isEdit}>
+            <h5>YOUR ADDRESS</h5>
+            <div>
+              <p>Name :</p>
+              <p>{userAddressData?.name}</p>
+            </div>
+            <div>
+              <p>Address :</p>
+              <p>{userAddressData?.address_1}</p>
+            </div>
+            <div>
+              <p>City :</p>
+              <p>{userAddressData?.city}</p>
+            </div>
+            <div>
+              <p>Country :</p>
+              <p>{userAddressData?.country}</p>
+            </div>
+            <div>
+              <p>Email :</p>
+              <p>{userAddressData?.email}</p>
+            </div>
+            <div>
+              <p>Phone :</p>
+              <p>{userAddressData?.phone}</p>
+            </div>
+            <div>
+              <p>Zipcode :</p>
+              <p>{userAddressData?.zipcode}</p>
+            </div>
+          </InfoWrap>
+        )}
         {isEdit && (
           <EditWrap>
             <h5>EDIT ADDRESS</h5>
@@ -115,6 +119,7 @@ const Address = () => {
         {!isEdit && (
           <ButtonWrap>
             <Button
+              disabled={isPending}
               content="EDIT"
               size="lg"
               bg="lightgray"
