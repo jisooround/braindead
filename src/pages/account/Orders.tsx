@@ -3,36 +3,36 @@ import useGetOrderHistory from "../../hooks/useGetOrderHistory";
 import { useState } from "react";
 import { formatPrice } from "../../utils/formatPrice";
 import Button from "../../components/common/Button";
+import SkeletonOrders from "../../components/account/SkeletonOrders";
 
 const Orders = () => {
   const { isPending, error, data: orderHistory } = useGetOrderHistory();
-  const [isOpen, setIsOpen] = useState<number>(null);
+  const [isOpen, setIsOpen] = useState<number | null>(null);
 
-  if (isPending) return <p>Loading...</p>;
   return (
     <OrdersContainer>
       <h2>YOUR ORDER HISTORY</h2>
-      {orderHistory.orders.map((order) => {
-        return (
-          <OrderBox>
-            <OrderWrap>
-              <div>
-                <p>ORDER ID</p>
-                <span>{order.id}</span>
-              </div>
-              <div>
-                <p>TOTAL PRICE</p>
-                <span>₩ {formatPrice(order.total_price)}</span>
-              </div>
-              <div>
-                <p>MEMO</p>
-                <span>{order.memo}</span>
-              </div>
-            </OrderWrap>
-            {isOpen === order.id && (
-              <OrderDetailWrap>
-                {order.items.map((item) => {
-                  return (
+      {isPending && <SkeletonOrders />}
+      {!isPending && orderHistory && orderHistory.orders.length > 0
+        ? orderHistory.orders.map((order) => (
+            <OrderBox key={order.id}>
+              <OrderWrap>
+                <div>
+                  <p>ORDER ID</p>
+                  <span>{order.id}</span>
+                </div>
+                <div>
+                  <p>TOTAL PRICE</p>
+                  <span>₩ {formatPrice(order.total_price)}</span>
+                </div>
+                <div>
+                  <p>MEMO</p>
+                  <span>{order.memo}</span>
+                </div>
+              </OrderWrap>
+              {isOpen === order.id && (
+                <OrderDetailWrap>
+                  {order.items.map((item) => (
                     <OrderProductWrap key={item.product.name}>
                       <ImageArea>
                         <img src={item.product.photos[0]} alt="" />
@@ -44,35 +44,34 @@ const Orders = () => {
                         <p>PRICE: {item.product.price}</p>
                       </InfoArea>
                     </OrderProductWrap>
-                  );
-                })}
-              </OrderDetailWrap>
-            )}
-            {isOpen === order.id && (
-              <Button
-                content="close"
-                size="sm"
-                bg="point"
-                bgHover="black"
-                onClick={() => {
-                  setIsOpen(null);
-                }}
-              />
-            )}
-            {isOpen !== order.id && (
-              <Button
-                content="view"
-                size="sm"
-                bg="point"
-                bgHover="black"
-                onClick={() => {
-                  setIsOpen(order.id);
-                }}
-              />
-            )}
-          </OrderBox>
-        );
-      })}
+                  ))}
+                </OrderDetailWrap>
+              )}
+              {isOpen === order.id ? (
+                <Button
+                  content="close"
+                  size="sm"
+                  bg="point"
+                  bgHover="black"
+                  onClick={() => {
+                    setIsOpen(null);
+                  }}
+                />
+              ) : (
+                <Button
+                  content="view"
+                  size="sm"
+                  bg="point"
+                  bgHover="black"
+                  onClick={() => {
+                    setIsOpen(order.id);
+                  }}
+                />
+              )}
+            </OrderBox>
+          ))
+        : !isPending && <div>No orders found.</div>}
+      {error && <div>Error loading order history.</div>}
     </OrdersContainer>
   );
 };
