@@ -110,6 +110,7 @@ const Address = () => {
                 bgHover="point"
                 size="lg"
                 onClick={() => {
+                  window.scrollTo(0, 0);
                   setIsEdit(false);
                 }}
               />
