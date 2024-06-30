@@ -195,12 +195,12 @@ const MultipleImageWrap = styled.div`
 const ImageArea = styled.div`
   display: flex;
   overflow: hidden;
-  width: 100%;
   justify-content: center;
   align-items: center;
   img {
+    min-width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 export default MainBanner;
