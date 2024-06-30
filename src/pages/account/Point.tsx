@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
 import useGetUserMe from "../../hooks/useGetUserMe";
 import Button from "../../components/common/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { formatPrice } from "../../utils/formatPrice";
-import useEditUserMe from "../../hooks/useEditUserMe";
 import useAddPoint from "../../hooks/useAddPoint";
+import SkeletonPoint from "../../components/account/SkeletonPoint";
 
 const Point = () => {
   const { isPending, error, data: userAddressData } = useGetUserMe();
@@ -27,27 +27,33 @@ const Point = () => {
     setRechargePoint("");
   };
 
-  if (isPending) return <p>Loading...</p>;
+  // if (isPending) return <p>Loading...</p>;
 
   return (
     <PointContainer>
-      <h2>My Point</h2>
-      <PointArea>
-        <h5>YOUR POINT</h5>
-        <div>
-          <p>{formatPrice(userAddressData?.point)} point</p>
-        </div>
-      </PointArea>
-      <PointArea>
-        <h5>Recharge Points</h5>
-        <form onSubmit={rechargeSubmitHanldeler}>
-          <InputWrap>
-            <input type="text" placeholder="0" name="point" value={rechargePoint} onChange={handleChange} />
-            <label htmlFor="point">point</label>
-          </InputWrap>
-          <Button type="submit" content="Recharge" size="lg" bg="point" bgHover="black" />
-        </form>
-      </PointArea>
+      <>
+        <h2>My Point</h2>
+        {isPending ? (
+          <SkeletonPoint />
+        ) : (
+          <PointArea>
+            <h5>YOUR POINT</h5>
+            <div>
+              <p>{formatPrice(userAddressData?.point)} point</p>
+            </div>
+          </PointArea>
+        )}
+        <PointArea>
+          <h5>Recharge Points</h5>
+          <form onSubmit={rechargeSubmitHanldeler}>
+            <InputWrap>
+              <input type="text" placeholder="0" name="point" value={rechargePoint} onChange={handleChange} />
+              <label htmlFor="point">point</label>
+            </InputWrap>
+            <Button disabled={isPending} type="submit" content="Recharge" size="lg" bg="point" bgHover="black" />
+          </form>
+        </PointArea>
+      </>
     </PointContainer>
   );
 };
@@ -132,7 +138,5 @@ const InputWrap = styled.div`
     font-weight: 500;
   }
 `;
-
-const PointBox = styled.div``;
 
 export default Point;
