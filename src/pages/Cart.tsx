@@ -30,7 +30,10 @@ const Cart = () => {
   const { mutate: checkoutMutate } = useCheckout();
 
   useEffect(() => {
-    patchCartData({ memo: debouncedText });
+    if (cartData) {
+      setNoteValue(cartData.memo);
+      patchCartData({ memo: debouncedText });
+    }
   }, [debouncedText]);
 
   useEffect(() => {

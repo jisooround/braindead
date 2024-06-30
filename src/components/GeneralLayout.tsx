@@ -11,10 +11,11 @@ import HeaderLaptop from "./header/HeaderLaptop";
 
 type Props = {
   children: React.ReactNode;
-  isGuestOnly?: boolean;
+  isGuestOnly: boolean;
+  isMemberOnly: boolean;
 };
 
-const GeneralLayout = ({ children, isGuestOnly }: Props) => {
+const GeneralLayout = ({ children, isGuestOnly, isMemberOnly }: Props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const authState = useRecoilValue(authTokenState);
@@ -34,6 +35,12 @@ const GeneralLayout = ({ children, isGuestOnly }: Props) => {
     // 현재 domain과 previousAtom에 저장
     setPreviousUrl(`${import.meta.env.VITE_DOMAIN_URL}${location.pathname}`);
   }, [location.pathname, setPreviousUrl]);
+
+  useEffect(() => {
+    if (isMemberOnly && !isLoggedIn) {
+      navigate("/account/login");
+    }
+  }, [location.pathname, isLoggedIn]);
 
   useEffect(() => {
     // isGuestOnly 페이지에서 로그인상태라면 previousURL로 이동

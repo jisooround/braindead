@@ -28,6 +28,7 @@ interface Router {
   label: string; // 사이드바에 표시할 페이지 이름
   element: React.ReactNode; // 페이지 엘리먼트
   isGuestOnly: boolean; // 비회원 여부
+  isMemberOnly: boolean; // 회원 여부
 }
 
 export const routerData: Router[] = [
@@ -37,6 +38,7 @@ export const routerData: Router[] = [
     label: "home",
     element: <Home />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 1,
@@ -44,6 +46,7 @@ export const routerData: Router[] = [
     label: "terms",
     element: <Terms />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 2,
@@ -51,6 +54,7 @@ export const routerData: Router[] = [
     label: "refund-policy",
     element: <RefundPolicy />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 3,
@@ -58,6 +62,7 @@ export const routerData: Router[] = [
     label: "privacy-policy",
     element: <PrivacyPolicy />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 4,
@@ -65,6 +70,7 @@ export const routerData: Router[] = [
     label: "about-us",
     element: <AboutUs />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 5,
@@ -72,6 +78,7 @@ export const routerData: Router[] = [
     label: "stores",
     element: <Stores />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 6,
@@ -79,6 +86,7 @@ export const routerData: Router[] = [
     label: "contact",
     element: <Contact />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 7,
@@ -86,6 +94,7 @@ export const routerData: Router[] = [
     label: "register",
     element: <Register />,
     isGuestOnly: true,
+    isMemberOnly: false,
   },
   {
     id: 8,
@@ -93,6 +102,7 @@ export const routerData: Router[] = [
     label: "login",
     element: <Login />,
     isGuestOnly: true,
+    isMemberOnly: false,
   },
   {
     id: 8,
@@ -100,6 +110,7 @@ export const routerData: Router[] = [
     label: "cart",
     element: <Cart />,
     isGuestOnly: false,
+    isMemberOnly: true,
   },
   {
     id: 9,
@@ -107,6 +118,7 @@ export const routerData: Router[] = [
     label: "all-products",
     element: <AllProducts />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 10,
@@ -114,6 +126,7 @@ export const routerData: Router[] = [
     label: "category-products",
     element: <CategoryProducts />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 11,
@@ -121,6 +134,7 @@ export const routerData: Router[] = [
     label: "account",
     element: <Account />,
     isGuestOnly: false,
+    isMemberOnly: true,
   },
   {
     id: 12,
@@ -128,6 +142,7 @@ export const routerData: Router[] = [
     label: "address",
     element: <Address />,
     isGuestOnly: false,
+    isMemberOnly: true,
   },
   {
     id: 13,
@@ -135,6 +150,7 @@ export const routerData: Router[] = [
     label: "orders",
     element: <Orders />,
     isGuestOnly: false,
+    isMemberOnly: true,
   },
   {
     id: 14,
@@ -142,6 +158,7 @@ export const routerData: Router[] = [
     label: "product-detail",
     element: <ProductDetail />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
   {
     id: 15,
@@ -149,6 +166,7 @@ export const routerData: Router[] = [
     label: "point",
     element: <Point />,
     isGuestOnly: false,
+    isMemberOnly: true,
   },
   {
     id: 16,
@@ -156,6 +174,7 @@ export const routerData: Router[] = [
     label: "search-result",
     element: <SearchResult />,
     isGuestOnly: false,
+    isMemberOnly: false,
   },
 ];
 
@@ -163,7 +182,11 @@ export const routers: RemixRouter = createBrowserRouter(
   routerData.map((router) => {
     return {
       path: router.path,
-      element: <GeneralLayout isGuestOnly={router.isGuestOnly}>{router.element}</GeneralLayout>,
+      element: (
+        <GeneralLayout isGuestOnly={router.isGuestOnly} isMemberOnly={router.isMemberOnly}>
+          {router.element}
+        </GeneralLayout>
+      ),
       errorElement: <NotFound />,
     };
   }),
