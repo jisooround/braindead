@@ -18,7 +18,6 @@ export const login = async (userData: UserCredentials): Promise<ResponseUserData
     const { data } = await apiClient.post("/api/account/login/", userData);
     return data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

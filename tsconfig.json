@@ -13,6 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "esModuleInterop": true,
+    "types": ["@testing-library/jest-dom/vitest"],
     // "forceConsistentCasingInFileNames": false,
 
     /* Linting */

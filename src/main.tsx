@@ -8,14 +8,20 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RecoilRoot>
-        <GlobalStyles />
-        <App />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </RecoilRoot>
-    </QueryClientProvider>
-  </React.StrictMode>,
-);
+const rootElement = document.getElementById("root");
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
+          <GlobalStyles />
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </RecoilRoot>
+      </QueryClientProvider>
+    </React.StrictMode>,
+  );
+} else {
+  console.error("Root element not found");
+}
