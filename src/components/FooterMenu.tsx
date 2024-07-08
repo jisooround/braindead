@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import Button from "./common/Button";
-import { Link, useLocation } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
+import { useLocation } from "react-router-dom";
 interface List {
   name: string;
   path: string;
@@ -22,9 +21,7 @@ const FooterMenu = ({ title, list }: Props) => {
         {list.map((item, index) => {
           return (
             <ListItem key={index}>
-              <Link to={item.path}>
-                <Button content={item.name} active={pathname === item.path} />
-              </Link>
+              <Button content={item.name} active={pathname === item.path} path={item.path} />
             </ListItem>
           );
         })}

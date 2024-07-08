@@ -8,7 +8,6 @@ export const createAccount = async (userData: UserCredentials): Promise<Response
     const response = await apiClient.post("/api/account/", userData);
     return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

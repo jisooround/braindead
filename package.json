@@ -19,7 +19,6 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@vitejs/plugin-react-swc": "^3.7.0",
     "axios": "^1.7.2",
-    "dotenv": "^16.4.5",
     "framer-motion": "^11.2.12",
     "jest-environment-jsdom": "^29.7.0",
     "lodash": "^4.17.21",

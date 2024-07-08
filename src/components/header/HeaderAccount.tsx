@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useSetRecoilState } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 import { Link } from "react-router-dom";
+import Button from "../common/Button";
 
 const HeaderAccount = () => {
   const setAuthState = useSetRecoilState(authTokenState);
@@ -19,14 +20,16 @@ const HeaderAccount = () => {
           <Link to="/pages/contact">Help?</Link>
         </li>
       </ul>
-      <button
+      <Button
+        size="lg"
+        bg="white"
+        bgHover="point"
+        content="LOG OUT"
         onClick={() => {
           setAuthState(null);
         }}
         type="submit"
-      >
-        LOG OUT
-      </button>
+      ></Button>
     </HeaderAccountWrap>
   );
 };
@@ -44,20 +47,7 @@ const HeaderAccountWrap = styled.div`
     }
   }
   button {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 1.125rem;
-    border-radius: 0.375rem;
-    height: 65px;
-    border: 1px solid var(--color-white);
-    background-color: var(--color-white);
-    color: var(--color-black);
-    cursor: pointer;
-    :hover {
-      background-color: var(--color-point);
-      border: 1px solid var(--color-point);
-      color: var(--color-black);
-    }
+    margin: 0;
   }
 `;
 

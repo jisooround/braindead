@@ -2,6 +2,7 @@ export default {
   testEnvironment: "jsdom",
   transform: {
     "^.+\\.tsx?$": "ts-jest",
+    // "^.+\\.(ts|tsx)?$": "babel-jest",
   },
   moduleNameMapper: {
     "^.+\\.svg$": "jest-svg-transformer",
