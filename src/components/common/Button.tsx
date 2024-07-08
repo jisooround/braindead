@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { useNavigate } from "react-router-dom";
 import { goTo } from "../../utils/goTo";
 import { css } from "@emotion/react";
