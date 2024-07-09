@@ -12,7 +12,6 @@ import usePatchCartItem from "../hooks/usePatchCartItem";
 import { HiOutlineMinus, HiPlus } from "react-icons/hi2";
 import useCheckout from "../hooks/useCheckout";
 import CartRecommendItem from "../components/cart/CartRecommendItem";
-import { keyframes } from "@emotion/react";
 import SkeletonCart from "../components/cart/SkeletonCart";
 
 interface StyleProps {
@@ -72,7 +71,6 @@ const Cart = () => {
 
   return (
     <CartContainer>
-      <CartRecommendItem />
       <CartWrap>
         <h2>YOUR CART</h2>
         <TitleWrap>
@@ -163,6 +161,7 @@ const Cart = () => {
           </>
         )}
       </CartWrap>
+      <CartRecommendItem />
     </CartContainer>
   );
 };
