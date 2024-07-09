@@ -9,6 +9,8 @@ import LaptopPageMenu from "./LaptopPageMenu";
 import LaptopShopMenu from "./LaptopShopMenu";
 import LaptopAccountMenu from "./LaptopAccountMenu";
 import { AnimatePresence, motion } from "framer-motion";
+import LaptopSearch from "./LaptopSearch";
+import LaptopCart from "./LaptopCart";
 
 const HeaderLaptop = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<number | null>(null);
@@ -28,6 +30,8 @@ const HeaderLaptop = () => {
       {isOpenMenu === 0 && <LaptopPageMenu />}
       {isOpenMenu === 1 && <LaptopShopMenu setIsOpenMenu={setIsOpenMenu} />}
       {isOpenMenu === 2 && <LaptopAccountMenu setIsOpenMenu={setIsOpenMenu} />}
+      {isOpenMenu === 3 && <LaptopSearch setIsOpenMenu={setIsOpenMenu} />}
+      {isOpenMenu === 4 && <LaptopCart setIsOpenMenu={setIsOpenMenu} />}
       <MenuWrap>
         <MenuIcon
           active={isOpenMenu === 0}
