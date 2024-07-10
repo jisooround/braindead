@@ -7,7 +7,7 @@ const CartIsEmpty = () => {
     <EmptyContainer>
       <CartRecommendItem />
       <h2>YOUR CART IS EMPTY.</h2>
-      <Button content="CONTINUE SHOPPING" size="sm" bg="point" bgHover="black" path="/collections/all-products" />
+      <Button content="CONTINUE SHOPPING" size="sm" bg="point" bgHover="black" path="/product/all-products" />
     </EmptyContainer>
   );
 };
