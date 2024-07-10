@@ -10,6 +10,7 @@ import useGetRecommended from "../../hooks/useGetRecommended";
 import { useEffect, useState } from "react";
 import useAddCartItem from "../../hooks/useAddCartItem";
 import { CartData } from "../../types/cart";
+import { useMediaQuery } from "react-responsive";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -20,6 +21,9 @@ const ProductDetail = () => {
     size: null,
     quantity: 1,
     product_id: Number(id),
+  });
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
   });
 
   // 첫번째로 true인 사이즈를 state로 변경
@@ -53,81 +57,164 @@ const ProductDetail = () => {
 
   return (
     <>
-      <DetailContainer>
-        <InfoArea>
-          <p>₩ {formatPrice(detailData.price)}</p>
-          <h3>{detailData.name}</h3>
-          <h6>DETAILS</h6>
-          <p>{detailData.description}</p>
-          <p>Material: {detailData.material}</p>
-          <p>Color: {detailData.color}</p>
-        </InfoArea>
-        <ImageArea>
-          {detailData.photos.map((photo) => {
-            return (
-              <div key={uuid()}>
-                <img src={photo} alt={photo} />
-              </div>
-            );
-          })}
-        </ImageArea>
-        <CheckoutArea>
-          <CheckoutWrap>
-            <TitleWrap>
-              <p>SIZE</p>
-              <p>Size Chart</p>
-            </TitleWrap>
-            <SizeWrap sizeLength={Object.keys(detailData.sizes).length}>
-              {Object.entries(detailData.sizes).map(([key, value]) => {
+      {isDesktop ? (
+        <DesktopContainer>
+          <DetailContainer $isDesktop={isDesktop}>
+            <InfoArea $isDesktop={isDesktop}>
+              <p>₩ {formatPrice(detailData.price)}</p>
+              <h3>{detailData.name}</h3>
+              <h6>DETAILS</h6>
+              <p>{detailData.description}</p>
+              <p>Material: {detailData.material}</p>
+              <p>Color: {detailData.color}</p>
+            </InfoArea>
+            <ImageArea>
+              {detailData.photos.map((photo) => {
                 return (
-                  <Button
-                    content={key}
-                    key={uuid()}
-                    disabled={detailData.is_sold_out ? true : !value}
-                    active={detailData.is_sold_out ? false : addToCartData.size === key}
-                    onClick={() => {
-                      handleClickSize(key);
-                    }}
-                  ></Button>
+                  <div key={uuid()}>
+                    <img src={photo} alt={photo} />
+                  </div>
                 );
               })}
-            </SizeWrap>
-            <QuantityBox>
-              <Icon>
-                <HiOutlineMinus
-                  onClick={() => {
-                    if (addToCartData.quantity === 1) return;
-                    setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity - 1 }));
-                  }}
-                />
-              </Icon>
-              <p>{addToCartData.quantity}</p>
-              <Icon>
-                <HiPlus
-                  onClick={() => {
-                    setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity + 1 }));
-                  }}
-                />
-              </Icon>
-            </QuantityBox>
-            <AddToCartButton onClick={handleClickAddToCart} disabled={detailData.is_sold_out}>
-              <p>ADD TO CART</p>
+            </ImageArea>
+            <CheckoutArea $isDesktop={isDesktop}>
+              <CheckoutWrap $isDesktop={isDesktop}>
+                <TitleWrap>
+                  <p>SIZE</p>
+                  <p>Size Chart</p>
+                </TitleWrap>
+                <SizeWrap sizeLength={Object.keys(detailData.sizes).length}>
+                  {Object.entries(detailData.sizes).map(([key, value]) => {
+                    return (
+                      <Button
+                        content={key}
+                        key={uuid()}
+                        disabled={detailData.is_sold_out ? true : !value}
+                        active={detailData.is_sold_out ? false : addToCartData.size === key}
+                        onClick={() => {
+                          handleClickSize(key);
+                        }}
+                      ></Button>
+                    );
+                  })}
+                </SizeWrap>
+                <QuantityBox>
+                  <Icon>
+                    <HiOutlineMinus
+                      onClick={() => {
+                        if (addToCartData.quantity === 1) return;
+                        setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity - 1 }));
+                      }}
+                    />
+                  </Icon>
+                  <p>{addToCartData.quantity}</p>
+                  <Icon>
+                    <HiPlus
+                      onClick={() => {
+                        setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity + 1 }));
+                      }}
+                    />
+                  </Icon>
+                </QuantityBox>
+                <AddToCartButton onClick={handleClickAddToCart} disabled={detailData.is_sold_out}>
+                  <p>ADD TO CART</p>
+                  <p>₩ {formatPrice(detailData.price)}</p>
+                </AddToCartButton>
+                <span>Free domestic (US) shipping on orders over $400 USD</span>
+              </CheckoutWrap>
+            </CheckoutArea>
+          </DetailContainer>
+          <DetailRecommenededContainer>
+            <RecommendedList listData={recommendedData} />
+          </DetailRecommenededContainer>
+        </DesktopContainer>
+      ) : (
+        <LaptopContainer>
+          <DetailContainer $isDesktop={isDesktop}>
+            <ImageArea>
+              {detailData.photos.map((photo) => {
+                return (
+                  <div key={uuid()}>
+                    <img src={photo} alt={photo} />
+                  </div>
+                );
+              })}
+            </ImageArea>
+            <InfoArea $isDesktop={isDesktop}>
               <p>₩ {formatPrice(detailData.price)}</p>
-            </AddToCartButton>
-            <span>Free domestic (US) shipping on orders over $400 USD</span>
-          </CheckoutWrap>
-        </CheckoutArea>
-      </DetailContainer>
-      <DetailRecommenededContainer>
-        <RecommendedList listData={recommendedData} />
-      </DetailRecommenededContainer>
+              <h3>{detailData.name}</h3>
+              <h6>DETAILS</h6>
+              <p>{detailData.description}</p>
+              <p>Material: {detailData.material}</p>
+              <p>Color: {detailData.color}</p>
+            </InfoArea>
+            <CheckoutArea $isDesktop={isDesktop}>
+              <CheckoutWrap $isDesktop={isDesktop}>
+                <TitleWrap>
+                  <p>SIZE</p>
+                  <p>Size Chart</p>
+                </TitleWrap>
+                <SizeWrap sizeLength={Object.keys(detailData.sizes).length}>
+                  {Object.entries(detailData.sizes).map(([key, value]) => {
+                    return (
+                      <Button
+                        content={key}
+                        key={uuid()}
+                        disabled={detailData.is_sold_out ? true : !value}
+                        active={detailData.is_sold_out ? false : addToCartData.size === key}
+                        onClick={() => {
+                          handleClickSize(key);
+                        }}
+                      ></Button>
+                    );
+                  })}
+                </SizeWrap>
+                <QuantityBox>
+                  <Icon>
+                    <HiOutlineMinus
+                      onClick={() => {
+                        if (addToCartData.quantity === 1) return;
+                        setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity - 1 }));
+                      }}
+                    />
+                  </Icon>
+                  <p>{addToCartData.quantity}</p>
+                  <Icon>
+                    <HiPlus
+                      onClick={() => {
+                        setAddToCartData((prevState) => ({ ...prevState, quantity: prevState.quantity + 1 }));
+                      }}
+                    />
+                  </Icon>
+                </QuantityBox>
+                <AddToCartButton onClick={handleClickAddToCart} disabled={detailData.is_sold_out}>
+                  <p>ADD TO CART</p>
+                  <p>₩ {formatPrice(detailData.price)}</p>
+                </AddToCartButton>
+                <span>Free domestic (US) shipping on orders over $400 USD</span>
+              </CheckoutWrap>
+            </CheckoutArea>
+          </DetailContainer>
+          <DetailRecommenededContainer>
+            <RecommendedList listData={recommendedData} />
+          </DetailRecommenededContainer>
+        </LaptopContainer>
+      )}
     </>
   );
 };
 
-const DetailContainer = styled.div`
+const DesktopContainer = styled.div``;
+
+const LaptopContainer = styled.div`
   width: 100%;
-  display: grid;
+`;
+
+const DetailContainer = styled.div<{ $isDesktop: boolean }>`
+  width: 100%;
+  /* display: grid; */
+  display: ${(props) => (props.$isDesktop ? "grid" : "flex")};
+  flex-direction: column;
   grid-template-columns: 372px 1fr 372px;
   gap: 1rem;
   margin: 158px auto 100px;
@@ -135,10 +222,10 @@ const DetailContainer = styled.div`
   box-sizing: border-box;
 `;
 
-const InfoArea = styled.div`
+const InfoArea = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  height: calc(100vh - 158px);
-  position: sticky;
+  height: ${(props) => (props.$isDesktop ? "calc(100vh - 158px)" : "auto")};
+  position: ${(props) => (props.$isDesktop ? "sticky" : "relative")};
   top: 158px;
   padding-right: 2.5rem;
   box-sizing: border-box;
@@ -166,10 +253,10 @@ const ImageArea = styled.div`
   }
 `;
 
-const CheckoutArea = styled.div`
+const CheckoutArea = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
-  height: calc(100vh - 158px);
-  position: sticky;
+  height: ${(props) => (props.$isDesktop ? "calc(100vh - 158px)" : "auto")};
+  position: ${(props) => (props.$isDesktop ? "sticky" : "relative")};
   top: 158px;
   line-height: 1.625rem;
   span {
@@ -181,9 +268,10 @@ const CheckoutArea = styled.div`
   }
 `;
 
-const CheckoutWrap = styled.div`
-  max-width: 349px;
-  float: right;
+const CheckoutWrap = styled.div<{ $isDesktop: boolean }>`
+  max-width: ${(props) => (props.$isDesktop ? "349px" : "100%")};
+  float: ${(props) => (props.$isDesktop ? "right" : "none")};
+  margin-bottom: 5rem;
 `;
 
 const TitleWrap = styled.div`
@@ -197,7 +285,8 @@ const TitleWrap = styled.div`
 const SizeWrap = styled.div<{ sizeLength: number }>`
   width: 100%;
   display: grid;
-  grid-template-columns: ${({ sizeLength }) => `repeat(${sizeLength}, 1fr)`};
+  /* grid-template-columns: ${({ sizeLength }) => `repeat(${sizeLength}, 1fr)`}; */
+  grid-template-columns: ${({ sizeLength }) => `repeat(${sizeLength}, 54px 54px)`};
   margin-bottom: 1.25rem;
   gap: 0.3rem;
   button {

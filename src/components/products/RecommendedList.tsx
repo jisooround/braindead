@@ -1,11 +1,15 @@
 import styled from "@emotion/styled";
 import { v4 as uuid } from "uuid";
 import { Product, ProductPage } from "../../types/products";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { css, keyframes } from "@emotion/react";
 import { formatPrice } from "../../utils/formatPrice";
 import useAddCartItem from "../../hooks/useAddCartItem";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 type Props = {
   listData: Product[];
@@ -13,7 +17,31 @@ type Props = {
 
 const RecommendedList = ({ listData }: Props) => {
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
+  const slideRef = useRef<Slider | null>(null);
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    draggable: true,
+    beforeChange: (newIndex: number) => {
+      setCurrentSlide(newIndex);
+    },
+  };
+
+  useEffect(() => {
+    if (slideRef.current) {
+      console.log("Current slide index:", currentSlide);
+    }
+  }, [currentSlide]);
+
   const { mutate: addCartItem } = useAddCartItem();
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);
@@ -27,48 +55,93 @@ const RecommendedList = ({ listData }: Props) => {
   };
 
   return (
-    <RecommendedListContainer>
+    <RecommendedListContainer $isDesktop={isDesktop}>
       <h2>RECOMMENDED PRODUCTS</h2>
-      <ItemListWrap>
-        {listData.map((product) => {
-          return (
-            <ItemBox key={uuid()} onMouseEnter={() => handleMouseEnter(product.id)} onMouseLeave={handleMouseLeave}>
-              {product.is_new && (
-                <NewTag isSoldOut={false} key={uuid()}>
-                  New
-                </NewTag>
-              )}
-              <DefaultItemBox>
-                <img src={product.photos[0]} alt={product.name} />
-                <HoveredItemBox isVisible={product.id === itemIsHover}>
-                  <Link to={`/product/${product.id}`}>
-                    <img src={product.photos[1]} alt={product.name} />
-                  </Link>
-                  {product.is_sold_out ? (
-                    <NewTag isSoldOut={true}>Sold out</NewTag>
-                  ) : (
-                    <SizeWrap>
-                      {Object.entries(product.sizes)
-                        .filter(([size, available]) => available)
-                        .map(([size]) => (
-                          <SizeTag
-                            onClick={() => {
-                              onClickSizeTag(product.id, size);
-                            }}
-                            key={size}
-                          >
-                            {size}
-                          </SizeTag>
-                        ))}
-                    </SizeWrap>
+      {isDesktop ? (
+        <ItemListWrap $isDesktop={isDesktop}>
+          {listData.map((product) => {
+            return (
+              <ItemBox key={uuid()} onMouseEnter={() => handleMouseEnter(product.id)} onMouseLeave={handleMouseLeave}>
+                {product.is_new && (
+                  <NewTag isSoldOut={false} key={uuid()}>
+                    New
+                  </NewTag>
+                )}
+                <DefaultItemBox>
+                  <img src={product.photos[0]} alt={product.name} />
+                  <HoveredItemBox isVisible={product.id === itemIsHover}>
+                    <Link to={`/product/${product.id}`}>
+                      <img src={product.photos[1]} alt={product.name} />
+                    </Link>
+                    {product.is_sold_out ? (
+                      <NewTag isSoldOut={true}>Sold out</NewTag>
+                    ) : (
+                      <SizeWrap>
+                        {Object.entries(product.sizes)
+                          .filter(([size, available]) => available)
+                          .map(([size]) => (
+                            <SizeTag
+                              onClick={() => {
+                                onClickSizeTag(product.id, size);
+                              }}
+                              key={size}
+                            >
+                              {size}
+                            </SizeTag>
+                          ))}
+                      </SizeWrap>
+                    )}
+                    <PriceTag>₩ {formatPrice(product.price)}</PriceTag>
+                  </HoveredItemBox>
+                </DefaultItemBox>
+              </ItemBox>
+            );
+          })}
+        </ItemListWrap>
+      ) : (
+        <ItemListWrap className="slider-container" $isDesktop={isDesktop}>
+          <Slider {...settings} ref={slideRef}>
+            {listData.map((product) => {
+              return (
+                <ItemBox className="slider-item" key={uuid()} onMouseEnter={() => handleMouseEnter(product.id)} onMouseLeave={handleMouseLeave}>
+                  {product.is_new && (
+                    <NewTag isSoldOut={false} key={uuid()}>
+                      New
+                    </NewTag>
                   )}
-                  <PriceTag>₩ {formatPrice(product.price)}</PriceTag>
-                </HoveredItemBox>
-              </DefaultItemBox>
-            </ItemBox>
-          );
-        })}
-      </ItemListWrap>
+                  <DefaultItemBox>
+                    <img src={product.photos[0]} alt={product.name} />
+                    <HoveredItemBox isVisible={product.id === itemIsHover}>
+                      <Link to={`/product/${product.id}`}>
+                        <img src={product.photos[1]} alt={product.name} />
+                      </Link>
+                      {product.is_sold_out ? (
+                        <NewTag isSoldOut={true}>Sold out</NewTag>
+                      ) : (
+                        <SizeWrap>
+                          {Object.entries(product.sizes)
+                            .filter(([size, available]) => available)
+                            .map(([size]) => (
+                              <SizeTag
+                                onClick={() => {
+                                  onClickSizeTag(product.id, size);
+                                }}
+                                key={size}
+                              >
+                                {size}
+                              </SizeTag>
+                            ))}
+                        </SizeWrap>
+                      )}
+                      <PriceTag>₩ {formatPrice(product.price)}</PriceTag>
+                    </HoveredItemBox>
+                  </DefaultItemBox>
+                </ItemBox>
+              );
+            })}
+          </Slider>
+        </ItemListWrap>
+      )}
     </RecommendedListContainer>
   );
 };
@@ -82,22 +155,40 @@ const fadeIn = keyframes`
   }
 `;
 
-const RecommendedListContainer = styled.div`
+const RecommendedListContainer = styled.div<{ $isDesktop: boolean }>`
   width: 100%;
   padding: 24px 20px;
   box-sizing: border-box;
   margin-bottom: 80px;
   h2 {
-    font-size: 54px;
+    font-size: ${(props) => (props.$isDesktop ? "54px" : "22px")};
     margin-bottom: 1rem;
   }
 `;
 
-const ItemListWrap = styled.div`
-  padding: 1.25rem;
-  display: grid;
+const ItemListWrap = styled.div<{ $isDesktop: boolean }>`
+  padding: ${(props) => (props.$isDesktop ? "1.25rem" : "0")};
+  display: ${(props) => (props.$isDesktop ? "grid" : "block")};
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
+  &.slider-container {
+    width: 100%;
+    .slick-slide {
+      max-width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      .slider-item {
+        width: 100%;
+        border-radius: 0.375rem;
+        overflow: hidden;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
 `;
 
 const ItemBox = styled.div`
