@@ -154,7 +154,7 @@ export const routerData: Router[] = [
   },
   {
     id: 14,
-    path: `/product/:id`,
+    path: `/detail/:id`,
     label: "product-detail",
     element: <ProductDetail />,
     isGuestOnly: false,

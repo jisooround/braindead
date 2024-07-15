@@ -55,7 +55,7 @@ const ProductsList = ({ listData }: Props) => {
               <DefaultItemBox>
                 <img src={product.photos[0]} alt={product.name} />
                 <HoveredItemBox isVisible={product.id === itemIsHover}>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/detail/${product.id}`}>
                     <img src={product.photos[1]} alt={product.name} />
                   </Link>
                   {product.is_sold_out ? (
