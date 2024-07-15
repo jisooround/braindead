@@ -37,3 +37,8 @@ export interface ResponseDetailData {
   material: string;
   color: string;
 }
+
+interface GetProductsParams {
+  category: string;
+  pageSize: number;
+}

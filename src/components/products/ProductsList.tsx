@@ -7,19 +7,26 @@ import { useState } from "react";
 import { css, keyframes } from "@emotion/react";
 import { formatPrice } from "../../utils/formatPrice";
 import useAddCartItem from "../../hooks/useAddCartItem";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
+import useSearch from "../../hooks/useSearch";
+import Button from "../common/Button";
 
 type Props = {
   listData: ProductPage;
 };
 
 const ProductsList = ({ listData }: Props) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [itemIsHover, setItemIsHover] = useState<null | number>(null);
   const { mutate: addCartItem } = useAddCartItem();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
+
+  // URLSearchParams를 객체로 변환
+  const params = Object.fromEntries(searchParams.entries());
+  const { data, error, isPending } = useSearch(params);
 
   const handleMouseEnter = (id) => {
     setItemIsHover(id);

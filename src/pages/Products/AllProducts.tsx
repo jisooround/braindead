@@ -1,7 +1,12 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import ProductsList from "../../components/products/ProductsList";
 import SkeletonProductsList from "../../components/products/SkeletonProductsList";
-import useGetAllProducts from "../../hooks/useGetAllProducts";
 import styled from "@emotion/styled";
+import Button from "../../components/common/Button";
+import useGetProductsList from "../../hooks/useGetProductsList";
+import { useNavigate } from "react-router-dom";
+import { goTo } from "../../utils/goTo";
+import useURLParams from "../../hooks/useURLParams";
 
 interface IProduct {
   name: string;
@@ -25,7 +30,20 @@ export type ProductList = {
 };
 
 const AllProducts = () => {
-  const { isPending, data } = useGetAllProducts();
+  const query = useURLParams();
+  const pagination = query.get("pagination");
+  const navigate = useNavigate();
+  const [page, setPage] = useState<number>(pagination ? Number(pagination) : 1);
+  const { isPending, data } = useGetProductsList("", 12 * Number(page));
+
+  useEffect(() => {
+    console.log(pagination);
+  }, [pagination]);
+
+  useEffect(() => {
+    if (page === 1) return;
+    goTo(navigate, `/product/all-products?pagination=${page}`);
+  }, [page]);
 
   return (
     <AllProductsContainer>
@@ -35,6 +53,12 @@ const AllProducts = () => {
       </TitleWrap>
       {isPending && <SkeletonProductsList />}
       {!isPending && <ProductsList listData={data} />}
+      <Button
+        content="more"
+        onClick={() => {
+          setPage((prev) => prev + 1);
+        }}
+      />
     </AllProductsContainer>
   );
 };

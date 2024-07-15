@@ -1,5 +1,5 @@
 // src/api/api.ts
-import { ResponseDetailData } from "../types/products";
+import { GetProductsParams, ResponseDetailData } from "../types/products";
 import { ResponseUserData, ResponseUserMe, UserCredentials } from "../types/user";
 import { apiClient, apiClientWithAuth } from "./apiClient";
 
@@ -21,9 +21,9 @@ export const login = async (userData: UserCredentials): Promise<ResponseUserData
   }
 };
 
-export const getAllProducts = async () => {
+export const getProductsList = async ({ category, pageSize }: GetProductsParams) => {
   try {
-    const { data } = await apiClient.get("/api/products/");
+    const { data } = await apiClient.get(`/api/products/?category=${category}&page_size=${pageSize}`);
     return data;
   } catch (error) {
     console.error(error);
@@ -145,7 +145,6 @@ export const userPoint = async (userPointAddData) => {
 export const searchProducts = async (params) => {
   try {
     const queryString = new URLSearchParams(params).toString();
-    console.log("api", queryString);
     const { data } = await apiClient.get(`/api/products/?${queryString}`);
     return data;
   } catch (error) {
