@@ -23,18 +23,6 @@ interface BannerList {
 
 const mainBannerList: BannerList[] = [
   {
-    type: "multiple",
-    title: "BRAIN DEAD X GODZILLA: FAN CLUB COLLECTION",
-    shop: "/product/all-products",
-    read: "/product/all-products",
-    img: [
-      { img_src: "/mainbanner/Godzilla.jpg" },
-      {
-        img_src: "/mainbanner/1_5312f28a-d614-43c4-b5d3-05fa66c43a8c.webp",
-      },
-    ],
-  },
-  {
     type: "single",
     title: "OAKLEY FACTORY TEAM",
     shop: "/product/all-products",
@@ -43,6 +31,18 @@ const mainBannerList: BannerList[] = [
       { img_src: "/mainbanner/Family_1080x1920_1.webp" },
       {
         img_src: "/mainbanner/Family_1920x1080_3.webp",
+      },
+    ],
+  },
+  {
+    type: "multiple",
+    title: "BRAIN DEAD X GODZILLA: FAN CLUB COLLECTION",
+    shop: "/product/all-products",
+    read: "/product/all-products",
+    img: [
+      { img_src: "/mainbanner/Godzilla.jpg" },
+      {
+        img_src: "/mainbanner/1_5312f28a-d614-43c4-b5d3-05fa66c43a8c.webp",
       },
     ],
   },
