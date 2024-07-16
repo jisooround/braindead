@@ -4,6 +4,9 @@ import useLogin from "../../hooks/useLogin";
 import Button from "../common/Button";
 import { Link } from "react-router-dom";
 import useCreateAccount from "../../hooks/useCreateAccount";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { authTokenState } from "../../recoil/atoms/authAtom";
+import HeaderAccount from "./HeaderAccount";
 
 type Props = {
   setIsOpenMenu: React.Dispatch<React.SetStateAction<number>>;
@@ -13,7 +16,8 @@ const LaptopAccountMenu = ({ setIsOpenMenu }: Props) => {
   const [isLogin, setIsLogin] = useState(true);
   const { mutate: login } = useLogin();
   const { mutate: createAccount } = useCreateAccount();
-
+  const authState = useRecoilValue(authTokenState);
+  const isLoggedIn = Boolean(authState?.token);
   const loginSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -41,6 +45,13 @@ const LaptopAccountMenu = ({ setIsOpenMenu }: Props) => {
     createAccount({ username, password });
     setIsOpenMenu(null);
   };
+
+  if (isLoggedIn)
+    return (
+      <AccountWrap>
+        <HeaderAccount />
+      </AccountWrap>
+    );
 
   return (
     <>
