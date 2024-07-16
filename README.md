@@ -1,6 +1,9 @@
 # Brain Dead Project
 
 [배포링크](http://woojisoo.shop/)
+> 테스트용 계정정보 <br/>
+> ID: jisoo <br/>
+> PW: jisoo 
 
 ## 프로젝트 소개
 
@@ -23,10 +26,9 @@
 
 ## 실행
 ```
+$ git clone https://github.com/jisooround/4cut_for_majam.git](https://github.com/jisooround/braindead.git)
 ```
-$ [git clone https://github.com/jisooround/4cut_for_majam.git](https://github.com/jisooround/braindead.git)
-```
-(env파일이 필요합니다.)
+
 
 ```
 $ npm install
@@ -34,5 +36,5 @@ $ npm install
 
 ```
 $ npm run dev
-```
+// env파일이 필요합니다.
 ```
