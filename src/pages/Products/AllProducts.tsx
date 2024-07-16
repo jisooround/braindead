@@ -36,9 +36,9 @@ const AllProducts = () => {
   const [page, setPage] = useState<number>(pagination ? Number(pagination) : 1);
   const { isPending, data } = useGetProductsList("", 12 * Number(page));
 
-  useEffect(() => {
-    console.log(pagination);
-  }, [pagination]);
+  // useEffect(() => {
+  //   console.log(pagination);
+  // }, [pagination]);
 
   useEffect(() => {
     if (page === 1) return;
