@@ -23,10 +23,22 @@ interface BannerList {
 
 const mainBannerList: BannerList[] = [
   {
+    type: "multiple",
+    title: "BRAIN DEAD X GODZILLA: FAN CLUB COLLECTION",
+    shop: "/product/all-products",
+    read: "/product/all-products",
+    img: [
+      { img_src: "/mainbanner/Godzilla.jpg" },
+      {
+        img_src: "/mainbanner/1_5312f28a-d614-43c4-b5d3-05fa66c43a8c.webp",
+      },
+    ],
+  },
+  {
     type: "single",
     title: "OAKLEY FACTORY TEAM",
-    shop: "/collections/oakley-factory-team",
-    read: "/pages/oakley-factory-team",
+    shop: "/product/all-products",
+    read: "/product/all-products",
     img: [
       { img_src: "/mainbanner/Family_1080x1920_1.webp" },
       {
@@ -37,8 +49,8 @@ const mainBannerList: BannerList[] = [
   {
     type: "multiple",
     title: "BRAIN DEAD X ALTERIOR",
-    shop: "/collections/oakley-factory-team",
-    read: "/pages/oakley-factory-team",
+    shop: "/product/all-products",
+    read: "/product/all-products",
     img: [
       { img_src: "/mainbanner/G0A9434.jpg" },
       {
@@ -49,8 +61,8 @@ const mainBannerList: BannerList[] = [
   {
     type: "multiple",
     title: "BRAIN DEAD EQUIPMENT: CLIMBING SD1",
-    shop: "/collections/oakley-factory-team",
-    read: "/pages/oakley-factory-team",
+    shop: "/product/all-products",
+    read: "/product/all-products",
     img: [
       { img_src: "/mainbanner/20240525100249_33.webp" },
       {
@@ -61,8 +73,8 @@ const mainBannerList: BannerList[] = [
   {
     type: "multiple",
     title: "BRAIN DEAD X THE BIG LEBOWSKI",
-    shop: "/collections/oakley-factory-team",
-    read: "/pages/oakley-factory-team",
+    shop: "/product/all-products",
+    read: "/product/all-products",
     img: [
       { img_src: "/mainbanner/Brain_Dead_x_The_Big_Lebowski_Pin_Head_T-shirt_White_Detail_Opt_8d8867e7-beba-4c99-b767-4eb76cb34b7b.webp" },
       {
@@ -73,8 +85,8 @@ const mainBannerList: BannerList[] = [
   {
     type: "multiple",
     title: "BRAIN DEAD TYPE 00 DENIM: DROP 3",
-    shop: "/collections/oakley-factory-team",
-    read: "/pages/oakley-factory-team",
+    shop: "/product/all-products",
+    read: "/product/all-products",
     img: [
       { img_src: "/mainbanner/DSCF3977.jpg" },
       {

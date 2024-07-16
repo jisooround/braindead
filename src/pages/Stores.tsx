@@ -20,7 +20,7 @@ const storesList: Store[] = [
     hours: ["Showroom: 12pm to 8pm", "Heavy Head Coffee: 9am to 5pm"],
     button_name: "BRAIN DEAD STUDIOS",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/FAIRFAX.png?v=1686871744&width=1800",
+    photo: "/stores/stores_01.webp",
   },
   {
     name: "BRAIN DEAD FABRICATIONS",
@@ -29,7 +29,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 7pm", "Hours: 11am to 7pm"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/FAB.png?v=1686871792&width=1800",
+    photo: "/stores/stores_02.webp",
   },
   {
     name: "BRAIN DEAD STUDIOS HARAJUKU",
@@ -38,7 +38,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 8pm", "Closed Wednesday"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/HARAJUKU.png?v=1686871771&width=1800",
+    photo: "/stores/stores_03.webp",
   },
   {
     name: "DOVER STREET MARKET NEW YORK",
@@ -47,7 +47,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 6pm", "Sunday: 12pm to 5pm"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/DSMNY.png?v=1686871810&width=1800",
+    photo: "/stores/stores_04.webp",
   },
   {
     name: "DOVER STREET MARKET LOS ANGELES",
@@ -56,7 +56,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 6pm", "Sunday: 12pm to 5pm"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/DSMLA.png?v=1686871834&width=1800",
+    photo: "/stores/stores_05.webp",
   },
   {
     name: "DOVER STREET MARKET GINZA",
@@ -65,7 +65,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 6pm", "Sunday: 12pm to 5pm"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/DSMG.png?v=1686871854&width=1800",
+    photo: "/stores/stores_06.webp",
   },
   {
     name: "DOVER STREET MARKET LONDON",
@@ -74,7 +74,7 @@ const storesList: Store[] = [
     hours: ["Hours: 11am to 6pm", "Sunday: 12pm to 5pm"],
     button_name: "SEE LOCATION",
     path: "/#",
-    photo: "https://wearebraindead.com/cdn/shop/files/DSML.png?v=1686871899&width=1800",
+    photo: "/stores/stores_07.webp",
   },
 ];
 
