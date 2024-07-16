@@ -49,12 +49,14 @@ const CategoryProducts = () => {
         <p>List of all Brain Dead apparel ordered by date, newest first.</p>
       </TitleWrap>
       <ResultItemWrap>{isPending ? <SkeletonProductsList /> : <ProductsList listData={data} />}</ResultItemWrap>
-      <Button
-        content="more"
-        onClick={() => {
-          setPage((prev) => prev + 1);
-        }}
-      />
+      <ButtonArea>
+        <Button
+          content="more"
+          onClick={() => {
+            setPage((prev) => prev + 1);
+          }}
+        />
+      </ButtonArea>
     </CategoryProductsContainer>
   );
 };
@@ -62,6 +64,16 @@ const CategoryProducts = () => {
 const CategoryProductsContainer = styled.div`
   width: 100%;
   margin: 158px auto 50px;
+`;
+
+const ButtonArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  button {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;
 
 const TitleWrap = styled.div`

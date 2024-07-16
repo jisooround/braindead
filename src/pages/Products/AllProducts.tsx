@@ -53,12 +53,14 @@ const AllProducts = () => {
       </TitleWrap>
       {isPending && <SkeletonProductsList />}
       {!isPending && <ProductsList listData={data} />}
-      <Button
-        content="more"
-        onClick={() => {
-          setPage((prev) => prev + 1);
-        }}
-      />
+      <ButtonArea>
+        <Button
+          content="more"
+          onClick={() => {
+            setPage((prev) => prev + 1);
+          }}
+        />
+      </ButtonArea>
     </AllProductsContainer>
   );
 };
@@ -66,6 +68,16 @@ const AllProducts = () => {
 const AllProductsContainer = styled.div`
   width: 100%;
   margin: 158px auto 50px;
+`;
+
+const ButtonArea = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  button {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;
 
 const TitleWrap = styled.div`
