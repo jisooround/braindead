@@ -9,3 +9,6 @@
 ## 기술 스택
 
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/emotion-06B6D4?style=for-the-badge&logo=emotion&logoColor=white"> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
+<img src="https://img.shields.io/badge/reactquery-646CFF?style=for-the-badge&logo=reactquery&logoColor=#FF4154">
+<img src="https://img.shields.io/badge/reactrouter-646CFF?style=for-the-badge&logo=reactrouter&logoColor=#CA4245">
+<img src="https://img.shields.io/badge/jest-646CFF?style=for-the-badge&logo=jest&logoColor=#C21325">
