@@ -8,7 +8,7 @@ function usePatchCartItem() {
   return useMutation({
     mutationFn: (patchData: PatchCartData) => patchCartItem(patchData),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       queryClient.invalidateQueries({ queryKey: ["myCart"] });
     },
     onError: () => {

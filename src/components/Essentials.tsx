@@ -74,11 +74,11 @@ const Essentials = () => {
     },
   };
 
-  useEffect(() => {
-    if (slideRef.current) {
-      console.log("Current slide index:", currentSlide);
-    }
-  }, [currentSlide]);
+  // useEffect(() => {
+  //   if (slideRef.current) {
+  //     console.log("Current slide index:", currentSlide);
+  //   }
+  // }, [currentSlide]);
 
   return (
     <EssentialContainer>

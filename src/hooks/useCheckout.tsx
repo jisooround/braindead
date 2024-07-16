@@ -7,7 +7,7 @@ function useCheckout() {
   return useMutation({
     mutationFn: () => checkouts(),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       queryClient.invalidateQueries({ queryKey: ["myCart"] });
     },
     onError: () => {

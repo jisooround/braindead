@@ -8,7 +8,7 @@ function useEditUserMe() {
   return useMutation({
     mutationFn: (editUserData: EditUser) => editUserMe(editUserData),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       queryClient.invalidateQueries({ queryKey: ["userMe"] });
     },
     onError: () => {

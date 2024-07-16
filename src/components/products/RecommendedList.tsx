@@ -34,7 +34,7 @@ const RecommendedList = ({ listData }: Props) => {
 
   useEffect(() => {
     if (slideRef.current) {
-      console.log("Current slide index:", currentSlide);
+      // console.log("Current slide index:", currentSlide);
     }
   }, [currentSlide]);
 

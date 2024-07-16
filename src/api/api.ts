@@ -33,7 +33,7 @@ export const getProductsList = async ({ category, pageSize }: GetProductsParams)
 
 export const getProductDetails = async (productId: number): Promise<ResponseDetailData> => {
   try {
-    console.log("getProductDetails", productId);
+    // console.log("getProductDetails", productId);
     const { data } = await apiClient.get(`/api/products/${productId}`);
     return data;
   } catch (error) {
@@ -162,7 +162,7 @@ export const searchProducts = async (params) => {
 
 export const getProducts = async (categoryName) => {
   try {
-    console.log("api", categoryName);
+    // console.log("api", categoryName);
     const { data } = await apiClient.get(`/api/products/?category=${categoryName}`);
     return data;
   } catch (error) {

@@ -40,7 +40,7 @@ const LaptopCart = ({ setIsOpenMenu }: Props) => {
 
   const onClickDelete = (id) => {
     deleteCartItem(id);
-    console.log(id);
+    // console.log(id);
   };
 
   return (

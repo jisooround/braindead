@@ -8,7 +8,7 @@ function useAddPoint() {
   return useMutation({
     mutationFn: (userPointAddData: userPointAdd) => userPoint(userPointAddData),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       queryClient.invalidateQueries({ queryKey: ["userMe"] });
     },
     onError: () => {

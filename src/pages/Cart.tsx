@@ -58,7 +58,7 @@ const Cart = () => {
 
   const onClickDelete = (id) => {
     deleteCartItem(id);
-    console.log(id);
+    // console.log(id);
   };
 
   const onClickNote = () => {

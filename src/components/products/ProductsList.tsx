@@ -107,6 +107,9 @@ const ItemListWrap = styled.div`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const ItemBox = styled.div`

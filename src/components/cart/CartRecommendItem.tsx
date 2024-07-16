@@ -35,9 +35,9 @@ const CartRecommendItem = () => {
     }
   }, [cartData]);
 
-  useEffect(() => {
-    console.log("excludesParam:", excludesParam);
-  }, [cartItemId]);
+  // useEffect(() => {
+  //   console.log("excludesParam:", excludesParam);
+  // }, [cartItemId]);
 
   const onClickQuickAdd = (productId, size) => {
     const addSize = Object.entries(size).find(([key, value]) => value === true)[0];

@@ -14,7 +14,7 @@ const HeaderLaptop = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<number | null>(null);
 
   const handleMenuOpne = (menuNumber) => {
-    console.log("click menu number", menuNumber, isOpenMenu);
+    // console.log("click menu number", menuNumber, isOpenMenu);
     if (menuNumber === isOpenMenu) {
       return setIsOpenMenu(null);
     }

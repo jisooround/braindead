@@ -8,7 +8,7 @@ function useAddCartItem() {
   return useMutation({
     mutationFn: (cartData: CartData) => addCartItem(cartData),
     onSuccess: (data) => {
-      console.log(data);
+      // console.log(data);
       queryClient.invalidateQueries({ queryKey: ["myCart"] });
       queryClient.invalidateQueries({ queryKey: ["recommended"] });
     },
