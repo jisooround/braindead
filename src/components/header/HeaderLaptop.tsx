@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { authTokenState } from "../../recoil/atoms/authAtom";
-import useGetMyCart from "../../hooks/useGetMyCart";
+import { useState } from "react";
+
 import Button from "../common/Button";
 import { IoMenuOutline } from "react-icons/io5";
 import LaptopPageMenu from "./LaptopPageMenu";
@@ -14,8 +12,6 @@ import LaptopCart from "./LaptopCart";
 
 const HeaderLaptop = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<number | null>(null);
-  const authState = useRecoilValue(authTokenState);
-  const isLoggedIn = Boolean(authState?.token);
 
   const handleMenuOpne = (menuNumber) => {
     console.log("click menu number", menuNumber, isOpenMenu);

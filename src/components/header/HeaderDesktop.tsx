@@ -48,14 +48,10 @@ const leftMenuList: MenuList = {
 };
 
 const HeaderDesktop = () => {
-  // const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const { isPending, data: cartData } = useGetMyCart();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
   const { pathname } = useLocation();
-  // const handleClickSearch = () => {
-  //   setIsSearchVisible(true);
-  // };
+  const { isPending, data: cartData } = useGetMyCart();
 
   const rightMenuListLogout: MenuList = {
     position: "right",

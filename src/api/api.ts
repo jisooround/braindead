@@ -52,11 +52,18 @@ export const getRecommended = async ({ size, excludes }) => {
   }
 };
 
-export const getMyCart = async () => {
+export const getMyCart = async (token) => {
   try {
-    const response = await apiClientWithAuth.get("/api/account/cart/");
+    const response = await apiClient.get("/api/account/cart/", {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response.data;
   } catch (error) {
+    if (error?.response?.status === 403 && error?.response?.data?.detail === "Expired Token") {
+      localStorage.removeItem("recoil-persist");
+    }
     console.error(error);
     throw error;
   }

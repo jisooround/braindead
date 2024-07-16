@@ -9,17 +9,16 @@ import { useRecoilValue } from "recoil";
 import { authTokenState } from "../../recoil/atoms/authAtom";
 
 const HeaderCart = () => {
-  const { data: cartData } = useGetMyCart();
   const { mutate: deleteCartItem } = useDeleteCartItem();
   const authState = useRecoilValue(authTokenState);
   const isLoggedIn = Boolean(authState?.token);
+  const { data: cartData } = useGetMyCart();
   const totalPrice = cartData?.items.reduce((accumulator, item) => {
     return accumulator + item.product.price;
   }, 0);
 
   const onClickDelete = (id) => {
     deleteCartItem(id);
-    console.log(id);
   };
 
   if (!isLoggedIn) {
