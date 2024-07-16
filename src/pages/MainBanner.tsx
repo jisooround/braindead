@@ -19,7 +19,6 @@ interface BannerList {
   read: string;
   title: string;
   img: Image[];
-  item: Item[];
 }
 
 const mainBannerList: BannerList[] = [
@@ -29,12 +28,11 @@ const mainBannerList: BannerList[] = [
     shop: "/collections/oakley-factory-team",
     read: "/pages/oakley-factory-team",
     img: [
-      { img_src: "/Family_1080x1920_1.webp" },
+      { img_src: "/mainbanner/Family_1080x1920_1.webp" },
       {
-        img_src: "/Family_1920x1080_3.webp",
+        img_src: "/mainbanner/Family_1920x1080_3.webp",
       },
     ],
-    item: [{ id: "", img_src: "/Oakley_Factory_Team_Suede_Flesh_Caviar_Mesh_Side_optimized.webp" }],
   },
   {
     type: "multiple",
@@ -42,12 +40,11 @@ const mainBannerList: BannerList[] = [
     shop: "/collections/oakley-factory-team",
     read: "/pages/oakley-factory-team",
     img: [
-      { img_src: "/G0A9434.jpg" },
+      { img_src: "/mainbanner/G0A9434.jpg" },
       {
-        img_src: "/G0A9428.jpg",
+        img_src: "/mainbanner/G0A9428.jpg",
       },
     ],
-    item: [{ id: "", img_src: "/Oakley_Factory_Team_Suede_Flesh_Caviar_Mesh_Side_optimized.webp" }],
   },
   {
     type: "multiple",
@@ -55,12 +52,11 @@ const mainBannerList: BannerList[] = [
     shop: "/collections/oakley-factory-team",
     read: "/pages/oakley-factory-team",
     img: [
-      { img_src: "/20240525100249_33.webp" },
+      { img_src: "/mainbanner/20240525100249_33.webp" },
       {
-        img_src: "/RC1006545.webp",
+        img_src: "/mainbanner/RC1006545.webp",
       },
     ],
-    item: [{ id: "", img_src: "/Oakley_Factory_Team_Suede_Flesh_Caviar_Mesh_Side_optimized.webp" }],
   },
   {
     type: "multiple",
@@ -68,12 +64,11 @@ const mainBannerList: BannerList[] = [
     shop: "/collections/oakley-factory-team",
     read: "/pages/oakley-factory-team",
     img: [
-      { img_src: "/Brain_Dead_x_The_Big_Lebowski_Pin_Head_T-shirt_White_Detail_Opt_8d8867e7-beba-4c99-b767-4eb76cb34b7b.webp" },
+      { img_src: "/mainbanner/Brain_Dead_x_The_Big_Lebowski_Pin_Head_T-shirt_White_Detail_Opt_8d8867e7-beba-4c99-b767-4eb76cb34b7b.webp" },
       {
-        img_src: "/Brain_Dead_x_The_Big_Lebowski_Bathroom_Break_T-shirt_Natural_Detail_Opt_272acba3-a1fa-4a6c-aea6-f7240662e1e2.webp",
+        img_src: "/mainbanner/Brain_Dead_x_The_Big_Lebowski_Bathroom_Break_T-shirt_Natural_Detail_Opt_272acba3-a1fa-4a6c-aea6-f7240662e1e2.webp",
       },
     ],
-    item: [{ id: "", img_src: "/Brain_Dead_x_The_Big_Lebowski_Pin_Head_T-shirt_White_Detail_Opt_8d8867e7-beba-4c99-b767-4eb76cb34b7b.webp" }],
   },
   {
     type: "multiple",
@@ -81,12 +76,11 @@ const mainBannerList: BannerList[] = [
     shop: "/collections/oakley-factory-team",
     read: "/pages/oakley-factory-team",
     img: [
-      { img_src: "/DSCF3977.jpg" },
+      { img_src: "/mainbanner/DSCF3977.jpg" },
       {
-        img_src: "/DSCF3889_39304a6c-53c7-4ea6-b73a-42013bc24668.jpg",
+        img_src: "/mainbanner/DSCF3889_39304a6c-53c7-4ea6-b73a-42013bc24668.jpg",
       },
     ],
-    item: [{ id: "", img_src: "/Oakley_Factory_Team_Suede_Flesh_Caviar_Mesh_Side_optimized.webp" }],
   },
 ];
 
