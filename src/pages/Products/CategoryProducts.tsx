@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/common/Button";
 import ProductsList from "../../components/products/ProductsList";
-import useGetCategory from "../../hooks/useGetCategoryItem";
 import styled from "@emotion/styled";
 import SkeletonProductsList from "../../components/products/SkeletonProductsList";
 import useURLParams from "../../hooks/useURLParams";

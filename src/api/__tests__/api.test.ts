@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { apiClient } from "../apiClient";
 import { jest, describe, beforeAll, afterEach, expect, it, beforeEach } from "@jest/globals";
-import { createAccount, login, getAllProducts, getProductDetails, getRecommended, getMyCart, addCartItem, patchCartItem, deleteCartItem, editUserMe, getUserMe, checkouts, getOrderHistory, userPoint, searchProducts, getProducts } from "../api";
+import { createAccount, login } from "../api";
 import { ResponseUserData, ResponseUserMe, UserCredentials } from "../../types/user";
 
 describe("login", () => {

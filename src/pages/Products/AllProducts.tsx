@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductsList from "../../components/products/ProductsList";
 import SkeletonProductsList from "../../components/products/SkeletonProductsList";
 import styled from "@emotion/styled";
