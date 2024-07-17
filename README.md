@@ -20,6 +20,7 @@
 
 - 라이브러리 : React + TypeScript
 - 상태관리 : ReactQuery + Recoil
+- 스타일링 : Emotion
 - 유닛테스트 : Jest
 - 빌드 : Vite
 - 배포 : AWS ec2
