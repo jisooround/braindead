@@ -27,7 +27,7 @@
 
 ## 실행
 ```
-$ git clone https://github.com/jisooround/4cut_for_majam.git](https://github.com/jisooround/braindead.git)
+$ git clone https://github.com/jisooround/braindead.git
 ```
 
 
