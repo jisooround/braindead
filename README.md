@@ -1,6 +1,6 @@
 # Brain Dead Project
 
-[배포링크](http://woojisoo.shop/)
+[배포링크](https://braindead.woojisoo.shop/)
 > 테스트용 계정정보 <br/>
 > ID: jisoo <br/>
 > PW: jisoo 
